@@ -1,0 +1,50 @@
+* {margin: 0; padding: 0;}
+ #container {
+  margin: auto;
+ }
+div {
+  margin: 20px;
+}
+ 
+ul {
+  list-style-type: none;
+  max-width: 700px;
+  min-width: 500px;
+}
+ 
+h3 {
+  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+ 
+li img {
+  float: left;
+  overflow: auto;
+  margin: 0 15px 0 0;
+  max-height: 100%
+}
+li .score {
+  padding-top: 5px;
+  position:absolute;
+  width:35px;
+}
+li .beatmap{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box; 
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+li p {
+  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+}
+ 
+li {
+  clear:left;
+  padding: 10px;
+  overflow: auto;
+}
+ 
+li:hover {
+  background: #eee;
+  cursor: pointer;
+}
