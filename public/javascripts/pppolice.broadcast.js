@@ -5,11 +5,11 @@
     storage('farm',data);
   });
   pull.on('report.refarm',function(data) {
-    console.log('farm');
+    console.log('refarm',data);
     storage('refarm',data);
   });
   pull.on('report.defarm',function(data) {  
-    console.log('farm');
+    console.log('defarm',data);
     storage('defarm',data);
   });
     setTimeout(_=> {pull.emit('history')},1000);
