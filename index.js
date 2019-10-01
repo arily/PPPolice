@@ -1,6 +1,6 @@
 informationCenter = require('./lib/informationCenter.js');
 policeStation = require('./lib/policeStation.js');
-app = require('./app.js');
+//app = require('./app.js');
 
 policeStation.accession('chive');
 
@@ -39,14 +39,14 @@ async function receive(type, event){
 }
 
 //broadcast
-app.io.sockets.on('connection',socket =>{
-	informationCenter.broadcastTo(socket);
-	socket.on('history', _ =>{
-		let push = informationCenter.replay();
-		push.forEach(p => {
-			socket.emit(p.type,p.content);
-		});
-	});
-
-});
+//app.io.sockets.on('connection',socket =>{
+//	informationCenter.broadcastTo(socket);
+//	socket.on('history', _ =>{
+//		let push = informationCenter.replay();
+//		push.forEach(p => {
+//			socket.emit(p.type,p.content);
+//		});
+//	});
+//
+//});
 
