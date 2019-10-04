@@ -1,6 +1,7 @@
   maxHistory = 200;
   var pushed  = [];
   var renderTimer = undefined;
+  var rendered = false;
   function noBP(nobp = true){
     if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
     else document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
@@ -9,7 +10,7 @@
     if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;
     else document.getElementById('notify').innerHTML = ``
   }
-  function storage(type,result,sort = 'ppdesc'){
+  function storage(type,result,doRender = true,sort = 'ppdesc'){
     let timestamp = toTimestamp(result.newScore.raw_date);
     let oldScoreIndex = pushed.findIndex(event => (event.result.beatmap.id == result.beatmap.id) && (event.result.account.id == result.account.id) );
     console.log('storage','old score found',oldScoreIndex != -1);
@@ -41,13 +42,16 @@
     // while (pushed.length > maxHistory){
     //   pushed.pop();
     // }
-    if (renderTimer == undefined ){
-      console.log('set render timer');
-    } else {
-      console.log('reset timer');
-      clearTimeout(renderTimer);
+    if (doRender){
+      if (renderTimer == undefined ){
+        console.log('set render timer');
+      } else {
+        console.log('reset timer');
+        clearTimeout(renderTimer);
+      }
+      renderTimer = setTimeout(_=>{render(sort)}, 100);
     }
-    renderTimer = setTimeout(_=>{render(sort)}, 100);
+    
   }
   function toTimestamp(strDate){
     strDate = strDate.split('-').join('/');

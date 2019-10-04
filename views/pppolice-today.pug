@@ -9,10 +9,11 @@ block content
         var pull = io.connect('/');
         pull.on('report.farm',function(data) {
           console.log('farm',data);
-          storage('farm',data,'ppdesc');
+          storage('farm',data,false);
           newToServer(true);
         });
         pull.on('report.pushedAll',function() {
+          await render();
           noBP(false);
         });
         pull.on('player.noBPToday',function() {
