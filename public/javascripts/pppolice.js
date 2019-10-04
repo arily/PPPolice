@@ -6,7 +6,7 @@
     else document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
   }
   function newToServer(clean = false){
-    if (!clean) document.getElementById('notify').innerHTML = `<h1> account has no record on server. Fetching from bancho... </h1>`;
+    if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;
     else document.getElementById('notify').innerHTML = ``
   }
   function storage(type,result,sort = 'ppdesc'){
