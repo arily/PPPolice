@@ -1,14 +1,13 @@
-  maxHistory = 200;
+  var maxHistory = 200;
   var pushed  = [];
   var renderTimer = undefined;
-  var rendered = false;
   function noBP(nobp = true){
     if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
     else document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
   }
   function newToServer(clean = false){
     if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;
-    else document.getElementById('notify').innerHTML = ``
+    else document.getElementById('notify').innerHTML = ``;
   }
   function storage(type,result,doRender = true,sort = 'ppdesc'){
     let timestamp = toTimestamp(result.newScore.raw_date);
