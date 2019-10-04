@@ -1,0 +1,26 @@
+extends pppolice
+
+block content
+  h2(style="padding-left:20px;padding-top:10px;") #{account.name}'s bp #{bpDate}:
+  div
+    ul(id='container')
+    script.
+      window.onload = function(){
+        var pull = io.connect('/');
+        pull.on('report.farm',function(data) {
+          console.log('farm',data);
+          storage('farm',data,'ppdesc');
+          newToServer(true);
+        });
+        pull.on('report.pushedAll',function() {
+          noBP(false);
+        });
+        pull.on('player.noBPToday',function() {
+          noBP();
+        });
+        pull.on('player.newToServer',function() {
+          newToServer();
+        });
+        setTimeout(_=> {pull.emit('!{emitEventName}',{id: !{account.id}}!{dateTime})},1000);
+      }
+  div(id='notify')

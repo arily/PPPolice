@@ -1,5 +1,5 @@
   window.onload = function(){
-  var pull = io.connect('http://localhost:13333');
+  var pull = io.connect('/');
   pull.on('report.farm',function(data) {
     console.log('farm',data);
     storage('farm',data);

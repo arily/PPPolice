@@ -1,7 +1,15 @@
   maxHistory = 200;
   var pushed  = [];
   var renderTimer = undefined;
-  function storage(type,result){
+  function noBP(nobp = true){
+    if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
+    else document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
+  }
+  function newToServer(clean = false){
+    if (!clean) document.getElementById('notify').innerHTML = `<h1> account has no record on server. Fetching from bancho... </h1>`;
+    else document.getElementById('notify').innerHTML = ``
+  }
+  function storage(type,result,sort = 'ppdesc'){
     let timestamp = toTimestamp(result.newScore.raw_date);
     let oldScoreIndex = pushed.findIndex(event => (event.result.beatmap.id == result.beatmap.id) && (event.result.account.id == result.account.id) );
     console.log('storage','old score found',oldScoreIndex != -1);
@@ -29,17 +37,17 @@
       });
     }
     
-    sortStorage('dateTimedesc');
-    while (pushed.length > maxHistory){
-      pushed.pop();
-    }
+    // sortStorage('dateTimedesc');
+    // while (pushed.length > maxHistory){
+    //   pushed.pop();
+    // }
     if (renderTimer == undefined ){
       console.log('set render timer');
     } else {
       console.log('reset timer');
       clearTimeout(renderTimer);
     }
-    renderTimer = setTimeout(_=>{render()}, 100);
+    renderTimer = setTimeout(_=>{render(sort)}, 100);
   }
   function toTimestamp(strDate){
     strDate = strDate.split('-').join('/');
@@ -61,8 +69,9 @@
     }
     
   }
-  async function render(){
-    console.log('render start');
+  async function render(sort = 'ppdesc'){
+    console.log('start rendering');
+    sortStorage(sort);
     document.getElementById('container').innerHTML = '';
     pushed.forEach(event => {
       console.log('render',event);
