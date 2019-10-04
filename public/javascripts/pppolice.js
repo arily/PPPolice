@@ -72,7 +72,7 @@
     }
     
   }
-  async function render(sort = 'ppdesc'){
+  function render(sort = 'ppdesc'){
     console.log('start rendering');
     sortStorage(sort);
     document.getElementById('container').innerHTML = '';
