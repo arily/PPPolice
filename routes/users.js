@@ -10,6 +10,7 @@ router.get('/:id', async function(req, res, next) {
 	});
 	if (account !== undefined){
 		res.render('pppolice-today',{
+			title: `${account.name}'s bp`,
 			bpDate: `today`,
 			emitEventName: 'today',
 			account: account
@@ -26,6 +27,7 @@ router.get('/:id/:date', async function(req, res, next) {
 	});
 	if (account !== undefined){
 		res.render('pppolice-today',{
+			title: `${account.name}'s bp`,
 			bpDate: `at ${req.params.date}`,
 			emitEventName: 'BPDate',
 			account: account,
