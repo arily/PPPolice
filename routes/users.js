@@ -10,7 +10,7 @@ router.get('/:id', async function(req, res, next) {
 	});
 	if (account !== undefined){
 		res.render('pppolice-today',{
-			rev: Math.random().toString(36).substring(7);
+			rev: Math.random().toString(36).substring(7),
 			title: `${account.name}'s bp`,
 			bpDate: `today`,
 			emitEventName: 'today',
@@ -28,7 +28,7 @@ router.get('/:id/:date', async function(req, res, next) {
 	});
 	if (account !== undefined){
 		res.render('pppolice-today',{
-			rev: Math.random().toString(36).substring(7);
+			rev: Math.random().toString(36).substring(7),
 			title: `${account.name}'s bp`,
 			bpDate: `at ${req.params.date}`,
 			emitEventName: 'BPDate',
