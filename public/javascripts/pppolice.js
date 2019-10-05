@@ -1,9 +1,18 @@
   var maxHistory = 200;
   var pushed  = [];
   var renderTimer = undefined;
+  function waitPlcLoad(){
+    var images = document.getElementsByClass('beatmapImg');
+    Promise.all(images.map(image => {
+      while (!image.complete);
+    }));
+  }
   function noBP(nobp = true){
     if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
-    else document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
+    else {
+      waitPicLoad();
+      document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
+    }
   }
   function newToServer(clean = false){
     if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;
@@ -101,8 +110,8 @@
         }
       }
       let html = `<li id='${colh}'>
-      <img class="score" src="https://s.ppy.sh/images/${data.newScore.rank}.png" />
-      <img src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
+      <img class="rank" src="https://s.ppy.sh/images/${data.newScore.rank}.png" />
+      <img class="beatmapImg" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
       <h3>${pp}</h3>
       <p class='beatmap'>${bmstr}</p>
       <p>${accuracy}</p>
