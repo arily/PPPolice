@@ -16,6 +16,7 @@
         loadFinish = true;
       }
     }
+    console.log('load images finish');
   }
   function noBP(nobp = true){
     if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
