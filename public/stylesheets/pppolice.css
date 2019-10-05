@@ -22,7 +22,7 @@ li img {
   margin: 0 15px 0 0;
   max-height: 100%
 }
-li .score {
+li .rank {
   padding-top: 5px;
   position:absolute;
   width:35px;
