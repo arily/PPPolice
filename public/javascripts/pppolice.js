@@ -104,7 +104,6 @@
       mods = (mods !== '') ? ' + ' + mods : '';
       const bmstr = `${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}] (${data.beatmap.creator})${mods}`;
       const colh = hashCode(data.account.id + '-' + data.beatmap.id);
-      
       switch (event.type){
         case 'farm' : {
           var accuracy = acc(data.newScore);

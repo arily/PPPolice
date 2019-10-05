@@ -101,11 +101,24 @@ readList = function (){
 	let officers = store.get('police');
 	Object.keys(officers).forEach(function(key) {
   		var val = officers[key];
+  		for (let i in val ){
+  			rebindProto(val[i]);
+  		}
   		if (policeStation.officers[key] != undefined){
   			console.log('load',key);
   			policeStation.officers[key].grabSuspectsList(val);
   		}
 	});
+}
+rebindProto = function(account){
+	const osu = require('node-osu');
+	account.__proto__ = osu.User.prototype;
+	account.events.forEach(e => {
+		e.__proto__ = osu.Event.prototype;
+	});
+	account.bp.forEach(e => {
+		e.__proto__ = osu.Score.prototype;
+	})
 }
 process.on( 'SIGINT', function() {
   console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
