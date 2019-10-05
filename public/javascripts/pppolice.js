@@ -1,28 +1,32 @@
   var maxHistory = 200;
   var pushed  = [];
   var renderTimer = undefined;
-  function waitPlcLoad(){
-    let images = document.getElementsByClass('beatmapImg');
+  var totalimg = 0;
+  var loadedimg = 0;
+  var loadInterval;
+  var opentime = new Date().getTime();
+  function listenImgLoad(){
+    console.log('wait for preview loading');
+    let images = document.getElementsByClassName('beatmapImg');
     let loadFinish = false;
-    while (!loadFinish){
-      let loopAllFinish = true;
-      for (var i = 0; i < images.length; i++) {
-        let image = images[i];
-        if (!image.complete) {
-          loopAllFinish = false;
-        }
-      }
-      if (loopAllFinish){
-        loadFinish = true;
-      }
+    totalimg = images.length
+    for (var i = 0; i < images.length; i++) {
+      let image = images[i];
+      image.onload = _ => {loadedimg += 1};
     }
-    console.log('load images finish');
   }
   function noBP(nobp = true){
     if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
     else {
-      waitPicLoad();
-      document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
+      listenImgLoad();
+      loadInterval = setInterval(_ => {
+        console.log('loaded',loadedimg,'total',totalimg);
+        if (loadedimg >= totalimg ||  new Date().getTime() - opentime >= 10 * 1000 ){
+          document.getElementById('notify').innerHTML =  `<p id='finish' hidden></p>`;
+          clearInterval(loadInterval);
+        }
+      },100);
+      
     }
   }
   function newToServer(clean = false){
