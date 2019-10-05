@@ -2,10 +2,20 @@
   var pushed  = [];
   var renderTimer = undefined;
   function waitPlcLoad(){
-    var images = document.getElementsByClass('beatmapImg');
-    Promise.all(images.map(image => {
-      while (!image.complete);
-    }));
+    let images = document.getElementsByClass('beatmapImg');
+    let loadFinish = false;
+    while (loadFinish){
+      let loopAllFinish = true;
+      for (var i = 0; i < images.length; i++) {
+        let image = images[i];
+        if (!image.complete) {
+          loopAllFinish = false;
+        }
+      }
+      if (loopAllFinish){
+        loadFinish = true;
+      }
+    }
   }
   function noBP(nobp = true){
     if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
