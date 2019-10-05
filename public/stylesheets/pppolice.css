@@ -13,7 +13,7 @@ ul {
 }
  
 h3 {
-  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  font: bold 25px/1.2 Helvetica, Verdana, sans-serif;
 }
  
 li img {
@@ -35,7 +35,7 @@ li .beatmap{
   -webkit-box-orient: vertical;
 }
 li p {
-  font: 200 12px/1.5 Georgia, Times New Roman, serif;
+  font: 200 15px Georgia, Times New Roman, serif;
 }
  
 li {

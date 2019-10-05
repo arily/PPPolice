@@ -96,7 +96,7 @@
     }
     
   }
-  function render(sort = 'ppdesc'){
+  function render(sort = 'ppdesc',showUserId = true ){
     console.log('start rendering');
     sortStorage(sort);
     document.getElementById('container').innerHTML = '';
@@ -123,13 +123,14 @@
           break;
         }
       }
+      let showplayer = (showUserId) ? `${player} - ` : ``;
       let html = `<li id='${colh}'>
       <img class="rank" src="https://s.ppy.sh/images/${data.newScore.rank}.png" />
       <img class="beatmapImg" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
       <h3>${pp}</h3>
       <p class='beatmap'>${bmstr}</p>
       <p>${accuracy}</p>
-      <h4>${player} - ${data.newScore.raw_date} UTC</h4>
+      <h4>${showplayer}${data.newScore.raw_date} UTC</h4>
       </li>`;
       document.getElementById('container').innerHTML += html;
     });
