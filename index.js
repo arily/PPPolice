@@ -1,5 +1,7 @@
 informationCenter = require('./lib/informationCenter.js');
 policeStation = require('./lib/policeStation.js');
+pmx = require('@pm2/io');
+Storage = require('node-storage')
 app = require('./app.js');
 
 policeStation.accession('chive');
@@ -90,5 +92,33 @@ app.io.sockets.on('connection',socket =>{
 		
 	});
 });
+saveList = function (officer,name){
+	let store = new Storage('./storage/policeStation');
+	store.put(`police.${name}`,officer.watchingList());
+}
+readList = function (){
+	let store = new Storage('./storage/policeStation');
+	let officers = store.get('police');
+	Object.keys(officers).forEach(function(key) {
+  		var val = officers[key];
+  		if (policeStation.officers[key] != undefined){
+  			console.log('load',key);
+  			policeStation.officers[key].grabSuspectsList(val);
+  		}
+	});
+}
+process.on( 'SIGINT', function() {
+  console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
+  // some other closing procedures go here
+  saveList(policeStation.officers.chive,'chive');
+  process.exit( );
+})
 
-
+pmx.action('save', function(reply) {
+	saveList(policeStation.officers.chive,'chive');
+  	reply({ answer : 'save' });
+});
+pmx.action('load', function(reply) {
+	readList();
+  	reply({ answer : 'read' });
+});
