@@ -4,7 +4,7 @@
   function waitPlcLoad(){
     let images = document.getElementsByClass('beatmapImg');
     let loadFinish = false;
-    while (loadFinish){
+    while (!loadFinish){
       let loopAllFinish = true;
       for (var i = 0; i < images.length; i++) {
         let image = images[i];
