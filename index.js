@@ -99,6 +99,8 @@ saveList = function (officer,name,onExit){
 	let path = '';
 	if (onExit){
 		path = `./storage/policeStation.onExit.${new Date().getTime()}`;
+	} else {
+		path = `./storage/policeStation`;
 	}
 	let store = new Storage();
 	store.put(`police.${name}`,officer.watchingList());

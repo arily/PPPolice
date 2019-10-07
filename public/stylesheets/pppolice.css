@@ -2,10 +2,14 @@
  #container {
   margin: auto;
  }
-div {
+.box {
   margin: 20px;
 }
  
+li div {
+  margin: auto;
+  min-height: 120px;
+}
 ul {
   list-style-type: none;
   max-width: 700px;
@@ -13,7 +17,8 @@ ul {
 }
  
 h3 {
-  font: bold 25px/1.5 Helvetica, Verdana, sans-serif;
+  font: bold 25px Helvetica, Verdana, sans-serif;
+  margin-bottom: 5px;
 }
  
 li img {
@@ -34,14 +39,16 @@ li .beatmap{
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
 li p {
   font: 200 15px/1.2 Georgia, Times New Roman, serif;
 }
  
 li {
-  clear:left;
+  clear: left;
   padding: 10px;
   overflow: auto;
+  display: inline-flex;
 }
  
 li:hover {
