@@ -102,7 +102,7 @@ saveList = function (officer,name,onExit){
 	} else {
 		path = `./storage/policeStation`;
 	}
-	let store = new Storage();
+	let store = new Storage(path);
 	store.put(`police.${name}`,officer.watchingList());
 }
 readList = function (path = './storage/policeStation'){
