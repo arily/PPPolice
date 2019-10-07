@@ -35,6 +35,7 @@ async function receive(type, event){
 	event = {
 		type: type,
 		content: event,
+		time : new Date(),
 	};
 	informationCenter.broadcast(event);
 	informationCenter.record(event);
@@ -56,8 +57,8 @@ app.io.sockets.on('connection',socket =>{
 			socket.emit('player.newToServer');
 			let account = await policeStation.officers.chive.findIdentity(id);
 			await policeStation.officers.chive.newSuspect(account);
-			await policeStation.officers.chive.updatePlayer(account);
 		}
+		await policeStation.officers.chive.updatePlayer(account);
 		bps = await policeStation.officers.chive.BPToday(player);
 		if (bps.length == 0){
 			socket.emit('player.noBPToday');
@@ -78,8 +79,8 @@ app.io.sockets.on('connection',socket =>{
 				socket.emit('player.newToServer');
 				let account = await policeStation.officers.chive.findIdentity(id);
 				await policeStation.officers.chive.newSuspect(account);
-				await policeStation.officers.chive.updatePlayer(account);
 			}
+			await policeStation.officers.chive.updatePlayer(account);
 			bps = await policeStation.officers.chive.BPDate(player,timestamp);
 			if (bps.length == 0){
 				socket.emit('player.noBPToday');
@@ -92,12 +93,16 @@ app.io.sockets.on('connection',socket =>{
 		
 	});
 });
-saveList = function (officer,name){
-	let store = new Storage('./storage/policeStation');
+saveList = function (officer,name,onExit){
+	let path = '';
+	if (onExit){
+		path = `./storage/policeStation.onExit.${new Date().getTime()}`;
+	}
+	let store = new Storage();
 	store.put(`police.${name}`,officer.watchingList());
 }
-readList = function (){
-	let store = new Storage('./storage/policeStation');
+readList = function (path = './storage/policeStation'){
+	let store = new Storage(path);
 	let officers = store.get('police');
 	Object.keys(officers).forEach(function(key) {
   		var val = officers[key];
@@ -123,7 +128,7 @@ rebindProto = function(account){
 process.on( 'SIGINT', function() {
   console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
   // some other closing procedures go here
-  saveList(policeStation.officers.chive,'chive');
+  saveList(policeStation.officers.chive,'chive',true);
   process.exit( );
 })
 
@@ -131,7 +136,10 @@ pmx.action('save', function(reply) {
 	saveList(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
 });
-pmx.action('load', function(reply) {
-	readList();
-  	reply({ answer : 'read' });
+pmx.action('load', function(param,reply) {
+	readList(param);
+  	reply({ 
+  		param : param,	
+  		answer : 'read'
+  		 });
 });
