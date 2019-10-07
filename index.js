@@ -51,11 +51,12 @@ app.io.sockets.on('connection',socket =>{
 	});
 	socket.on('today',async player =>{
 		let id = player.id;
+		let account = undefined;
 		if (policeStation.officers.chive.watchingList()[id] !== undefined){
-
+			account = policeStation.officers.chive.watchingList()[id];
 		} else {
 			socket.emit('player.newToServer');
-			let account = await policeStation.officers.chive.findIdentity(id);
+			account = await policeStation.officers.chive.findIdentity(id);
 			await policeStation.officers.chive.newSuspect(account);
 		}
 		await policeStation.officers.chive.updatePlayer(account);
@@ -73,11 +74,12 @@ app.io.sockets.on('connection',socket =>{
 		if ((new Date(parse)).getTime() > 0){
 			let id = player.id;
 			let timestamp = parse;
+			let account = undefined;
 			if (policeStation.officers.chive.watchingList()[id] !== undefined){
-
+				account = policeStation.officers.chive.watchingList()[id];
 			} else {
 				socket.emit('player.newToServer');
-				let account = await policeStation.officers.chive.findIdentity(id);
+				account = await policeStation.officers.chive.findIdentity(id);
 				await policeStation.officers.chive.newSuspect(account);
 			}
 			await policeStation.officers.chive.updatePlayer(account);
