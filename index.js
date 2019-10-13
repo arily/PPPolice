@@ -132,9 +132,14 @@ readListOld = function (path = './storage/policeStation'){
 saveList = function (officer,name,onExit = false ){
 
 	const list = officer.copyList();
-	client.hset('policeStation',name,JSON.stringify(list));
+	if (onExit){
+		client.hset('policeStation',`${name}_onExit`,JSON.stringify(list));
+	} else {
+		client.hset('policeStation',name,JSON.stringify(list));
+	}
+	
 }
-readList = function (path = './storage/policeStation'){
+readList = function (){
 
 	client.hgetall('policeStation',function(err,officers){
 	Object.keys(officers).forEach(function(key) {
