@@ -64,7 +64,7 @@ li p {
  
 li {
   margin-bottom: 5px;
-  width: 100%;
+  width: calc(100% - 20px);
   clear: left;
   padding: 10px;
   overflow: auto;
