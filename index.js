@@ -95,7 +95,7 @@ app.io.sockets.on('connection',socket =>{
 		
 	});
 });
-saveList = function (officer,name,onExit){
+saveList = function (officer,name,onExit = false ){
 	let path = '';
 	if (onExit){
 		path = `./storage/policeStation.onExit.${new Date().getTime()}`;

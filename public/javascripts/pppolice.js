@@ -124,14 +124,14 @@
         }
       }
       let showplayer = (showUserId) ? `${player} - ` : ``;
-      let html = `<li id='${colh}'>
+      let html = `<li id='${colh}' class='shadow'>
       <div>
       <img class="rank" src="https://s.ppy.sh/images/${data.newScore.rank}.png" />
       <img class="beatmapImg" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
       </div>
       <div>
       <h3>${pp}</h3>
-      <p class='beatmap'>${bmstr}</p>
+      <p class='beatmapstr'>${bmstr}</p>
       <p>${accuracy}</p>
       <h4>${showplayer}${data.newScore.raw_date} UTC</h4>
       </div>

@@ -1,13 +1,17 @@
+body, html { height: 100%; width:100%; }
 * {margin: 0; padding: 0;}
  #container {
   margin: auto;
  }
 .box {
-  margin: 20px;
+  margin: 10px;
 }
- 
+html {
+  position:relative;
+  background: linear-gradient(rgba(230, 100, 101,0.5), rgba(145, 152, 229,0.5)) no-repeat center center fixed;
+  background-size: 100%;
+}
 li div {
-  margin: auto;
   min-height: 120px;
 }
 ul {
@@ -15,9 +19,21 @@ ul {
   max-width: 700px;
   min-width: 500px;
 }
- 
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Mansalva', cursive;
+  display:table;
+  
+}
+h2 {
+  margin-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+  margin: auto;
+  background: rgba(255,255,255,0.8);
+}
 h3 {
-  font: bold 25px Helvetica, Verdana, sans-serif;
+  font: bold 30px;
   margin-bottom: 5px;
 }
  
@@ -25,10 +41,12 @@ li img {
   float: left;
   overflow: auto;
   margin: 0 15px 0 0;
-  max-height: 100%
+  max-height: 100%;
+  border-radius: 5px;
 }
 li .rank {
   padding-top: 5px;
+  padding-left: 5px;
   position:absolute;
   width:35px;
 }
@@ -41,17 +59,30 @@ li .beatmap{
 }
 
 li p {
-  font: 200 15px/1.2 Georgia, Times New Roman, serif;
+  font: 200 20px/1.2 'Caveat', serif;
 }
  
 li {
+  margin-bottom: 5px;
+  width: 100%;
   clear: left;
   padding: 10px;
   overflow: auto;
   display: inline-flex;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
 }
  
 li:hover {
-  background: #eee;
+  background: white;
   cursor: pointer;
+}
+
+
+
+/*shadow*/
+
+.shadow {
+  box-shadow: 0px 1px 4px rgba(0,0,0,0.3),
+        0px 0px 20px rgba(0,0,0,0.1) inset;
 }
