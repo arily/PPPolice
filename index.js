@@ -3,7 +3,7 @@ policeStation = require('./lib/policeStation.js');
 pmx = require('@pm2/io');
 Storage = require('node-storage')
 app = require('./app.js');
-var _ = require('lodash');
+let _ = require('lodash');
 
 policeStation.accession('chive');
 
