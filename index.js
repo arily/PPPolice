@@ -137,6 +137,7 @@ saveListNew = function (officer,name,onExit = false ){
 readListNew = async function (path = './storage/policeStation'){
 
 	officers = await client.hgetallAsync('policeStation');
+	console.log(officers);
 	Object.keys(officers).forEach(function(key) {
   		var val = officers[key];
   		val = JSON.parse(val);
