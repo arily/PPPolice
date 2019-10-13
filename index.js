@@ -1,9 +1,16 @@
 informationCenter = require('./lib/informationCenter.js');
 policeStation = require('./lib/policeStation.js');
 pmx = require('@pm2/io');
-Storage = require('node-storage')
+Storage = require('node-storage');
 app = require('./app.js');
+
 let _ = require('lodash');
+
+var redis = require("redis"),
+    client = redis.createClient();
+const {promisify} = require('util');
+const getAsync = promisify(client.get).bind(client);
+const hgetallAsync = promisify(client.hgetall).bind(client);
 
 policeStation.accession('chive');
 
@@ -122,6 +129,26 @@ readList = function (path = './storage/policeStation'){
   		}
 	});
 }
+saveListNew = function (officer,name,onExit = false ){
+
+	const list = officer.copyList();
+	client.hset('policeStation',name,JSON.stringify(list));
+}
+readListNew = async function (path = './storage/policeStation'){
+
+	officers = await client.hgetallAsync('policeStation');
+	Object.keys(officers).forEach(function(key) {
+  		var val = officers[key];
+  		val = JSON.parse(val);
+  		for (let i in val ){
+  			rebindProto(val[i]);
+  		}
+  		if (policeStation.officers[key] != undefined){
+  			console.log('load',key);
+  			policeStation.officers[key].grabSuspectsList(val);
+  		}
+	});
+}
 rebindProto = function(account){
 	const osu = require('node-osu');
 	account.__proto__ = osu.User.prototype;
@@ -143,8 +170,19 @@ pmx.action('save', function(reply) {
 	saveList(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
 });
+pmx.action('savenew', function(reply) {
+	saveListNew(policeStation.officers.chive,'chive');
+  	reply({ answer : 'save' });
+});
 pmx.action('load', function(param,reply) {
 	readList(param);
+  	reply({ 
+  		param : param,	
+  		answer : 'read'
+  		 });
+});
+pmx.action('loadnew', function(param,reply) {
+	readListNew(param);
   	reply({ 
   		param : param,	
   		answer : 'read'
