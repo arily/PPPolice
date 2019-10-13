@@ -6,6 +6,9 @@ body, html { height: 100%; width:100%; }
 .box {
   margin: 10px;
 }
+.pp{
+  font-family: 'Exo 2', cursive;
+}
 html {
   position:relative;
   background: linear-gradient(rgba(230, 100, 101,0.5), rgba(145, 152, 229,0.5)) no-repeat center center fixed;
@@ -20,9 +23,9 @@ ul {
   min-width: 500px;
 }
 h1, h2, h3, h4, h5, h6{
-  font-family: 'Mansalva', cursive;
+  font-family: 'Kalam', cursive;
   display:table;
-  
+
 }
 h2 {
   font-size: 35px;

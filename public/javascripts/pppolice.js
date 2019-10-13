@@ -130,7 +130,7 @@
       <img class="beatmapImg" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
       </div>
       <div>
-      <h3>${pp}</h3>
+      <h3 class="pp">${pp}</h3>
       <p class='beatmapstr'>${bmstr}</p>
       <p>${accuracy}</p>
       <h4>${showplayer}${data.newScore.raw_date} UTC</h4>
