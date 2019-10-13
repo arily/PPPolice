@@ -3,6 +3,7 @@ policeStation = require('./lib/policeStation.js');
 pmx = require('@pm2/io');
 Storage = require('node-storage')
 app = require('./app.js');
+var _ = require('lodash');
 
 policeStation.accession('chive');
 
@@ -102,13 +103,13 @@ saveList = function (officer,name,onExit = false ){
 	} else {
 		path = `./storage/policeStation`;
 	}
-	let store = new Storage(path);
-	let cloned =JSON.parse(JSON.stringify(officer.watchingList()));
+	const store = new Storage(path);
+	const cloned = _.clone(officer.watchingList());
 	store.put(`police.${name}`,cloned);
 }
 readList = function (path = './storage/policeStation'){
-	let store = new Storage(path);
-	let officers = store.get('police');
+	const store = new Storage(path);
+	const officers = store.get('police');
 	Object.keys(officers).forEach(function(key) {
   		var val = officers[key];
   		for (let i in val ){
