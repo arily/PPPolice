@@ -103,7 +103,7 @@ app.io.sockets.on('connection',socket =>{
 		
 	});
 });
-saveList = function (officer,name,onExit = false ){
+saveListOld = function (officer,name,onExit = false ){
 	let path = '';
 	if (onExit){
 		path = `./storage/policeStation.onExit.${new Date().getTime()}`;
@@ -115,7 +115,7 @@ saveList = function (officer,name,onExit = false ){
 	const cloned = _.cloneDeep(list);
 	store.put(`police.${name}`,cloned);
 }
-readList = function (path = './storage/policeStation'){
+readListOld = function (path = './storage/policeStation'){
 	const store = new Storage(path);
 	const officers = store.get('police');
 	Object.keys(officers).forEach(function(key) {
@@ -129,15 +129,14 @@ readList = function (path = './storage/policeStation'){
   		}
 	});
 }
-saveListNew = function (officer,name,onExit = false ){
+saveList = function (officer,name,onExit = false ){
 
 	const list = officer.copyList();
 	client.hset('policeStation',name,JSON.stringify(list));
 }
-readListNew = function (path = './storage/policeStation'){
+readList = function (path = './storage/policeStation'){
 
 	client.hgetall('policeStation',function(err,officers){
-	console.log(officers);
 	Object.keys(officers).forEach(function(key) {
   		var val = officers[key];
   		val = JSON.parse(val);
@@ -172,8 +171,8 @@ pmx.action('save', function(reply) {
 	saveList(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
 });
-pmx.action('savenew', function(reply) {
-	saveListNew(policeStation.officers.chive,'chive');
+pmx.action('saveold', function(reply) {
+	saveListOld(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
 });
 pmx.action('load', function(param,reply) {
@@ -183,8 +182,8 @@ pmx.action('load', function(param,reply) {
   		answer : 'read'
   		 });
 });
-pmx.action('loadnew', function(param,reply) {
-	readListNew(param);
+pmx.action('loadold', function(param,reply) {
+	readListOld(param);
   	reply({ 
   		param : param,	
   		answer : 'read'
