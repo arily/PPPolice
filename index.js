@@ -104,7 +104,7 @@ saveList = function (officer,name,onExit = false ){
 		path = `./storage/policeStation`;
 	}
 	const store = new Storage(path);
-	const list = officer.watchingList();
+	const list = officer.copyList();
 	const cloned = _.cloneDeep(list);
 	store.put(`police.${name}`,cloned);
 }
