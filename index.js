@@ -6,11 +6,8 @@ app = require('./app.js');
 
 let _ = require('lodash');
 
-var redis = require("redis"),
-    client = redis.createClient();
+var redis = require("redis")
 const {promisify} = require('util');
-const getAsync = promisify(client.get).bind(client);
-const hgetallAsync = promisify(client.hgetall).bind(client);
 
 policeStation.accession('chive');
 
@@ -130,7 +127,9 @@ readListOld = function (path = './storage/policeStation'){
 	});
 }
 saveList = function (officer,name,onExit = false ){
-
+	client = redis.createClient();
+	const getAsync = promisify(client.get).bind(client);
+	const hgetallAsync = promisify(client.hgetall).bind(client);
 	const list = officer.copyList();
 	if (onExit){
 		client.hset('policeStation',`${name}_onExit`,JSON.stringify(list));
@@ -140,7 +139,9 @@ saveList = function (officer,name,onExit = false ){
 	
 }
 readList = function (){
-
+	client = redis.createClient();
+	const getAsync = promisify(client.get).bind(client);
+	const hgetallAsync = promisify(client.hgetall).bind(client);
 	client.hgetall('policeStation',function(err,officers){
 	Object.keys(officers).forEach(function(key) {
   		var val = officers[key];
