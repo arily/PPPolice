@@ -134,9 +134,9 @@ saveListNew = function (officer,name,onExit = false ){
 	const list = officer.copyList();
 	client.hset('policeStation',name,JSON.stringify(list));
 }
-readListNew = async function (path = './storage/policeStation'){
+readListNew = function (path = './storage/policeStation'){
 
-	officers = await client.hgetallAsync('policeStation');
+	client.hgetall('policeStation',function(err,officers){
 	console.log(officers);
 	Object.keys(officers).forEach(function(key) {
   		var val = officers[key];
@@ -148,6 +148,7 @@ readListNew = async function (path = './storage/policeStation'){
   			console.log('load',key);
   			policeStation.officers[key].grabSuspectsList(val);
   		}
+	});
 	});
 }
 rebindProto = function(account){
