@@ -13,10 +13,9 @@ calculateBP = function (account){
 	return totalpp;
 }
 function calcFarm(player, highbuff = 10, lowbuff = 10){
-	console.log(player,highbuff,lowbuff);
 	const multi = Math.pow(11,highbuff/10) * Math.pow(11,lowbuff/10);
 	pptoday = calculateBP(player);
-	return Math.pow( pptoday / ( ( Math.pow(player.pp,0.5) * highbuff ) + ( lowbuff * player.pp ) / 80 ),2) * multi ;
+	return Math.pow( (pptoday / ( ( Math.pow(player.pp,0.5) * highbuff ) + ( lowbuff * player.pp ) / 80 )),1.3) * multi ;
 }
 function addNewBP(player,pp, score = undefined,beatmap = undefined,){
 	player.bp[player.bp.length] = {pp: pp, beatmapp: beatmap,score:score};
