@@ -45,8 +45,8 @@ function calc(){
 	for (var i=2;i<x.length;i++)
   	{
   		thispp = x.elements[i].value;
-  		if (thispp === undefined || thispp === NaN){
-  			thispp = 0
+  		if (thispp == undefined || thispp == NaN){
+  			thispp = 0;
   		}
   		pp[pp.length] = parseFloat(thispp);
   	}
