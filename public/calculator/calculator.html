@@ -1,0 +1,108 @@
+<html>
+<head>
+<script>
+calculateBP = function (account){
+	let totalpp = 0;
+	account.bp.sort((a, b) => (a.pp < b.pp) ? 1 : -1);
+
+	account.bp.forEach((bp,index) => {
+		let weight = Math.pow(0.95,index);
+		let weightedpp =  bp.pp * weight ;
+		totalpp += weightedpp
+	});
+	return totalpp;
+}
+function calcFarm(player, highbuff = 10, lowbuff = 10){
+	console.log(player,highbuff,lowbuff);
+	const multi = Math.pow(11,highbuff/10) * Math.pow(11,lowbuff/10);
+	pptoday = calculateBP(player);
+	return Math.pow( pptoday / ( ( Math.pow(player.pp,0.5) * highbuff ) + ( lowbuff * player.pp ) / 80 ),2) * multi ;
+}
+function addNewBP(player,pp, score = undefined,beatmap = undefined,){
+	player.bp[player.bp.length] = {pp: pp, beatmapp: beatmap,score:score};
+}
+function addBPSet(player,ppset){
+	ppset.forEach(score =>{
+		addNewBP(player,score);
+	});
+}
+function insertPlayer(player){
+	players[players.length] = player;
+}
+function addNewPlayer(player,uid,pp){
+	player ={
+		name: player,
+		uid: uid,
+		bp: [],
+		pp: pp
+	}
+	players[players.length] = player;
+	return player;
+}
+function calc(){
+	let pp = [];
+	var x=document.getElementById("calculator");
+	for (var i=2;i<x.length;i++)
+  	{
+  		thispp = x.elements[i].value;
+  		if (thispp === undefined || thispp === NaN){
+  			thispp = 0
+  		}
+  		pp[pp.length] = parseFloat(thispp);
+  	}
+  let totalpp = parseFloat(x.elements[0].value);
+  let buff = parseFloat(x.elements[1].value);
+  highbuff = 10 + buff;
+  lowbuff = 10 - buff;
+  let player = addNewPlayer('Player',0,totalpp);
+  addBPSet(player,pp);
+  let pptoday = calculateBP(player);
+  let farmtoday = calcFarm(player,highbuff,lowbuff);
+  let str = `${parseInt(pptoday)} pp, ${farmtoday} FARM`;
+  document.getElementById('farm').innerHTML = str;
+}
+players = [];
+</script>
+</head>
+<body>
+	<form id='calculator' onchange="calc()">
+		<label for="pp">刷之前的pp</label>
+		<input type="number" name="pp">
+		<br>
+		<label for="pp">buff(默认0)</label>
+		<input type="number" name="pp" value="0">
+		<br>
+		<label for="bp1">bp1</label>
+		<input type="number" name="bp1" value="0">
+		<br>
+		<label for="bp2">bp2</label>
+		<input type="number" name="bp2" value="0">
+		<br>
+		<label for="bp3">bp3</label>
+		<input type="number" name="bp3" value="0">
+		<br>
+		<label for="bp4">bp4</label>
+		<input type="number" name="bp4" value="0">
+		<br>
+		<label for="bp5">bp5</label>
+		<input type="number" name="bp5" value="0">
+		<br>
+		<label for="bp6">bp6</label>
+		<input type="number" name="bp6" value="0">
+		<br>
+		<label for="bp7">bp7</label>
+		<input type="number" name="bp7" value="0">
+		<br>
+		<label for="bp8">bp8</label>
+		<input type="number" name="bp8" value="0">
+		<br>
+		<label for="bp9">bp9</label>
+		<input type="number" name="bp9" value="0">
+		<br>
+		<label for="bp10">bpx</label>
+		<input type="number" name="bp10" value="0">
+		<br>
+	</form>
+	<h2><span id='farm'></span></h2>
+</body>
+</html>
