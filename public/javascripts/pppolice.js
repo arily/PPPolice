@@ -123,10 +123,25 @@
         }
       }
       let showplayer = (showUserId) ? `${player} - ` : ``;
+      let rank = undefined;
+      switch(data.newScore.rank){
+        case 'XH':
+          rank = 'SS-Silver';
+          break;
+        case 'X'
+          rank = 'SS';
+          break;
+        case 'XS':{
+          rank = 'S-Silver';
+          break;
+        default:
+          rank = data.newScore.rank;
+        }
+      }
       let html = `<li id='${colh}' class='shadow'>
       <div>
-      <img class="rank" src="https://s.ppy.sh/images/${data.newScore.rank}.png" />
-      <img class="beatmapImg" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
+      <img class="rank shadow" src="https://osu.ppy.sh/images/badges/score-ranks-v2019/GradeSmall-${rank}.svg?3" />
+      <img class="beatmapImg shadow" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
       </div>
       <div>
       <h3 class="pp">${pp}</h3>
