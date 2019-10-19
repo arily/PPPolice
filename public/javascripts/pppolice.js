@@ -131,7 +131,7 @@
         case 'X':
           rank = 'SS';
           break;
-        case 'XS':
+        case 'SH':
           rank = 'S-Silver';
           break;
         default:
