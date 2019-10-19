@@ -131,12 +131,11 @@
         case 'X'
           rank = 'SS';
           break;
-        case 'XS':{
+        case 'XS':
           rank = 'S-Silver';
           break;
         default:
           rank = data.newScore.rank;
-        }
       }
       let html = `<li id='${colh}' class='shadow'>
       <div>
