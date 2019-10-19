@@ -12,5 +12,5 @@
     console.log('defarm',data);
     storage('defarm',data);
   });
-    setTimeout(_=> {pull.emit('history')},100);
+    setTimeout(_=> {pull.emit('history')},200);
   }
