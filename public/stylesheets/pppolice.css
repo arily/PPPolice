@@ -49,10 +49,11 @@ li img {
   border-radius: 5px;
 }
 li .rank {
-  padding-top: 5px;
-  padding-left: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
   position:absolute;
-  width:35px;
+  width:50px;
+  border-radius: 10000px;
 }
 li .beatmap{
   overflow: hidden;
