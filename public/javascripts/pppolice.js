@@ -128,7 +128,7 @@
         case 'XH':
           rank = 'SS-Silver';
           break;
-        case 'X'
+        case 'X':
           rank = 'SS';
           break;
         case 'XS':
