@@ -101,7 +101,6 @@
     sortStorage(sort);
     document.getElementById('container').innerHTML = '';
     pushed.forEach(event => {
-      console.log('render',event);
       const data = event.result;
       const player = data.account.name;
       let mods = data.mods.filter(s => s !== 'FreeModAllowed' ).join(',');
