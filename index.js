@@ -9,7 +9,8 @@ let _ = require('lodash');
 var redis = require("redis")
 const {promisify} = require('util');
 
-policeStation.accession('chive');
+const {mode} = require('./config/pppolice.js');
+policeStation.accession('chive',mode);
 
 policeStation.open();
 
@@ -118,7 +119,6 @@ app.io.sockets.on('connection',socket =>{
 			}
 			await policeStation.officers.chive.updatePlayer(account);
 			bps = await policeStation.officers.chive.BPRange(player,from,to);
-			console.log(bps);
 			if (bps.length == 0){
 				socket.emit('player.noBPToday');
 				return;
@@ -194,6 +194,7 @@ readList = function (){
 rebindProto = function(account){
 	const osu = require('node-osu');
 	account.__proto__ = osu.User.prototype;
+	if (account.mode == undefined) account.mode = mode;
 	account.events.forEach(e => {
 		e.__proto__ = osu.Event.prototype;
 	});
