@@ -20,7 +20,7 @@
       <div style="width:100%">
       <img class="full shadow" src="/images/nobp.0.png" />
       </div>
-      <h3>PLAY MORE</h3>
+      <h3 style="margin:auto">why not AFK?</h3>
       </div>`;
 
       listenImgLoad();
