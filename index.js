@@ -55,6 +55,10 @@ app.io.sockets.on('connection',socket =>{
 		});
 	});
 	socket.on('today',async player =>{
+		let today = new Date();
+		today.setHours(0,0,0,0);
+		today = today.toLocaleString("en-US", {timeZone: "Asia/Shanghai"});
+		today = new Date(today).getTime() + 60 * 60 * 24 * 1000;
 		let id = player.id;
 		let account = undefined;
 		if (policeStation.officers.chive.watchingList()[id] !== undefined){
@@ -65,7 +69,7 @@ app.io.sockets.on('connection',socket =>{
 			await policeStation.officers.chive.newSuspect(account);
 		}
 		await policeStation.officers.chive.updatePlayer(account);
-		bps = await policeStation.officers.chive.BPToday(player);
+		bps = await policeStation.officers.chive.BPRange(player,today);
 		if (bps.length == 0){
 			socket.emit('player.noBPToday');
 			return;
@@ -88,7 +92,33 @@ app.io.sockets.on('connection',socket =>{
 				await policeStation.officers.chive.newSuspect(account);
 			}
 			await policeStation.officers.chive.updatePlayer(account);
-			bps = await policeStation.officers.chive.BPDate(player,timestamp);
+			bps = await policeStation.officers.chive.BPRange(player,timestamp);
+			if (bps.length == 0){
+				socket.emit('player.noBPToday');
+				return;
+			} else bps.forEach(p => {
+				socket.emit('report.farm',p);
+			});
+			socket.emit('report.pushedAll');
+		}
+		
+	});
+	socket.on('BPRange',async (player,from,to) =>{
+		from = Date.parse(from);
+		to = Date.parse(to);
+		if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0){
+			let id = player.id;
+			let account = undefined;
+			if (policeStation.officers.chive.watchingList()[id] !== undefined){
+				account = policeStation.officers.chive.watchingList()[id];
+			} else {
+				socket.emit('player.newToServer');
+				account = await policeStation.officers.chive.findIdentity(id);
+				await policeStation.officers.chive.newSuspect(account);
+			}
+			await policeStation.officers.chive.updatePlayer(account);
+			bps = await policeStation.officers.chive.BPRange(player,from,to);
+			console.log(bps);
 			if (bps.length == 0){
 				socket.emit('player.noBPToday');
 				return;
@@ -100,6 +130,11 @@ app.io.sockets.on('connection',socket =>{
 		
 	});
 });
+
+
+
+
+
 saveListOld = function (officer,name,onExit = false ){
 	let path = '';
 	if (onExit){

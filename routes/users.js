@@ -39,5 +39,24 @@ router.get('/:id/:date', async function(req, res, next) {
 		
 	}
 });
+router.get('/:id/:from/:to', async function(req, res, next) {
+	let user = req.params.id;
+	let api = new osu.Api('27caa4993a4430b2e63762bdd5e6b9643ddf7679');
+	let account = await api.getUser({u: user}).catch( reject => {
+		res.send('account don\'t exist');
+	});
+	if (account !== undefined){
+		res.render('pppolice-today',{
+			rev: Math.random().toString(36).substring(7),
+			title: `${account.name}'s bp`,
+			bpDate: `from ${req.params.from} to ${req.params.to}`,
+			emitEventName: 'BPRange',
+			account: account,
+			dateTime: `,'${req.params.from}','${req.params.to}'`
+		});
+	} else {
+		
+	}
+});
 
 module.exports = router;
