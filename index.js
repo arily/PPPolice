@@ -135,33 +135,33 @@ app.io.sockets.on('connection',socket =>{
 
 
 
+// saveListOld = function (officer,name,onExit = false ){
+// 	let path = '';
+// 	if (onExit){
+// 		path = `./storage/policeStation.onExit.${new Date().getTime()}`;
+// 	} else {
+// 		path = `./storage/policeStation`;
+// 	}
+// 	const store = new Storage(path);
+// 	const list = officer.copyList();
+// 	const cloned = _.cloneDeep(list);
+// 	store.put(`police.${name}`,cloned);
+// }
+// readListOld = function (path = './storage/policeStation'){
+// 	const store = new Storage(path);
+// 	const officers = store.get('police');
+// 	Object.keys(officers).forEach(function(key) {
+//   		var val = officers[key];
+//   		for (let i in val ){
+//   			rebindProto(val[i]);
+//   		}
+//   		if (policeStation.officers[key] != undefined){
+//   			console.log('load',key);
+//   			policeStation.officers[key].grabSuspectsList(val);
+//   		}
+// 	});
+// }
 saveListOld = function (officer,name,onExit = false ){
-	let path = '';
-	if (onExit){
-		path = `./storage/policeStation.onExit.${new Date().getTime()}`;
-	} else {
-		path = `./storage/policeStation`;
-	}
-	const store = new Storage(path);
-	const list = officer.copyList();
-	const cloned = _.cloneDeep(list);
-	store.put(`police.${name}`,cloned);
-}
-readListOld = function (path = './storage/policeStation'){
-	const store = new Storage(path);
-	const officers = store.get('police');
-	Object.keys(officers).forEach(function(key) {
-  		var val = officers[key];
-  		for (let i in val ){
-  			rebindProto(val[i]);
-  		}
-  		if (policeStation.officers[key] != undefined){
-  			console.log('load',key);
-  			policeStation.officers[key].grabSuspectsList(val);
-  		}
-	});
-}
-saveList = function (officer,name,onExit = false ){
 	client = redis.createClient();
 	const getAsync = promisify(client.get).bind(client);
 	const hgetallAsync = promisify(client.hgetall).bind(client);
@@ -173,7 +173,7 @@ saveList = function (officer,name,onExit = false ){
 	}
 	
 }
-readList = function (){
+readListOld = function (){
 	client = redis.createClient();
 	const getAsync = promisify(client.get).bind(client);
 	const hgetallAsync = promisify(client.hgetall).bind(client);
@@ -191,7 +191,7 @@ readList = function (){
 	});
 	});
 }
-saveListNew = async function (officer,name,onExit = false ){
+saveList = async function (officer,name,onExit = false ){
 	const suspectList = require('./lib/suspectList');
 	var s = new suspectList('PPPolice-osu');
 	const list = officer.copyList();
@@ -200,7 +200,7 @@ saveListNew = async function (officer,name,onExit = false ){
   		s.set(val);
   	});
 }
-readListNew = async function (){
+readList = async function (){
 	const suspectList = require('./lib/suspectList');
 	var s = new suspectList('PPPolice-osu');
 	let list = await s.getAll();
@@ -228,10 +228,7 @@ pmx.action('save', function(reply) {
 	saveList(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
 });
-pmx.action('savenew', function(reply) {
-	saveListNew(policeStation.officers.chive,'chive');
-  	reply({ answer : 'save' });
-});
+
 pmx.action('saveold', function(reply) {
 	saveListOld(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
@@ -243,13 +240,7 @@ pmx.action('load', function(param,reply) {
   		answer : 'read'
   		 });
 });
-pmx.action('loadnew', function(param,reply) {
-	readListNew(param);
-  	reply({ 
-  		param : param,	
-  		answer : 'read'
-  		 });
-});
+
 pmx.action('loadold', function(param,reply) {
 	readListOld(param);
   	reply({ 
@@ -257,3 +248,14 @@ pmx.action('loadold', function(param,reply) {
   		answer : 'read'
   		 });
 });
+// pmx.action('savenew', function(reply) {
+// 	saveListNew(policeStation.officers.chive,'chive');
+//   	reply({ answer : 'save' });
+// });
+// pmx.action('loadnew', function(param,reply) {
+// 	readListNew(param);
+//   	reply({ 
+//   		param : param,	
+//   		answer : 'read'
+//   		 });
+// });
