@@ -191,6 +191,21 @@ readList = function (){
 	});
 	});
 }
+saveListNew = async function (officer,name,onExit = false ){
+	const suspectList = require('./lib/suspectList');
+	var s = new suspectList('PPPolice-osu');
+	const list = officer.copyList();
+	Object.keys(list).forEach(function(key) {
+  		var val = list[key];
+  		s.set(val);
+  	});
+}
+readListNew = async function (){
+	const suspectList = require('./lib/suspectList');
+	var s = new suspectList('PPPolice-osu');
+	let list = await s.getAll();
+	policeStation.officers.chive.grabSuspectsList(list);
+}
 rebindProto = function(account){
 	const osu = require('node-osu');
 	account.__proto__ = osu.User.prototype;
@@ -213,12 +228,23 @@ pmx.action('save', function(reply) {
 	saveList(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
 });
+pmx.action('savenew', function(reply) {
+	saveListNew(policeStation.officers.chive,'chive');
+  	reply({ answer : 'save' });
+});
 pmx.action('saveold', function(reply) {
 	saveListOld(policeStation.officers.chive,'chive');
   	reply({ answer : 'save' });
 });
 pmx.action('load', function(param,reply) {
 	readList(param);
+  	reply({ 
+  		param : param,	
+  		answer : 'read'
+  		 });
+});
+pmx.action('loadnew', function(param,reply) {
+	readListNew(param);
   	reply({ 
   		param : param,	
   		answer : 'read'
