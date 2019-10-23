@@ -1,5 +1,5 @@
 const api = {
-  	key: 'key',
+  	key: '27caa4993a4430b2e63762bdd5e6b9643ddf7679',
 }
 
 const intervals = {

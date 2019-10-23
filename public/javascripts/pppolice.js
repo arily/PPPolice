@@ -16,8 +16,13 @@
     }
   }
   function noBP(nobp = true){
-    if (nobp) document.getElementById('notify').innerHTML = `<p id='finish'> NO BP TODAY.</p>`;
-    else {
+    if (nobp) document.getElementById('container').innerHTML = `<div id='nobp' class='nobp shadow'>
+      <div style="width:100%">
+      <img class="full shadow" src="/images/nobp.0.png" />
+      </div>
+      <h3>PLAY MORE</h3>
+      </div>`;
+
       listenImgLoad();
       loadInterval = setInterval(_ => {
         console.log('loaded',loadedimg,'total',totalimg);
@@ -27,7 +32,6 @@
         }
       },100);
       
-    }
   }
   function newToServer(clean = false){
     if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;

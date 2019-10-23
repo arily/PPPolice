@@ -7,3 +7,8 @@ lib/{"1123053":{"id":"1123053","name":"arily","counts"
 config/pppolice.js
 storage/policeStation
 node_modules/node-osu/lib/.DS_Store
+public/images/.DS_Store
+public/calculator/.DS_Store
+lib/.DS_Store
+public/.DS_Store
+.DS_Store

@@ -67,15 +67,34 @@ li .beatmap{
 li p {
   font: 200 20px/1.2 'Kalam', cursive;
 }
+
+.nobp {
+  margin-bottom: 10px;
+  width: calc(100% - 20px);
+  clear: left;
+  padding: 10px;
+  overflow: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+}
+.nobp img {
+  width:100%;
+  border-radius: 5px;
+}
+ 
+.nobp:hover {
+  background: white;
+  cursor: pointer;
+}
  
 li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   width: calc(100% - 20px);
   clear: left;
   padding: 10px;
   overflow: auto;
   display: inline-flex;
-  border-radius: 5px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.8);
 }
  
