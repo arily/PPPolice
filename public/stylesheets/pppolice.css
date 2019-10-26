@@ -109,7 +109,13 @@ li:hover {
 .avatar{
   max-width: 160px;
 }
-
+.small-font {
+  font-size :80%;
+}
+.username * {
+  display: inline;
+  margin-right: 5px;
+}
 
 
 /*shadow*/

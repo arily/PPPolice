@@ -132,7 +132,6 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
     
   }
   async function userInfo(user,date = undefined , farmLimit = 100, buff = -8.5, api_base = '/api/v1'){
-
     if (date === undefined ) {
       date = new Date().getTime();
       date = date  - 60 * 60 * 24 * 1000 * 2;
@@ -150,13 +149,17 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
     xmlHttp.send( null );
     var cabbage = JSON.parse(xmlHttp.responseText);
     if (cabbage.code === 0) {
-      cabbageUser = cabbage.data[0];
-      bp = pushed.map(event => {return {pp: event.result.pp}} );
+      let cabbageUser = cabbage.data[0];
+      let bp = pushed.map(event => {return {pp: event.result.pp}} );
       user.pp = cabbageUser.ppRaw;
       user.bp = bp;
       user.rank = cabbageUser.ppRank;
-      pptoday = calculateBP(user, farmLimit);
-      farmtoday = calcFarm(user, 10 - buff, 10 + buff, farmLimit );
+      let pptoday = calculateBP(user, 100);
+      let bp3 = calculateBP(user, 3);
+      let bp5 = calculateBP(user, 5);
+      let farmtoday = calcFarm(user, 10 - buff, 10 + buff, farmLimit );
+      let farm3 = calcFarm(user, 10 - buff, 10 + buff, 3 );
+      let farm5 = calcFarm(user, 10 - buff, 10 + buff, 5 );
       document.getElementById('userInfo').innerHTML = `
       <ul class="container">
       <li class='score-card shadow'>
@@ -164,11 +167,10 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       <img class="avatar shadow" src="https://a.ppy.sh/${user.id}" />
       </div>
       <div>
-      <h1>${user.name}</h1>
-      <p class="pp">#${user.rank}</p>
+      <span class="username"><h1>${user.name}</h1><span class="pp">#${user.rank}</span></span>
       <p class="pp">${user.pp} pp</p>
-      <p class="pp">${Math.round(pptoday * 1000) / 1000} pp today</p>
-      <p class="pp">${Math.round(farmtoday * 1000) / 1000} FARM</p>
+      <p class="pp">${Math.round(pptoday * 1000) / 1000} pp Listed <span class='pp small-font'>(3bp: ${Math.round(bp3 * 1000) / 1000}, 5bp: ${Math.round(bp5 * 1000) / 1000})</span></p>
+      <p class="pp">${Math.round(farmtoday * 1000) / 1000} FARM <span class='pp small-font'>(3bp: ${Math.round(farm3 * 1000) / 1000}, 5bp: ${Math.round(farm5 * 1000) / 1000})</span></p>
       </div>
       </li>
       </ul>
