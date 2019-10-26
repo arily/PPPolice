@@ -6,6 +6,7 @@ block content
     div(id='userInfo')
     ul(id='container')
     script.
+      var [user,from,to] = [{id: !{account.id}}!{dateTime}]
       window.onload = function(){
         var pull = io.connect('/');
         pull.on('report.farm',function(data) {
@@ -25,7 +26,7 @@ block content
           newToServer();
         });
         pull.on('connect',_=>{
-          setTimeout(_=> {pull.emit('!{emitEventName}',{id: !{account.id}}!{dateTime})},500);
+          setTimeout(_=> {pull.emit('!{emitEventName}',user,from,to)},500);
         })
       }
   div(id='notify')

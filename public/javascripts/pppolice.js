@@ -15,6 +15,19 @@
       image.onload = _ => {loadedimg += 1};
     }
   }
+  function yyMMdd(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('');
+  }
   function noBP(nobp = true){
     if (nobp) document.getElementById('container').innerHTML = `<div id='nobp' class='nobp shadow'>
       <div style="width:100%">
@@ -99,6 +112,10 @@
       break;
     }
     
+  }
+  function userInfo(user,api_base = 'https://www.mothership.top/api/v1'){
+    path = `/userinfo/${user.id}`;
+    // ?start=20180901&limit=1
   }
   function render(sort = 'ppdesc',showUserId = true){
     console.log('start rendering');
