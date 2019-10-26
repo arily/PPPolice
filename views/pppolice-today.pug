@@ -3,6 +3,7 @@ extends pppolice
 block content
   h2(class='shadow') #{account.name}'s bp #{bpDate}
   div(class='box')
+    div(id='userInfo');
     ul(id='container')
     script.
       window.onload = function(){
@@ -14,6 +15,7 @@ block content
         });
         pull.on('report.pushedAll',function() {
           render('ppdesc',false);
+          userInfo(!{account.id});
           noBP(false);
         });
         pull.on('player.noBPToday',function() {
@@ -22,7 +24,7 @@ block content
         pull.on('player.newToServer',function() {
           newToServer();
         });
-        pull.om('connect',_=>{
+        pull.on('connect',_=>{
           setTimeout(_=> {pull.emit('!{emitEventName}',{id: !{account.id}}!{dateTime})},500);
         })
       }

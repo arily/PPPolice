@@ -100,7 +100,7 @@
     }
     
   }
-  function render(sort = 'ppdesc',showUserId = true ){
+  function render(sort = 'ppdesc',showUserId = true){
     console.log('start rendering');
     sortStorage(sort);
     document.getElementById('container').innerHTML = '';
