@@ -141,7 +141,7 @@
         default:
           rank = data.newScore.rank;
       }
-      let html = `<li id='${colh}' class='shadow'>
+      let html = `<a class="score-card" rel="noopener noreferrer" target="_blank" href="https://osu.ppy.sh/beatmapsets/${data.beatmap.beatmapSetId}#osu/${data.beatmap.id}"><li id='${colh}' class='shadow'>
       <div>
       <img class="rank shadow" src="https://osu.ppy.sh/images/badges/score-ranks-v2019/GradeSmall-${rank}.svg?3" />
       <img class="beatmapImg shadow" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
@@ -152,7 +152,8 @@
       <p>${accuracy}</p>
       <h4>${showplayer}${data.newScore.raw_date} UTC</h4>
       </div>
-      </li>`;
+      </li>
+      </a>`;
       document.getElementById('container').innerHTML += html;
     });
   }

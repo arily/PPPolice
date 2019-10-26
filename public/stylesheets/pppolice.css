@@ -48,6 +48,10 @@ li img {
   max-height: 100%;
   border-radius: 5px;
 }
+.score-card {
+  text-decoration: none;
+  color: black;
+}
 li .rank {
   margin-top: 5px;
   margin-left: 5px;
