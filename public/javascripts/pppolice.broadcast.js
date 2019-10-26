@@ -12,5 +12,7 @@
     console.log('defarm',data);
     storage('defarm',data);
   });
+  pull.on('connect',_=>{
     setTimeout(_=> {pull.emit('history')},500);
+  })
   }

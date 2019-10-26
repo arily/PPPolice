@@ -22,6 +22,8 @@ block content
         pull.on('player.newToServer',function() {
           newToServer();
         });
-        setTimeout(_=> {pull.emit('!{emitEventName}',{id: !{account.id}}!{dateTime})},500);
+        pull.om('connect',_=>{
+          setTimeout(_=> {pull.emit('!{emitEventName}',{id: !{account.id}}!{dateTime})},500);
+        })
       }
   div(id='notify')
