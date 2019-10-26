@@ -5,6 +5,24 @@
   var loadedimg = 0;
   var loadInterval;
   var opentime = new Date().getTime();
+  calculateBP = function (account, limit = 5){
+  let totalpp = 0;
+  account.bp.sort((a, b) => (a.pp < b.pp) ? 1 : -1);
+  let bp = account.bp.slice(0,limit);
+  bp.forEach((bp,index) => {
+
+    let weight = Math.pow(0.95,index);
+    let weightedpp =  bp.pp * weight ;
+    totalpp += weightedpp
+
+  });
+  return totalpp;
+}
+function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
+  const multi = Math.pow(11,highbuff/10) * Math.pow(11,lowbuff/10);
+  pptoday = calculateBP(player,limit);
+  return Math.pow( (pptoday / ( ( Math.pow(player.pp,0.5) * highbuff ) + ( lowbuff * player.pp ) / 80 )),1.3) * multi ;
+}
   function listenImgLoad(){
     console.log('wait for preview loading');
     let images = document.getElementsByClassName('beatmapImg');
@@ -113,9 +131,49 @@
     }
     
   }
-  function userInfo(user,api_base = 'https://www.mothership.top/api/v1'){
-    path = `/userinfo/${user.id}`;
-    // ?start=20180901&limit=1
+  async function userInfo(user,date = undefined , farmLimit = 100, buff = -8.5, api_base = '/api/v1'){
+
+    if (date === undefined ) {
+      date = new Date().getTime();
+      date = date  - 60 * 60 * 24 * 1000 * 2;
+    } else {
+      date = Date.parse(date);
+      date = date  - 60 * 60 * 24 * 1000;
+    }
+    
+    let path = `/userinfo/${user.id}`;
+    let url = api_base.concat(path);
+    let query = url.concat(`?start=${yyMMdd(date)}&limit=1`);
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", query, false ); // false for synchronous request
+    xmlHttp.send( null );
+    var cabbage = JSON.parse(xmlHttp.responseText);
+    if (cabbage.code === 0) {
+      cabbageUser = cabbage.data[0];
+      bp = pushed.map(event => {return {pp: event.result.pp}} );
+      user.pp = cabbageUser.ppRaw;
+      user.bp = bp;
+      user.rank = cabbageUser.ppRank;
+      pptoday = calculateBP(user, farmLimit);
+      farmtoday = calcFarm(user, 10 - buff, 10 + buff, farmLimit );
+      document.getElementById('userInfo').innerHTML = `
+      <ul class="container">
+      <li class='score-card shadow'>
+      <div>
+      <img class="avatar shadow" src="https://a.ppy.sh/${user.id}" />
+      </div>
+      <div>
+      <h1>${user.name}</h1>
+      <p class="pp">#${user.rank}</p>
+      <p class="pp">${user.pp} pp</p>
+      <p class="pp">${Math.round(pptoday * 1000) / 1000} pp today</p>
+      <p class="pp">${Math.round(farmtoday * 1000) / 1000} FARM</p>
+      </div>
+      </li>
+      </ul>
+      `
+    }
   }
   function render(sort = 'ppdesc',showUserId = true){
     console.log('start rendering');

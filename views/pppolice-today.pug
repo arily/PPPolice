@@ -1,12 +1,11 @@
 extends pppolice
 
 block content
-  h2(class='shadow') #{account.name}'s bp #{bpDate}
   div(class='box')
-    div(id='userInfo')
-    ul(id='container')
+    div(class='container' id='userInfo')
+    ul(class='container' id='container')
     script.
-      var [user,from,to] = [{id: !{account.id}}!{dateTime}]
+      var [user,from,to] = [{name: '!{account.name}', id: !{account.id}}!{dateTime}]
       window.onload = function(){
         var pull = io.connect('/');
         pull.on('report.farm',function(data) {
@@ -14,9 +13,9 @@ block content
           storage('farm',data,false);
           newToServer(true);
         });
-        pull.on('report.pushedAll',function() {
+        pull.on('report.pushedAll',async function() {
           render('ppdesc',false);
-          userInfo(!{account.id});
+          userInfo(user,from);
           noBP(false);
         });
         pull.on('player.noBPToday',function() {

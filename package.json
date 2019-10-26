@@ -9,6 +9,7 @@
     "@pm2/io": "^4.3.2",
     "async-redis": "^1.1.7",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
@@ -18,6 +19,7 @@
     "node-storage": "0.0.9",
     "pug": "2.0.0-beta11",
     "redis": "^2.8.0",
+    "request": "^2.88.0",
     "socket.io": "^2.3.0",
     "util": "^0.12.1",
     "vue": "^2.6.10"

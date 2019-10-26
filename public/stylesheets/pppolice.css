@@ -1,6 +1,6 @@
 body, html { height: 100%; width:100%; }
 * {margin: 0; padding: 0;}
- #container {
+.container{
   margin: auto;
  }
 .box {
@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6{
   display:table;
 
 }
-h2 {
+h2.title {
   font-size: 35px;
   margin-top: 5px;
   padding-left: 5px;
@@ -50,7 +50,7 @@ li img {
 }
 .score-card {
   text-decoration: none;
-  color: black;
+  color:black;
 }
 li .rank {
   margin-top: 5px;
@@ -105,6 +105,9 @@ li {
 li:hover {
   background: white;
   cursor: pointer;
+}
+.avatar{
+  max-width: 160px;
 }
 
 
