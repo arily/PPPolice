@@ -49,7 +49,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
   function noBP(nobp = true){
     
     if (nobp) {
-      let shit = ['why not afk?','你气不气📢','play more','这么悲伤的事情，不忍心说啊。','📢⬆️⬇️'，'📢⬇️⬆️'];
+      let shit = ['why not afk?','你气不气📢','play more','这么悲伤的事情，不忍心说啊。','📢⬆️⬇️','📢⬇️⬆️'];
       let fuck = shit[Math.floor(Math.random()*shit.length)];
       document.getElementById('container').innerHTML = `<div id='nobp' class='nobp shadow'>
       <div style="width:100%">
