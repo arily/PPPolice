@@ -192,7 +192,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       HalfTime: "HT",
       HardRock: "HR",
       SuddenDeath: "SD",
-      DoubuleTime: "DT",
+      DoubleTime: "DT",
       Nightcore: "NC",
       Hidden: "HD",
       Flashlight: "FL",
@@ -202,7 +202,6 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       const data = event.result;
       const player = data.account.name;
       let mods = data.mods.filter(s => s !== 'FreeModAllowed' );
-
       //remove DT when NC is set
       if (mods.some(s => s === 'Nightcore' )){
         mods = data.mods.filter(s => s !== 'DoubuleTime' );
