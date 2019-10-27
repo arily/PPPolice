@@ -48,12 +48,12 @@ async function receive(type, event){
 }
 //broadcast
 app.io.sockets.on('connection',socket =>{
-	informationCenter.broadcastTo(socket);
 	socket.on('history', _ =>{
 		let push = informationCenter.replay();
 		push.forEach(p => {
 			socket.emit(p.type,p.content);
 		});
+		informationCenter.broadcastTo(socket);
 	});
 	socket.on('today',async player =>{
 		let today = new Date();

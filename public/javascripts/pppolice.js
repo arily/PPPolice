@@ -89,7 +89,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
           timestamp: timestamp,
         });
       } else {
-        console.log('newer score was before score stored here. * fix the chaos *');
+        console.log('time of the newer score was earlier than score stored here. * fix the chaos *');
       }
       
     } else {
