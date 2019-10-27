@@ -162,8 +162,8 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       let bp3 = calculateBP(user, 3);
       let bp5 = calculateBP(user, 5);
       let farmtoday = calcFarm(user, 10 - buff, 10 + buff, farmLimit );
-      let farm3 = calcFarm(user, 10 - buff, 10 + buff, 3 );
-      let farm5 = calcFarm(user, 10 - buff, 10 + buff, 5 );
+      let farm3 = calcFarm(user, 10 + buff, 10 - buff, 3 );
+      let farm5 = calcFarm(user, 10 + buff, 10 - buff, 5 );
       document.getElementById('userInfo').innerHTML = `
       <ul class="container">
       <li class='score-card shadow'>
@@ -185,11 +185,31 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
     console.log('start rendering');
     sortStorage(sort);
     document.getElementById('container').innerHTML = '';
+    let shortMods = {
+      Easy: "EZ",
+      NoFail: "NF",
+      HalfTime: "HT",
+      HardRock: "HR",
+      SuddenDeath: "SD",
+      DoubuleTime: "DT",
+      Nightcore: "NC",
+      Hidden: "HD",
+      Flashlight: "FL",
+      SpawnOut: "SO",
+    }
     pushed.forEach(event => {
       const data = event.result;
       const player = data.account.name;
-      let mods = data.mods.filter(s => s !== 'FreeModAllowed' ).join(',');
-      mods = (mods !== '') ? ' + ' + mods : '';
+      let mods = data.mods.filter(s => s !== 'FreeModAllowed' );
+
+      //remove DT when NC is set
+      if (mods.some(s => s === 'Nightcore' )){
+        mods = data.mods.filter(s => s !== 'DoubuleTime' );
+      }
+
+      mods = mods.map( mod => shortMods[mod]).join(',');
+
+      mods = (mods !== '') ? ` + ${mods}` : '';
       const bmstr = `${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}] (${data.beatmap.creator})${mods}`;
       const colh = hashCode(data.account.id + '-' + data.beatmap.id);
       switch (event.type){
