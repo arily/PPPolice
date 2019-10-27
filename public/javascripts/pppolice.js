@@ -161,7 +161,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       let pptoday = calculateBP(user, 100);
       let bp3 = calculateBP(user, 3);
       let bp5 = calculateBP(user, 5);
-      let farmtoday = calcFarm(user, 10 - buff, 10 + buff, farmLimit );
+      let farmtoday = calcFarm(user, 10 + buff, 10 - buff, farmLimit );
       let farm3 = calcFarm(user, 10 + buff, 10 - buff, 3 );
       let farm5 = calcFarm(user, 10 + buff, 10 - buff, 5 );
       document.getElementById('userInfo').innerHTML = `
