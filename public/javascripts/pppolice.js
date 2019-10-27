@@ -135,7 +135,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
     }
     
   }
-  async function userInfo(user,date = undefined , farmLimit = 100, buff = -8.25, api_base = 'https://www.mothership.top/api/v1'){
+  async function userInfo(user,date = undefined , farmLimit = 100, buff = -8, api_base = 'https://www.mothership.top/api/v1'){
     if (date === undefined ) {
       date = new Date().getTime();
       date = date  - 60 * 60 * 24 * 1000;
