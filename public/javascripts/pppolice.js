@@ -148,10 +148,11 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
     let url = api_base.concat(path);
     let query = url.concat(`?start=${yyMMdd(date)}&limit=1`);
 
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", query, false ); // false for synchronous request
-    xmlHttp.send( null );
-    var cabbage = JSON.parse(xmlHttp.responseText);
+    // var xmlHttp = new XMLHttpRequest();
+    // xmlHttp.open( "GET", query, false ); // false for synchronous request
+    // xmlHttp.send( null );
+    // var cabbage = JSON.parse(xmlHttp.responseText);
+    let cabbage = await fetch(query).then( res => res.json());
     if (cabbage.code === 0) {
       let cabbageUser = cabbage.data[0];
       let bp = pushed.map(event => {return {pp: event.result.pp}} );
