@@ -15,7 +15,7 @@ block content
         });
         pull.on('report.pushedAll',async function() {
           render('ppdesc',false);
-          userInfo(user,from);
+          await userInfo(user,from);
           noBP(false);
         });
         pull.on('player.noBPToday',function() {
