@@ -135,10 +135,10 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
     }
     
   }
-  async function userInfo(user,date = undefined , farmLimit = 100, buff = -8.5, api_base = 'https://www.mothership.top/api/v1'){
+  async function userInfo(user,date = undefined , farmLimit = 100, buff = -8.25, api_base = 'https://www.mothership.top/api/v1'){
     if (date === undefined ) {
       date = new Date().getTime();
-      date = date  - 60 * 60 * 24 * 1000 * 2;
+      date = date  - 60 * 60 * 24 * 1000;
     } else {
       date = Date.parse(date);
       date = date  - 60 * 60 * 24 * 1000;
@@ -168,7 +168,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       document.getElementById('userInfo').innerHTML = `
       <ul class="container">
       <li class='score-card shadow'>
-      <div>
+      <div class='left-img'>
       <img class="avatar shadow" src="https://a.ppy.sh/${user.id}" />
       </div>
       <div>
@@ -243,7 +243,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
           rank = data.newScore.rank;
       }
       let html = `<a class="score-card" rel="noopener noreferrer" target="_blank" href="https://osu.ppy.sh/beatmapsets/${data.beatmap.beatmapSetId}#osu/${data.beatmap.id}"><li id='${colh}' class='shadow'>
-      <div>
+      <div class='left-img'>
       <img class="rank shadow" src="https://osu.ppy.sh/images/badges/score-ranks-v2019/GradeSmall-${rank}.svg?3" />
       <img class="beatmapImg shadow" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
       </div>
