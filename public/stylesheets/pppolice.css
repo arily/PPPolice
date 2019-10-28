@@ -7,7 +7,7 @@
   --card-font-color: black;
   --beatmap-bg-britness: 1;
   --beatmap-bg-opacity: 1;
-  --beatmap-bg-decolor: 1;
+  --beatmap-bg-decolor: 0;
 }
 .night {
   --bg-color: linear-gradient(rgba(0, 17, 35, 0.83), rgb(27, 21, 9)) no-repeat center center fixed;
