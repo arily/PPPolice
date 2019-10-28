@@ -288,7 +288,8 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       50: count50,
       miss: countmiss,
       toString: function(){
-        return `<b>${Math.round(this.acc * 10000)/100}%</b> ${this[300]} × 300, ${this[100]} × 100, ${this[50]} × 50, ${this.miss} × miss, `;
+        strCount = Object.entries({100:this[100],50:this[50],miss:this.miss}).filter(count => count[1] > 0).map((count) => `${count[1]} x ${count[0]}`).join(', ');
+        return `<b>${Math.round(this.acc * 10000)/100}%</b> <span class='small-font'>${strCount}</span>`;
       }
     }
   }
@@ -303,7 +304,8 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       50: now[50] - old[50],
       miss: now.miss - old.miss,
       toString: function(){
-        return `<b>${addPlus(Math.round((this.now.acc - this.old.acc) * 10000)/100)}%</b> ${addPlus(this[300])} × 300, ${addPlus(this[100])} × 100, ${addPlus(this[50])} × 50, ${addPlus(this.miss)} × miss, `;
+        strCount = Object.entries({100:this[100],50:this[50],miss:this.miss}).filter(count => count > 0).map((count,index) => `${addPlus(count)} x ${index}`).join(', ');
+        return `<b>${addPlus(Math.round((this.now.acc - this.old.acc) * 10000)/100)}%</b> <span class='small-font'>${strCount}</span>`;
       }
     }
   }
