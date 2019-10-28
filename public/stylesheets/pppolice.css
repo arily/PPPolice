@@ -137,7 +137,7 @@ li {
   overflow: auto;
   border-radius: 10px;
   background: var(--card-bg-color);
-  transition: background 0.2s ease-out;
+  transition: background 1s ease-out;
 }
 
 .nobp img {
@@ -148,7 +148,6 @@ li {
 .nobp:hover, li:hover {
   background: var(--card-hover-color);
   cursor: pointer;
-  transition: background 0s ease;
 }
 
 /*shadow*/
