@@ -1,11 +1,22 @@
-  var maxHistory = 200;
-  var pushed  = [];
-  var renderTimer = undefined;
-  var totalimg = 0;
-  var loadedimg = 0;
-  var loadInterval;
-  var opentime = new Date().getTime();
-  calculateBP = function (account, limit = 5){
+var maxHistory = 200;
+var pushed  = [];
+var renderTimer = undefined;
+var totalimg = 0;
+var loadedimg = 0;
+var loadInterval;
+var opentime = new Date().getTime();
+
+//theme changer
+const hours = new Date().getHours()
+const isDayTime = hours > 6 && hours < 20;
+var root = document.documentElement;
+if (isDayTime){
+  root.setAttribute( 'class', 'day' );
+} else {
+  root.setAttribute( 'class', 'night' );
+}
+//theme changer end
+calculateBP = function (account, limit = 5){
   let totalpp = 0;
   account.bp.sort((a, b) => (a.pp < b.pp) ? 1 : -1);
   let bp = account.bp.slice(0,limit);
@@ -168,7 +179,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       document.getElementById('userInfo').innerHTML = `
       <ul class="container">
       <li class='score-card shadow'>
-      <div class='left-img'>
+      <div class='left-img avatar-container'>
       <img class="avatar shadow" src="https://a.ppy.sh/${user.id}" />
       </div>
       <div>
