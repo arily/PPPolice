@@ -211,6 +211,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       Flashlight: "FL",
       SpawnOut: "SO",
     }
+    let content = '';
     pushed.forEach(event => {
       const data = event.result;
       const player = data.account.name;
@@ -268,8 +269,9 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       </div>
       </li>
       </a>`;
-      document.getElementById('container').innerHTML += html;
+      content += html;
     });
+    document.getElementById('container').innerHTML = content;
   }
   function hashCode(s){
     return s;
