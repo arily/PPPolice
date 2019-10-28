@@ -1,5 +1,7 @@
 .day {
-  --bg-color: linear-gradient(rgba(230, 100, 101,0.5), rgba(145, 152, 229,0.5)) no-repeat center center fixed;
+  --bg-color-1: rgba(230, 100, 101,0.5);
+  --bg-color-2: rgba(145, 152, 229,0.5);
+  --bg-color: var(--bg-color-2);
   --card-bg-color: rgba(255, 255, 255, 0.8);
   --card-hover-color: white;
   --shadow-color: 0px 1px 4px rgba(0,0,0,0.3),0px 0px 20px rgba(0,0,0,0.1) inset;
@@ -10,7 +12,9 @@
   --beatmap-bg-decolor: 0;
 }
 .night {
-  --bg-color: linear-gradient(rgba(0, 17, 35, 0.83), rgb(27, 21, 9)) no-repeat center center fixed;
+  --bg-color-1: rgba(0, 9, 18, 0.83);
+  --bg-color-2: rgb(27, 21, 9);
+  --bg-color: var(--bg-color-1);
   --card-bg-color: rgba(0, 0, 0, 0.25);
   --card-hover-color: rgba(0, 0, 0, 0.46);
   --shadow-color: 0px 2px 4px rgba(0, 0, 0, 0.42),0px 2px 2px rgba(255, 255, 255, 0.05) inset;
@@ -52,14 +56,17 @@ body, html { height: 100%; width:100%; color:var(--card-font-color);}
 }
 .rank {
   filter: brightness(var(--beatmap-bg-britness)) sepia(var(--beatmap-bg-decolor));
+  transition: all 1s ease-in-out;
 }
 .beatmapImg, .avatar {
   filter: brightness(var(--beatmap-bg-britness))opacity(var(--beatmap-bg-opacity)) sepia(var(--beatmap-bg-decolor)) saturate(calc(2 - var(--beatmap-bg-opacity)));
+  transition: all 1s ease-in-out;
 }
 html {
   position:relative;
   background: var(--bg-color);
   background-size: cover;
+  transition: all 1s ease-in-out;
 }
 li div {
   min-height: 120px;
@@ -81,6 +88,7 @@ h2.title {
   border-radius: 5px;
   margin: auto;
   background: var(--card-bg-color);
+  transition: all 1s ease-in-out;
 }
 h3 {
   font-size: 30px;
@@ -96,6 +104,7 @@ li img {
 .score-card {
   text-decoration: none;
   color: var(--card-font-color);
+  transition: all 1s ease-in-out;
 }
 li .rank {
   margin-top: 5px;
@@ -128,6 +137,7 @@ li {
   overflow: auto;
   border-radius: 10px;
   background: var(--card-bg-color);
+  transition: all 0.2s ease-out;
 }
 
 .nobp img {
@@ -138,10 +148,12 @@ li {
 .nobp:hover, li:hover {
   background: var(--card-hover-color);
   cursor: pointer;
+  transition: all 0s ease;
 }
 
 /*shadow*/
 
 .shadow {
   box-shadow: var(--shadow-color);
+  transition: all 1s ease-out;
 }
