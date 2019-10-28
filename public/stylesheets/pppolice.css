@@ -59,7 +59,7 @@ body, html { height: 100%; width:100%; color:var(--card-font-color);}
 html {
   position:relative;
   background: var(--bg-color);
-  background-size: 100vh;
+  background-size: cover;
 }
 li div {
   min-height: 120px;
