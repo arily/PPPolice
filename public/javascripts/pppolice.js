@@ -304,7 +304,7 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5){
       50: now[50] - old[50],
       miss: now.miss - old.miss,
       toString: function(){
-        strCount = Object.entries({100:this[100],50:this[50],miss:this.miss}).filter(count => count > 0).map((count) => `${addPlus(count[1])} x ${count[0]}`).join(', ');
+        strCount = Object.entries({100:this[100],50:this[50],miss:this.miss}).filter(count => count[1] > 0 || count[0] != 300).map((count) => `${addPlus(count[1])} x ${count[0]}`).join(', ');
         return `<b>${addPlus(Math.round((this.now.acc - this.old.acc) * 10000)/100)}%</b> <span class='small-font'>${strCount}</span>`;
       }
     }
