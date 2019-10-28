@@ -7,14 +7,16 @@ var loadInterval;
 var opentime = new Date().getTime();
 
 //theme changer
-const hours = new Date().getHours()
-const isDayTime = hours > 6 && hours < 20;
-var root = document.documentElement;
-if (isDayTime){
-  root.setAttribute( 'class', 'day' );
-} else {
-  root.setAttribute( 'class', 'night' );
-}
+setInterval(_=>{
+  const hours = new Date().getHours()
+  const isDayTime = hours > 6 && hours < 20;
+  var root = document.documentElement;
+  if (isDayTime){
+    root.setAttribute( 'class', 'day' );
+  } else {
+    root.setAttribute( 'class', 'night' );
+  }
+}, 1000);   
 //theme changer end
 calculateBP = function (account, limit = 5){
   let totalpp = 0;
