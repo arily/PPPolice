@@ -56,7 +56,7 @@ body, html { height: 100%; width:100%; color:var(--card-font-color);}
   margin: 0 15px 0 0;
 }
 .rank {
-  filter: brightness(var(--beatmap-bg-britness)) sepia(var(--beatmap-bg-decolor)) sepia(var(--beatmap-bg-decolor)) saturate(calc(2 - var(--beatmap-bg-opacity));
+  filter: brightness(var(--beatmap-bg-britness)) sepia(var(--beatmap-bg-decolor)) sepia(var(--beatmap-bg-decolor)) saturate(calc(2 - var(--beatmap-bg-opacity)));
 }
 .beatmapImg, .avatar {
   filter: brightness(var(--beatmap-bg-britness))opacity(var(--beatmap-bg-opacity)) sepia(var(--beatmap-bg-decolor)) saturate(calc(2 - var(--beatmap-bg-opacity)));
