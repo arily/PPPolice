@@ -10,7 +10,7 @@
   --beatmap-bg-britness: 1;
   --beatmap-bg-opacity: 1;
   --beatmap-bg-decolor: 0;
-  --transition-duration: 1s;
+  --transition-duration: 3s;
 }
 .night {
   --bg-color-1: rgba(0, 9, 18, 0.83);
@@ -65,7 +65,7 @@ html {
   position:relative;
   background: var(--bg-color);
   background-size: cover;
-  transition: background 1s ease-out, box-shadow 1s ease-out, color 1s ease-out, filter 1s ease-out;
+  transition: background var(--transition-duration) ease-out, box-shadow var(--transition-duration) ease-out, color var(--transition-duration) ease-out, filter var(--transition-duration) ease-out;
 }
 li div {
   min-height: 120px;
@@ -135,7 +135,7 @@ li {
   overflow: auto;
   border-radius: 10px;
   background: var(--card-bg-color);
-  transition-duration: 1s;
+  transition-duration: var(--transition-duration);
 }
 
 .nobp img {
