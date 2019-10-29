@@ -144,7 +144,7 @@ li {
 .nobp:hover, li:hover {
   background: var(--card-hover-color);
   cursor: pointer;
-  transition: background 0s;
+  transition-duration: 0s;
 }
 
 /*shadow*/
