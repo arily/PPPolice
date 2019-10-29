@@ -65,7 +65,7 @@ html {
   position:relative;
   background: var(--bg-color);
   background-size: cover;
-  transition: background var(--transition-duration) ease-out, box-shadow var(--transition-duration) ease-out, color var(--transition-duration) ease-out, filter var(--transition-duration) ease-out;
+  transition: all var(--transition-duration) ease-out;
 }
 li div {
   min-height: 120px;
