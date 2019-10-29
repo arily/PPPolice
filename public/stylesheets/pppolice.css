@@ -10,6 +10,7 @@
   --beatmap-bg-britness: 1;
   --beatmap-bg-opacity: 1;
   --beatmap-bg-decolor: 0;
+  --transition-duration: 1s;
 }
 .night {
   --bg-color-1: rgba(0, 9, 18, 0.83);
@@ -134,6 +135,7 @@ li {
   overflow: auto;
   border-radius: 10px;
   background: var(--card-bg-color);
+  transition-duration: 1s;
 }
 
 .nobp img {
