@@ -56,17 +56,17 @@ body, html { height: 100%; width:100%; color:var(--card-font-color);}
 }
 .rank {
   filter: brightness(var(--beatmap-bg-britness)) sepia(var(--beatmap-bg-decolor));
-  transition: filter 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 .beatmapImg, .avatar {
   filter: brightness(var(--beatmap-bg-britness))opacity(var(--beatmap-bg-opacity)) sepia(var(--beatmap-bg-decolor)) saturate(calc(2 - var(--beatmap-bg-opacity)));
-  transition: filter 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 html {
   position:relative;
   background: var(--bg-color);
   background-size: cover;
-  transition: background 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 li div {
   min-height: 120px;
@@ -88,7 +88,7 @@ h2.title {
   border-radius: 5px;
   margin: auto;
   background: var(--card-bg-color);
-  transition: background 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 h3 {
   font-size: 30px;
@@ -104,7 +104,7 @@ li img {
 .score-card {
   text-decoration: none;
   color: var(--card-font-color);
-  transition: color 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 li .rank {
   margin-top: 5px;
@@ -137,7 +137,7 @@ li {
   overflow: auto;
   border-radius: 10px;
   background: var(--card-bg-color);
-  transition: background 1s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .nobp img {
@@ -154,5 +154,5 @@ li {
 
 .shadow {
   box-shadow: var(--shadow-color);
-  transition: box-shadow 1s ease-out;
+  transition: all 1s ease-out;
 }
