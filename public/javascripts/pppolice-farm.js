@@ -54,7 +54,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             targets: [1]
         },{
             className: "monospace",
-            targets: [1],
+            targets: [0],
             render: (data, type, row, ) => {
                 if (type === 'display') {
                     return `<a href="https://osu.ppy.sh/users/${data}">${data}</a>`;
