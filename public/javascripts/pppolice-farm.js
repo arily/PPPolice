@@ -2,7 +2,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
 
     bps = await calcAllAccountsFarm(...arguments);
     let dataSet = [];
-     await (Object.keys(bps).map(async user => {
+    await Object.keys(bps).map(async user => {
         user = bps[user];
         //uid,uname,pp,farm,pptoday,farm3,bp3,farm5,bp5
         if (user.pptoday > 0) dataSet[dataSet.length] = [
@@ -16,7 +16,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             user.farm5,
             user.bp5
         ];
-    }));
+    });
     $('#table').DataTable({
         data: dataSet,
         columns: [
