@@ -34,7 +34,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             targets: [2, 4, 6, 8],
             render: (data, type, row, ) => {
                 if (type === 'display') {
-                    return data.toFixed( 2 );
+                    return data.toFixed(2);
                 } else {
                     return data;
                 }
@@ -44,7 +44,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             targets: [3, 5, 7],
             render: (data, type, row, ) => {
                 if (type === 'display') {
-                    return data.toFixed( 4 );
+                    return data.toFixed(4);
                 } else {
                     return data;
                 }
@@ -52,7 +52,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
         }, {
             className: "monospace",
             targets: [1]
-        },{
+        }, {
             className: "monospace",
             targets: [0],
             render: (data, type, row, ) => {
@@ -61,9 +61,10 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
                 } else {
                     return data;
                 }
+            },
         }, {
             className: "dt-body-right monospace",
-            targets: [2,3,4,5,6,7,8]
+            targets: [2, 3, 4, 5, 6, 7, 8]
         }, ],
 
     });
