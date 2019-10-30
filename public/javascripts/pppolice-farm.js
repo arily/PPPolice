@@ -57,7 +57,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             targets: [0],
             render: (data, type, row, ) => {
                 if (type === 'display') {
-                    return `<a href="https://osu.ppy.sh/users/${data}">${data}</a>`;
+                    return `<a rel="noopener noreferrer" target="_blank" href="https://osu.ppy.sh/users/${data}">${data}</a>`;
                 } else {
                     return data;
                 }
