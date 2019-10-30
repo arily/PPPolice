@@ -7,128 +7,139 @@ app = require('./app.js');
 let _ = require('lodash');
 
 var redis = require("redis")
-const {promisify} = require('util');
+const { promisify } = require('util');
 
-const {mode} = require('./config/pppolice.js');
-policeStation.accession('chive',mode);
+const { mode } = require('./config/pppolice.js');
+policeStation.accession('chive', mode);
 
 policeStation.open();
 
-policeStation.on('report.defarm',async event => {
-	console.log(event.toString());
-	informationCenter.emit('report.defarm',event);
-	
+policeStation.on('report.defarm', async event => {
+    console.log(event.toString());
+    informationCenter.emit('report.defarm', event);
+
 })
-policeStation.on('report.refarm',async event =>{
-	console.log(event.toString());
-	informationCenter.emit('report.refarm',event);
-	
+policeStation.on('report.refarm', async event => {
+    console.log(event.toString());
+    informationCenter.emit('report.refarm', event);
+
 });
-policeStation.on('report.farm',async event =>{
-	console.log(event.toString());
-	informationCenter.emit('report.farm',event);
-	
+policeStation.on('report.farm', async event => {
+    console.log(event.toString());
+    informationCenter.emit('report.farm', event);
+
 });
-policeStation.on('report.verbose',async event => {
-	console.log(event);
+policeStation.on('report.verbose', async event => {
+    console.log(event);
 });
 
-informationCenter.on('report.defarm', event => { receive( 'report.defarm', event ) });
-informationCenter.on('report.refarm', event => { receive( 'report.refarm', event ) });
-informationCenter.on('report.farm', event => { receive( 'report.farm', event ) });
+informationCenter.on('report.defarm', event => { receive('report.defarm', event) });
+informationCenter.on('report.refarm', event => { receive('report.refarm', event) });
+informationCenter.on('report.farm', event => { receive('report.farm', event) });
 
-async function receive(type, event){
-	event = {
-		type: type,
-		content: event,
-		time : new Date(),
-	};
-	informationCenter.broadcast(event);
-	informationCenter.record(event);
+async function receive(type, event) {
+    event = {
+        type: type,
+        content: event,
+        time: new Date(),
+    };
+    informationCenter.broadcast(event);
+    informationCenter.record(event);
 }
 //broadcast
-app.io.sockets.on('connection',socket =>{
-	socket.on('history', _ =>{
-		let push = informationCenter.replay();
-		push.forEach(p => {
-			socket.emit(p.type,p.content);
-		});
-		informationCenter.broadcastTo(socket);
-	});
-	socket.on('today',async player =>{
-		let today = new Date();
-		today.setHours(0,0,0,0);
-		today = today.toLocaleString("en-US", {timeZone: "Asia/Shanghai"});
-		today = new Date(today).getTime() + 60 * 60 * 24 * 1000;
-		let id = player.id;
-		let account = undefined;
-		if (policeStation.officers.chive.watchingList()[id] !== undefined){
-			account = policeStation.officers.chive.watchingList()[id];
-		} else {
-			socket.emit('player.newToServer');
-			account = await policeStation.officers.chive.findIdentity(id);
-			await policeStation.officers.chive.newSuspect(account);
-		}
-		await policeStation.officers.chive.updatePlayer(account);
-		bps = await policeStation.officers.chive.BPRange(player,today);
-		if (bps.length == 0){
-			socket.emit('player.noBPToday');
-			return;
-		} else bps.forEach(p => {
-			socket.emit('report.farm',p);
-		});
-		socket.emit('report.pushedAll');
-	});
-	socket.on('BPDate',async (player,date) =>{
-		let parse = Date.parse(date);
-		if ((new Date(parse)).getTime() > 0){
-			let id = player.id;
-			let timestamp = parse;
-			let account = undefined;
-			if (policeStation.officers.chive.watchingList()[id] !== undefined){
-				account = policeStation.officers.chive.watchingList()[id];
-			} else {
-				socket.emit('player.newToServer');
-				account = await policeStation.officers.chive.findIdentity(id);
-				await policeStation.officers.chive.newSuspect(account);
-			}
-			await policeStation.officers.chive.updatePlayer(account);
-			bps = await policeStation.officers.chive.BPRange(player,timestamp);
-			if (bps.length == 0){
-				socket.emit('player.noBPToday');
-				return;
-			} else bps.forEach(p => {
-				socket.emit('report.farm',p);
-			});
-			socket.emit('report.pushedAll');
-		}
-		
-	});
-	socket.on('BPRange',async (player,from,to) =>{
-		from = Date.parse(from);
-		to = Date.parse(to);
-		if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0){
-			let id = player.id;
-			let account = undefined;
-			if (policeStation.officers.chive.watchingList()[id] !== undefined){
-				account = policeStation.officers.chive.watchingList()[id];
-			} else {
-				socket.emit('player.newToServer');
-				account = await policeStation.officers.chive.findIdentity(id);
-				await policeStation.officers.chive.newSuspect(account);
-			}
-			await policeStation.officers.chive.updatePlayer(account);
-			bps = await policeStation.officers.chive.BPRange(player,from,to);
-			if (bps.length == 0){
-				socket.emit('player.noBPToday');
-				return;
-			} else bps.forEach(p => {
-				socket.emit('report.farm',p);
-			});
-			socket.emit('report.pushedAll');
-		}
-		
-	});
+app.io.sockets.on('connection', socket => {
+    socket.on('history', _ => {
+        let push = informationCenter.replay();
+        push.forEach(p => {
+            socket.emit(p.type, p.content);
+        });
+        informationCenter.broadcastTo(socket);
+    });
+    socket.on('today', async player => {
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+        today = today.toLocaleString("en-US", { timeZone: "Asia/Shanghai" });
+        today = new Date(today).getTime() + 60 * 60 * 24 * 1000;
+        let id = player.id;
+        let account = undefined;
+        if (policeStation.officers.chive.watchingList()[id] !== undefined) {
+            account = policeStation.officers.chive.watchingList()[id];
+        } else {
+            socket.emit('player.newToServer');
+            account = await policeStation.officers.chive.findIdentity(id);
+            await policeStation.officers.chive.newSuspect(account);
+        }
+        await policeStation.officers.chive.updatePlayer(account);
+        bps = await policeStation.officers.chive.BPRange(player, today);
+        if (bps.length == 0) {
+            socket.emit('player.noBPToday');
+            return;
+        } else bps.forEach(p => {
+            socket.emit('report.farm', p);
+        });
+        socket.emit('report.pushedAll');
+    });
+    socket.on('BPDate', async (player, date) => {
+        let parse = Date.parse(date);
+        if ((new Date(parse)).getTime() > 0) {
+            let id = player.id;
+            let timestamp = parse;
+            let account = undefined;
+            if (policeStation.officers.chive.watchingList()[id] !== undefined) {
+                account = policeStation.officers.chive.watchingList()[id];
+            } else {
+                socket.emit('player.newToServer');
+                account = await policeStation.officers.chive.findIdentity(id);
+                await policeStation.officers.chive.newSuspect(account);
+            }
+            await policeStation.officers.chive.updatePlayer(account);
+            bps = await policeStation.officers.chive.BPRange(player, timestamp);
+            if (bps.length == 0) {
+                socket.emit('player.noBPToday');
+                return;
+            } else bps.forEach(p => {
+                socket.emit('report.farm', p);
+            });
+            socket.emit('report.pushedAll');
+        }
+
+    });
+    socket.on('BPRange', async (player, from, to) => {
+        from = Date.parse(from);
+        to = Date.parse(to);
+        if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0) {
+            let id = player.id;
+            let account = undefined;
+            if (policeStation.officers.chive.watchingList()[id] !== undefined) {
+                account = policeStation.officers.chive.watchingList()[id];
+            } else {
+                socket.emit('player.newToServer');
+                account = await policeStation.officers.chive.findIdentity(id);
+                await policeStation.officers.chive.newSuspect(account);
+            }
+            await policeStation.officers.chive.updatePlayer(account);
+            bps = await policeStation.officers.chive.BPRange(player, from, to);
+            console.log(bps);
+            if (bps.length == 0) {
+                socket.emit('player.noBPToday');
+                return;
+            } else bps.forEach(p => {
+                socket.emit('report.farm', p);
+            });
+            socket.emit('report.pushedAll');
+        }
+
+    });
+    socket.on('FARMOnline', async (from, to) => {
+        from = Date.parse(from);
+        to = Date.parse(to);
+        if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0) {
+            bps = await policeStation.officers.chive.BPFilter({ from, to });
+            console.log(bps);
+            socket.emit('scores.result', bps);
+            socket.emit('report.pushedAll');
+        }
+    });
 });
 
 
@@ -161,92 +172,92 @@ app.io.sockets.on('connection',socket =>{
 //   		}
 // 	});
 // }
-saveListOld = function (officer,name,onExit = false ){
-	client = redis.createClient();
-	const getAsync = promisify(client.get).bind(client);
-	const hgetallAsync = promisify(client.hgetall).bind(client);
-	const list = officer.copyList();
-	if (onExit){
-		client.hset('policeStation',`${name}_onExit`,JSON.stringify(list));
-	} else {
-		client.hset('policeStation',name,JSON.stringify(list));
-	}
-	
+saveListOld = function(officer, name, onExit = false) {
+    client = redis.createClient();
+    const getAsync = promisify(client.get).bind(client);
+    const hgetallAsync = promisify(client.hgetall).bind(client);
+    const list = officer.copyList();
+    if (onExit) {
+        client.hset('policeStation', `${name}_onExit`, JSON.stringify(list));
+    } else {
+        client.hset('policeStation', name, JSON.stringify(list));
+    }
+
 }
-readListOld = function (){
-	client = redis.createClient();
-	const getAsync = promisify(client.get).bind(client);
-	const hgetallAsync = promisify(client.hgetall).bind(client);
-	client.hgetall('policeStation',function(err,officers){
-	Object.keys(officers).forEach(function(key) {
-  		var val = officers[key];
-  		val = JSON.parse(val);
-  		for (let i in val ){
-  			rebindProto(val[i]);
-  		}
-  		if (policeStation.officers[key] != undefined){
-  			console.log('load',key);
-  			policeStation.officers[key].grabSuspectsList(val);
-  		}
-	});
-	});
+readListOld = function() {
+    client = redis.createClient();
+    const getAsync = promisify(client.get).bind(client);
+    const hgetallAsync = promisify(client.hgetall).bind(client);
+    client.hgetall('policeStation', function(err, officers) {
+        Object.keys(officers).forEach(function(key) {
+            var val = officers[key];
+            val = JSON.parse(val);
+            for (let i in val) {
+                rebindProto(val[i]);
+            }
+            if (policeStation.officers[key] != undefined) {
+                console.log('load', key);
+                policeStation.officers[key].grabSuspectsList(val);
+            }
+        });
+    });
 }
-saveList = async function (officer,name,onExit = false ){
-	const suspectList = require('./lib/suspectList');
-	var s = new suspectList('PPPolice-osu');
-	const list = officer.copyList();
-	Object.keys(list).forEach(function(key) {
-  		var val = list[key];
-  		s.set(val);
-  	});
+saveList = async function(officer, name, onExit = false) {
+    const suspectList = require('./lib/suspectList');
+    var s = new suspectList('PPPolice-osu');
+    const list = officer.copyList();
+    Object.keys(list).forEach(function(key) {
+        var val = list[key];
+        s.set(val);
+    });
 }
-readList = async function (){
-	const suspectList = require('./lib/suspectList');
-	var s = new suspectList('PPPolice-osu');
-	let list = await s.getAll();
-	policeStation.officers.chive.grabSuspectsList(list);
+readList = async function() {
+    const suspectList = require('./lib/suspectList');
+    var s = new suspectList('PPPolice-osu');
+    let list = await s.getAll();
+    policeStation.officers.chive.grabSuspectsList(list);
 }
-rebindProto = function(account){
-	const osu = require('node-osu');
-	account.__proto__ = osu.User.prototype;
-	if (account.mode == undefined) account.mode = mode;
-	account.events.forEach(e => {
-		e.__proto__ = osu.Event.prototype;
-	});
-	account.bp.forEach(e => {
-		e.__proto__ = osu.Score.prototype;
-	})
+rebindProto = function(account) {
+    const osu = require('node-osu');
+    account.__proto__ = osu.User.prototype;
+    if (account.mode == undefined) account.mode = mode;
+    account.events.forEach(e => {
+        e.__proto__ = osu.Event.prototype;
+    });
+    account.bp.forEach(e => {
+        e.__proto__ = osu.Score.prototype;
+    })
 }
-process.on( 'SIGINT', function() {
-  console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
-  // some other closing procedures go here
-  saveList(policeStation.officers.chive,'chive',true);
-  process.exit( );
+process.on('SIGINT', function() {
+    console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+    // some other closing procedures go here
+    saveList(policeStation.officers.chive, 'chive', true);
+    process.exit();
 })
 
 pmx.action('save', function(reply) {
-	saveList(policeStation.officers.chive,'chive');
-  	reply({ answer : 'save' });
+    saveList(policeStation.officers.chive, 'chive');
+    reply({ answer: 'save' });
 });
 
 pmx.action('saveold', function(reply) {
-	saveListOld(policeStation.officers.chive,'chive');
-  	reply({ answer : 'save' });
+    saveListOld(policeStation.officers.chive, 'chive');
+    reply({ answer: 'save' });
 });
-pmx.action('load', function(param,reply) {
-	readList(param);
-  	reply({ 
-  		param : param,	
-  		answer : 'read'
-  		 });
+pmx.action('load', function(param, reply) {
+    readList(param);
+    reply({
+        param: param,
+        answer: 'read'
+    });
 });
 
-pmx.action('loadold', function(param,reply) {
-	readListOld(param);
-  	reply({ 
-  		param : param,	
-  		answer : 'read'
-  		 });
+pmx.action('loadold', function(param, reply) {
+    readListOld(param);
+    reply({
+        param: param,
+        answer: 'read'
+    });
 });
 // pmx.action('savenew', function(reply) {
 // 	saveListNew(policeStation.officers.chive,'chive');
