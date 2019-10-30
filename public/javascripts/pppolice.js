@@ -34,8 +34,9 @@ calculateBP = function(account, limit = 5) {
 
 function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5) {
     const multi = Math.pow(11, highbuff / 10) * Math.pow(11, lowbuff / 10);
-    pptoday = calculateBP(player, limit);
-    return Math.pow((pptoday / ((Math.pow(player.pp, 0.5) * highbuff) + (lowbuff * player.pp) / 80)), 1.3) * multi;
+    let pptoday = calculateBP(player, limit);
+    let farm = Math.pow((pptoday / ((Math.pow(parseFloat(player.pp), 0.5) * highbuff) + (lowbuff * parseFloat(player.pp)) / 80)), 1.3) * multi;
+    return farm;
 }
 
 function listenImgLoad() {

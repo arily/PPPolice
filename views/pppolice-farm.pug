@@ -25,4 +25,6 @@ block content
           setTimeout(_=> {pull.emit('!{emitEventName}',from,to)},500);
         })
       }
+    label(for="buff" style="color: var(--card-font-color)") 手动设置buff: 
+    input(type="number" name="buff" value="-6" onchange="onFarmBuffChange(this.value)")
   div(id='notify')
