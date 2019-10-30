@@ -25,10 +25,11 @@
   --beatmap-bg-opacity: 0.8;
   --beatmap-bg-decolor: 0.3;
 }
-body, html { height: 100%; width:100%; color:var(--card-font-color);}
+body, html { height: 100%; width:100%;}
 * {margin: 0; padding: 0;}
 .container{
   margin: auto;
+  color:var(--card-font-color);
  }
 .box {
   margin: 10px;
