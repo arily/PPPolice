@@ -23,7 +23,7 @@
   --card-font-color: hsla(43, 100%, 89%, 0.4);
   --beatmap-bg-britness: 0.6;
   --beatmap-bg-opacity: 0.8;
-  --beatmap-bg-decolor: 0.7;
+  --beatmap-bg-decolor: 0.3;
 }
 body, html { height: 100%; width:100%; color:var(--card-font-color);}
 * {margin: 0; padding: 0;}
