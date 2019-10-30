@@ -2,10 +2,10 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
 
     bps = await calcAllAccountsFarm(...arguments);
     let dataSet = [];
-    for (let user = 0; user < 10; user++) {
+    for (let user in bps) {
         user = bps[user];
         //uid,uname,pp,farm,pptoday,farm3,bp3,farm5,bp5
-        dataSet[dataSet.length] = [
+        if (user.pptoday > 0) dataSet[dataSet.length] = [
             user.id,
             user.name,
             user.pp,
@@ -17,7 +17,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             user.bp5
         ];
     }
-    $('#table').DataTable( {
+    $('#table').DataTable({
         data: dataSet,
         columns: [
             { title: "UserID" },
@@ -30,7 +30,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             { title: "farm5" },
             { title: "bp5" },
         ]
-    } );
+    });
 }
 async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
 
@@ -51,8 +51,8 @@ async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
             user.farm5 = calcFarm(user, 10 + buff, 10 - buff, 5);
 
         } else {
-            console.log(`can't read user info from cabbage, when reading user ${user.name}`
-            	,cabbageResult);
+            console.log(`can't read user info from cabbage, when reading user ${user.name}`);
+            console.log(cabbageResult);
         }
     }
     return bps;
