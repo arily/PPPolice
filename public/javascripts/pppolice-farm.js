@@ -29,6 +29,12 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             { title: "bp3" },
             { title: "farm5" },
             { title: "bp5" },
+        ],
+        columnDefs: [
+            {
+                targets: [ 0, 1, 2 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
         ]
     });
 }
