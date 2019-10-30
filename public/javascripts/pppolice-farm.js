@@ -51,10 +51,10 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             }
         }, {
             className: "monospace",
-            targets: [2,3,4,5,6,7,8]
+            targets: [0,1]
         }, {
             className: "dt-body-right monospace",
-            targets: [0,1]
+            targets: [2,3,4,5,6,7,8]
         }, ],
 
     });
