@@ -49,7 +49,13 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
                     return data;
                 }
             }
-        }],
+        }, {
+            className: "monospace",
+            targets: [2,3,4,5,6,7,8]
+        }, {
+            className: "dt-body-right monospace",
+            targets: [0,1]
+        }, ],
 
     });
 }

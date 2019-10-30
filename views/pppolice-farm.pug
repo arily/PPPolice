@@ -6,13 +6,14 @@ block addons
   script(src=`https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js`)
   link(rel='stylesheet', href=`https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css`)
   link(rel='stylesheet', href=`https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css`)
+  link(rel='stylesheet', href=`/stylesheets/dataTable.css`)
   script(src=`/javascripts/pppolice-farm.js?20191029-3`)
 
 block content
   div(class='box')
     div(class='container' id='userInfo')
     div(style='background:white;margin:auto;')
-      table(id='table' class="display" style="width:100%;")
+      table(id='table' class="display cell-border compact" style="width:100%;")
     script.
       var [from,to] = [!{dateTime}]
       window.onload = function(){
