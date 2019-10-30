@@ -119,7 +119,7 @@ app.io.sockets.on('connection', socket => {
             }
             await policeStation.officers.chive.updatePlayer(account);
             bps = await policeStation.officers.chive.BPRange(player, from, to);
-            console.log(bps);
+
             if (bps.length == 0) {
                 socket.emit('player.noBPToday');
                 return;
@@ -135,7 +135,7 @@ app.io.sockets.on('connection', socket => {
         to = Date.parse(to);
         if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0) {
             bps = await policeStation.officers.chive.BPFilter({ from, to });
-            console.log(bps);
+
             socket.emit('scores.result', bps);
             socket.emit('report.pushedAll');
         }
