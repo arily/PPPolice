@@ -51,7 +51,16 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             }
         }, {
             className: "monospace",
-            targets: [0,1]
+            targets: [1]
+        },{
+            className: "monospace",
+            targets: [1],
+            render: (data, type, row, ) => {
+                if (type === 'display') {
+                    return `<a href="https://osu.ppy.sh/users/${data}">${data}</a>`;
+                } else {
+                    return data;
+                }
         }, {
             className: "dt-body-right monospace",
             targets: [2,3,4,5,6,7,8]
