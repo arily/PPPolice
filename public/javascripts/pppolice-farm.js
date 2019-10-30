@@ -2,7 +2,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
 
     bps = await calcAllAccountsFarm(...arguments);
     let dataSet = [];
-    for (let user in bps) {
+    for (let user = 0; user < 10; user++) {
         user = bps[user];
         //uid,uname,pp,farm,pptoday,farm3,bp3,farm5,bp5
         dataSet[dataSet.length] = [
