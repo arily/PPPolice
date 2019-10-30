@@ -12,6 +12,8 @@ block addons
 block content
   div(class='box')
     div(class='container' id='userInfo')
+    label(for="buff" style="color: var(--card-font-color)") 手动设置buff: 
+    input(type="number" name="buff" value="-6" onchange="onFarmBuffChange(this.value)")
     div(style='background:white;margin:auto;')
       table(id='table' class="display cell-border compact" style="width:100%;")
     script.
@@ -25,6 +27,4 @@ block content
           setTimeout(_=> {pull.emit('!{emitEventName}',from,to)},500);
         })
       }
-    label(for="buff" style="color: var(--card-font-color)") 手动设置buff: 
-    input(type="number" name="buff" value="-6" onchange="onFarmBuffChange(this.value)")
   div(id='notify')
