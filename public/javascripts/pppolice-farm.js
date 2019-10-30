@@ -34,7 +34,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             targets: [2, 4, 6, 8],
             render: (data, type, row, ) => {
                 if (type === 'display') {
-                    return parseInt(data * 100) / 100;
+                    return data.toFixed( 2 );
                 } else {
                     return data;
                 }
@@ -44,7 +44,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             targets: [3, 5, 7],
             render: (data, type, row, ) => {
                 if (type === 'display') {
-                    return parseInt(data * 10000) / 10000;
+                    return data.toFixed( 4 );
                 } else {
                     return data;
                 }
