@@ -19,7 +19,7 @@ block content
       window.onload = function(){
         var pull = io.connect('/');
         pull.on('scores.result',function(s) {
-          showFarm(s,from, buff = -8, farmLimit = 10);
+          showFarm(s,from, buff = -6, farmLimit = 10);
         });
         pull.on('connect',_=>{
           setTimeout(_=> {pull.emit('!{emitEventName}',from,to)},500);
