@@ -52,6 +52,7 @@ async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
 
         } else {
             throw new Error(`can't read user info from cabbage, when reading user ${user.name}`);
+            console.log(cabbageResult);
         }
     }
     return bps;
