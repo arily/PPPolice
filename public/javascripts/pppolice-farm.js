@@ -34,7 +34,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
 }
 async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
 
-    await (Object.keys(bps).map(async user => {
+    await Promis.all(Object.keys(bps).map(async user => {
         user = bps[user];
 
         let cabbageResult = await cabbageGetAccount(user, from);
