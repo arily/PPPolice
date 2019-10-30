@@ -2,7 +2,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
 
     bps = await calcAllAccountsFarm(...arguments);
     let dataSet = [];
-    for (let user in bps) {
+     await (Object.keys(bps).map(user => {
         user = bps[user];
         //uid,uname,pp,farm,pptoday,farm3,bp3,farm5,bp5
         if (user.pptoday > 0) dataSet[dataSet.length] = [
@@ -16,7 +16,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             user.farm5,
             user.bp5
         ];
-    }
+    }));
     $('#table').DataTable({
         data: dataSet,
         columns: [
@@ -34,7 +34,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
 }
 async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
 
-    for (let user in bps) {
+    await (Object.keys(bps).map(user => {
         user = bps[user];
 
         let cabbageResult = await cabbageGetAccount(user, from);
@@ -54,6 +54,6 @@ async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
             console.log(`can't read user info from cabbage, when reading user ${user.name}`);
             console.log(cabbageResult);
         }
-    }
+    }));
     return bps;
 }
