@@ -30,12 +30,27 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
             { title: "farm5" },
             { title: "bp5" },
         ],
-        columnDefs: [
-            {
-                targets: [ 0, 1, 2 ],
-                className: 'mdl-data-table__cell--non-numeric'
+        columnDefs: [{
+            targets: [2, 4, 6, 8],
+            render: (data, type, row, ) => {
+                if (type === 'display') {
+                    return parseInt(data * 100) / 100;
+                } else {
+                    return data;
+                }
             }
-        ]
+        }, {
+
+            targets: [3, 5, 7],
+            render: (data, type, row, ) => {
+                if (type === 'display') {
+                    return parseInt(data * 10000) / 10000;
+                } else {
+                    return data;
+                }
+            }
+        }],
+
     });
 }
 async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
