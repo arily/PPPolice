@@ -195,7 +195,7 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
     } else {
         date = Date.parse(date);
         date = date - 60 * 60 * 24 * 1000;
-        if (Date.parse(date).setHours(0) - 4 * 60 * 60 * 1000 < Date.parse(date).setHours(0) ){
+        if (new Date(date).setHours(0).getTime() - 4 * 60 * 60 * 1000 < new Date(date).setHours(0).getTime() ){
             date = date - 60 * 60 * 24 * 1000;
         }
     }
