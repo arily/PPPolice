@@ -134,7 +134,9 @@ app.io.sockets.on('connection', socket => {
         from = Date.parse(from);
         to = Date.parse(to);
         if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0) {
+            console.log('start fetching BPrange results');
             bps = await policeStation.officers.chive.BPFilter({ from, to });
+            console.log('fetched BPrange results');
             await Promise.all(Object.keys(bps).map(async user => {
                 user = bps[user];
                 user.bp.forEach(bp => {
@@ -143,7 +145,9 @@ app.io.sockets.on('connection', socket => {
                     }
                 });
             }));
+            console.log('cleaned results');
             socket.emit('scores.result', bps);
+            console.log('pushed results');
             socket.emit('report.pushedAll');
         }
     });
