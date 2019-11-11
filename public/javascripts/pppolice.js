@@ -189,8 +189,7 @@ async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_
     }
 }
 async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.top/api/v1') {
-    if (date === undefined) {
-        date = new Date().getTime();
+    if (date === undefined) {   
         date = date - 60 * 60 * 24 * 1000;
     } else {
         date = Date.parse(date);
