@@ -157,7 +157,7 @@ function sortStorage(sort = 'ppdesc') {
     }
 
 }
-async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_base = 'https://www.mothership.top/api/v1') {
+async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_base = 'https://p.ri.mk/api/v1/') {
     let cabbage = await cabbageGetAccount(user, date);
     if (cabbage.code === 0) {
         let cabbageUser = cabbage.data[0];
