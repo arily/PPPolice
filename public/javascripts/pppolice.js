@@ -157,7 +157,7 @@ function sortStorage(sort = 'ppdesc') {
     }
 
 }
-async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_base = 'https://p.ri.mk/api/v1/') {
+async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_base = 'https://p.ri.mk/api/v1') {
     let cabbage = await cabbageGetAccount(user, date);
     if (cabbage.code === 0) {
         let cabbageUser = cabbage.data[0];
@@ -188,7 +188,7 @@ async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_
       `
     }
 }
-async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.top/api/v1') {
+async function cabbageGetAccount(user, date, api_base = 'https://p.ri.mk/api/v1') {
     if (date === undefined) {   
         date = date - 60 * 60 * 24 * 1000;
     } else {
