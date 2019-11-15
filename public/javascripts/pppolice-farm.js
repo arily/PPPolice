@@ -94,7 +94,7 @@ async function calcAllAccountsFarm(bps, from, buff = -8, farmLimit = 10) {
 
             user.pp = cabbageUser.ppRaw;
             user.rank = cabbageUser.ppRank;
-            user.pptoday = calculateBP(user, 100);
+            user.pptoday = calculateBP(user, farmLimit);
             user.bp3 = calculateBP(user, 3);
             user.bp5 = calculateBP(user, 5);
             user.farmtoday = calcFarm(user, 10 + buff, 10 - buff, farmLimit);
