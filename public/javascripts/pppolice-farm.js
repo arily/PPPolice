@@ -5,6 +5,7 @@ async function showFarm(bps, from, buff = -8, farmLimit = 10) {
     myStorage.setItem('FARM-List', JSON.stringify(bps));
     dataSet = await createDataSet(bps);
     $('#table').DataTable({
+        retrieve: true,
         data: dataSet,
         columns: [
             { title: "UserID" },
