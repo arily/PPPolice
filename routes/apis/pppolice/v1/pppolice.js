@@ -34,7 +34,7 @@ function options(query) {
 function paramsArray(req) {
     let query = Object.assign(req.params, req.query);
     let rtn = [prepareQueryObject(query), options(query)];
-    console.log(rtn);
+    // console.log(rtn);
     return rtn
 }
 async function mergeReqForApiSearch(req) {
