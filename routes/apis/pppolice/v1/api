@@ -38,7 +38,7 @@ query	:	查询
 
 	fields[]: (optional)	[columns of return] //check "fields[]" section
 
-@return JSON Api.User
+@return JSON Api.User || null
 
 示例:
 GET 	/api/pppolice/v1/getUser?id=1123053							//returns Api.User
@@ -90,7 +90,7 @@ query	:	查询
 
 	fields[]: (optional)	[columns of return] //check "fields[]" section
 
-@return JSON [ Api.User, ...]
+@return JSON Api.User || null
 
 示例:
 GET 	/api/pppolice/v1/findOne?id=1123053							//returns Api.User
