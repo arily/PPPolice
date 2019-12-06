@@ -8,7 +8,8 @@ var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var apiRouter = require('./routes/api');
+var khmcApi = require('./routes/apis/khmc/khmc');
+var pppoliceApi = require('./routes/apis/pppolice/pppolice');
 var farm = require('./routes/farm');
 var final = require('./routes/final');
 
@@ -30,7 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', apiRouter);
+app.use('/api/ms/', khmcApi);
+app.use('/api/pppolice/', pppoliceApi);
 app.use('/farm', farm);
 app.use('/final', final);
 
