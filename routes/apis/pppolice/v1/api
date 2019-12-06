@@ -15,6 +15,12 @@ query	:	查询
 
 @return JSON boolean
 
+示例:
+GET 	/api/pppolice/v1/localUserExists?id=1123053			//optput 'true'
+GET 	/api/pppolice/v1/localUserExists/arily	 			//optput 'true'
+POST 	/api/pppolice/v1/localUserExists body:{id:1123053}	//optput 'true'
+
+
 
 
 [getUser] 获取用户
@@ -34,6 +40,13 @@ query	:	查询
 
 @return JSON Api.User Object
 
+示例:
+GET 	/api/pppolice/v1/getUser?id=1123053							//returns Api.User Object
+GET 	/api/pppolice/v1/getUser?id=1123053?fields[]=name			//returns Api.User Object with only 'name' property
+GET 	/api/pppolice/v1/getUser/arily	 							//returns Api.User Object
+GET 	/api/pppolice/v1/getUser/arily?fields[]=name				//returns Api.User Object with only 'name' property
+POST 	/api/pppolice/v1/getUser body:{id:1123053}					//returns Api.User Object
+POST 	/api/pppolice/v1/getUser body:{id:1123053,fields:['name']}	//returns Api.User Object with only 'name' property
 
 
 [find] 查找用户
@@ -53,6 +66,13 @@ query	:	查询
 
 @return JSON [ Api.User Object, ...]
 
+示例:
+GET 	/api/pppolice/v1/find?id=1123053						//returns Array [ Api.User Object ]
+GET 	/api/pppolice/v1/find?id=1123053?fields[]=name			//returns Array [ Api.User Object ] with only 'name' property
+GET 	/api/pppolice/v1/find/arily	 							//returns Array [ Api.User Object ]
+GET 	/api/pppolice/v1/find/arily?fields[]=name				//returns Array [ Api.User Object ] with only 'name' property
+POST 	/api/pppolice/v1/find body:{id:1123053}					//returns Array [ Api.User Object ]
+POST 	/api/pppolice/v1/find body:{id:1123053,fields:['name']}	//returns Array [ Api.User Object ] with only 'name' property
 
 
 [findOne] 查找用户 (基本等效于getUser)
@@ -72,6 +92,13 @@ query	:	查询
 
 @return JSON [ Api.User Object, ...]
 
+示例:
+GET 	/api/pppolice/v1/findOne?id=1123053							//returns Api.User Object
+GET 	/api/pppolice/v1/findOne?id=1123053?fields[]=name			//returns Api.User Object with only 'name' property
+GET 	/api/pppolice/v1/findOne/arily	 							//returns Api.User Object
+GET 	/api/pppolice/v1/findOne/arily?fields[]=name				//returns Api.User Object with only 'name' property
+POST 	/api/pppolice/v1/findOne body:{id:1123053}					//returns Api.User Object
+POST 	/api/pppolice/v1/findOne body:{id:1123053,fields:['name']}	//returns Api.User Object with only 'name' property
 
 
 [BPRange] 查询用户今天，某天，某天至某天的bp
@@ -96,6 +123,17 @@ query	:	查询
 	end		: (optional)	bp range end date
 
 @return [ Api.Score Object ]
+
+示例:
+GET 	/api/pppolice/v1/BPRange?id=1123053													//returns Array [ Api.Score ] within all records played today
+GET 	/api/pppolice/v1/BPRange?id=1123053&start=2019-11-12								//returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
+GET 	/api/pppolice/v1/BPRange?id=1123053&start=2019-11-12&end=2019-12-12					//returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
+GET 	/api/pppolice/v1/BPRange/arily	 													//returns Array [ Api.Score ] within all records played today
+GET 	/api/pppolice/v1/BPRange/arily/2019-11-12											//returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
+GET 	/api/pppolice/v1/BPRange/arily/2019-11-12/2019-12-12								//returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
+POST 	/api/pppolice/v1/BPRange body:{id:1123053,}											//returns Array [ Api.Score ] within all records played today
+POST 	/api/pppolice/v1/BPRange body:{id:1123053,start:'2019-11-12'}						//returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019
+POST 	/api/pppolice/v1/BPRange body:{id:1123053,start:'2019-11-12', end: '2019-12-12'}	//returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
 --------
 
 (fields[]) 过滤结果
