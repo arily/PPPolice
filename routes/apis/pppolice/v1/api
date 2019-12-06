@@ -38,15 +38,15 @@ query	:	查询
 
 	fields[]: (optional)	[columns of return] //check "fields[]" section
 
-@return JSON Api.User Object
+@return JSON Api.User
 
 示例:
-GET 	/api/pppolice/v1/getUser?id=1123053							//returns Api.User Object
-GET 	/api/pppolice/v1/getUser?id=1123053?fields[]=name			//returns Api.User Object with only 'name' property
-GET 	/api/pppolice/v1/getUser/arily	 							//returns Api.User Object
-GET 	/api/pppolice/v1/getUser/arily?fields[]=name				//returns Api.User Object with only 'name' property
-POST 	/api/pppolice/v1/getUser body:{id:1123053}					//returns Api.User Object
-POST 	/api/pppolice/v1/getUser body:{id:1123053,fields:['name']}	//returns Api.User Object with only 'name' property
+GET 	/api/pppolice/v1/getUser?id=1123053							//returns Api.User
+GET 	/api/pppolice/v1/getUser?id=1123053?fields[]=name			//returns Api.User with only 'name' property
+GET 	/api/pppolice/v1/getUser/arily	 							//returns Api.User
+GET 	/api/pppolice/v1/getUser/arily?fields[]=name				//returns Api.User with only 'name' property
+POST 	/api/pppolice/v1/getUser body:{id:1123053}					//returns Api.User
+POST 	/api/pppolice/v1/getUser body:{id:1123053,fields:['name']}	//returns Api.User with only 'name' property
 
 
 [find] 查找用户
@@ -64,15 +64,15 @@ query	:	查询
 
 	fields[]: (optional)	[columns of return] //check "fields[]" section
 
-@return JSON [ Api.User Object, ...]
+@return JSON [ Api.User, ...]
 
 示例:
-GET 	/api/pppolice/v1/find?id=1123053						//returns Array [ Api.User Object ]
-GET 	/api/pppolice/v1/find?id=1123053?fields[]=name			//returns Array [ Api.User Object ] with only 'name' property
-GET 	/api/pppolice/v1/find/arily	 							//returns Array [ Api.User Object ]
-GET 	/api/pppolice/v1/find/arily?fields[]=name				//returns Array [ Api.User Object ] with only 'name' property
-POST 	/api/pppolice/v1/find body:{id:1123053}					//returns Array [ Api.User Object ]
-POST 	/api/pppolice/v1/find body:{id:1123053,fields:['name']}	//returns Array [ Api.User Object ] with only 'name' property
+GET 	/api/pppolice/v1/find?id=1123053						//returns Array [ Api.User ]
+GET 	/api/pppolice/v1/find?id=1123053?fields[]=name			//returns Array [ Api.User ] with only 'name' property
+GET 	/api/pppolice/v1/find/arily	 							//returns Array [ Api.User ]
+GET 	/api/pppolice/v1/find/arily?fields[]=name				//returns Array [ Api.User ] with only 'name' property
+POST 	/api/pppolice/v1/find body:{id:1123053}					//returns Array [ Api.User ]
+POST 	/api/pppolice/v1/find body:{id:1123053,fields:['name']}	//returns Array [ Api.User ] with only 'name' property
 
 
 [findOne] 查找用户 (基本等效于getUser)
@@ -90,19 +90,18 @@ query	:	查询
 
 	fields[]: (optional)	[columns of return] //check "fields[]" section
 
-@return JSON [ Api.User Object, ...]
+@return JSON [ Api.User, ...]
 
 示例:
-GET 	/api/pppolice/v1/findOne?id=1123053							//returns Api.User Object
-GET 	/api/pppolice/v1/findOne?id=1123053?fields[]=name			//returns Api.User Object with only 'name' property
-GET 	/api/pppolice/v1/findOne/arily	 							//returns Api.User Object
-GET 	/api/pppolice/v1/findOne/arily?fields[]=name				//returns Api.User Object with only 'name' property
-POST 	/api/pppolice/v1/findOne body:{id:1123053}					//returns Api.User Object
-POST 	/api/pppolice/v1/findOne body:{id:1123053,fields:['name']}	//returns Api.User Object with only 'name' property
+GET 	/api/pppolice/v1/findOne?id=1123053							//returns Api.User
+GET 	/api/pppolice/v1/findOne?id=1123053?fields[]=name			//returns Api.User with only 'name' property
+GET 	/api/pppolice/v1/findOne/arily	 							//returns Api.User
+GET 	/api/pppolice/v1/findOne/arily?fields[]=name				//returns Api.User with only 'name' property
+POST 	/api/pppolice/v1/findOne body:{id:1123053}					//returns Api.User
+POST 	/api/pppolice/v1/findOne body:{id:1123053,fields:['name']}	//returns Api.User with only 'name' property
 
 
 [BPRange] 查询用户今天，某天，某天至某天的bp
-
 
 GET 	/api/pppolice/v1/BPRange?query
 GET 	/api/pppolice/v1/BPRange/@handle?query
@@ -122,7 +121,7 @@ query	:	查询
 	start	: (optional)	bp range start date, return specificated day's record when 'end' undefined.
 	end		: (optional)	bp range end date
 
-@return [ Api.Score Object ]
+@return [ Api.Score ]
 
 示例:
 GET 	/api/pppolice/v1/BPRange?id=1123053													//returns Array [ Api.Score ] within all records played today
