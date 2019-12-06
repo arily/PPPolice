@@ -2,6 +2,11 @@ const api = {
   	key: 'api key',
 }
 
+const db = {
+	url: 'mongodb://wtf',
+	dbName: 'pppolice'
+}
+
 
 const intervals = {
 	update: 60,
@@ -12,7 +17,8 @@ const intervals = {
 mode = process.env.PPPOLICE_MODE || 0
 
 module.exports = {
-    api: api,
-    intervals: intervals,
-    mode: mode
+    api,
+    db,
+    intervals,
+    mode
 };

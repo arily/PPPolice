@@ -45,6 +45,7 @@ async function receive(type, event) {
     };
     informationCenter.broadcast(event);
     informationCenter.record(event);
+    informationCenter.save(event);
 }
 
 
@@ -52,9 +53,9 @@ let FARMOnline = async (from, to, socket, filter = undefined) => {
     from = Date.parse(from);
     to = Date.parse(to);
     if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0) {
-        console.log('start fetching BPrange results');
-        let bps = await policeStation.officers.chive.BPFilter({ from, to, u: filter });
-        console.log('fetched BPrange results');
+        // console.log('start fetching BPrange results');
+        let bps = await informationCenter.database.BPFilter({ from, to, u: filter });
+        // console.log('fetched BPrange results');
         await Promise.all(Object.keys(bps).map(async user => {
             user = bps[user];
             user.bp.forEach(bp => {
@@ -77,15 +78,15 @@ let ppToday = async (player, socket) => {
     today = new Date(today).getTime() + 60 * 60 * 24 * 1000;
     let id = player.id;
     let account = undefined;
-    if (policeStation.officers.chive.watchingList()[id] !== undefined) {
-        account = policeStation.officers.chive.watchingList()[id];
+    if (await policeStation.officers.chive.localUserExists(player)) {
+        account = await informationCenter.database.getUserById(id);
     } else {
         socket.emit('player.newToServer');
         account = await policeStation.officers.chive.findIdentity(id);
         await policeStation.officers.chive.newSuspect(account);
     }
     await policeStation.officers.chive.updatePlayer(account);
-    bps = await policeStation.officers.chive.BPRange(player, today);
+    bps = await informationCenter.database.BPRange(player, today);
     if (bps.length == 0) {
         socket.emit('player.noBPToday');
         return;
@@ -101,15 +102,15 @@ let bpDate = async (player, date, socket) => {
         let id = player.id;
         let timestamp = parse;
         let account = undefined;
-        if (policeStation.officers.chive.watchingList()[id] !== undefined) {
-            account = policeStation.officers.chive.watchingList()[id];
+        if (await policeStation.officers.chive.localUserExists(player)) {
+            account = await informationCenter.database.getUserById(id);
         } else {
             socket.emit('player.newToServer');
             account = await policeStation.officers.chive.findIdentity(id);
             await policeStation.officers.chive.newSuspect(account);
         }
         await policeStation.officers.chive.updatePlayer(account);
-        bps = await policeStation.officers.chive.BPRange(player, timestamp);
+        bps = await informationCenter.database.BPRange(player, timestamp);
         if (bps.length == 0) {
             socket.emit('player.noBPToday');
             return;
@@ -126,15 +127,15 @@ let bpRange = async (player, from, to, socket) => {
     if ((new Date(from)).getTime() > 0 && (new Date(to)).getTime() > 0) {
         let id = player.id;
         let account = undefined;
-        if (policeStation.officers.chive.watchingList()[id] !== undefined) {
-            account = policeStation.officers.chive.watchingList()[id];
+        if (await policeStation.officers.chive.localUserExists(player)) {
+            account = await informationCenter.database.getUserById(id);
         } else {
             socket.emit('player.newToServer');
             account = await policeStation.officers.chive.findIdentity(id);
             await policeStation.officers.chive.newSuspect(account);
         }
         await policeStation.officers.chive.updatePlayer(account);
-        bps = await policeStation.officers.chive.BPRange(player, from, to);
+        bps = await informationCenter.database.BPRange(player, from, to);
 
         if (bps.length == 0) {
             socket.emit('player.noBPToday');
@@ -291,30 +292,30 @@ process.on('SIGINT', function() {
     process.exit();
 })
 
-pmx.action('save', function(reply) {
-    saveList(policeStation.officers.chive, 'chive');
-    reply({ answer: 'save' });
-});
+// pmx.action('save', function(reply) {
+//     saveList(policeStation.officers.chive, 'chive');
+//     reply({ answer: 'save' });
+// });
 
-pmx.action('saveold', function(reply) {
-    saveListOld(policeStation.officers.chive, 'chive');
-    reply({ answer: 'save' });
-});
-pmx.action('load', function(param, reply) {
-    readList(param);
-    reply({
-        param: param,
-        answer: 'read'
-    });
-});
+// pmx.action('saveold', function(reply) {
+//     saveListOld(policeStation.officers.chive, 'chive');
+//     reply({ answer: 'save' });
+// });
+// pmx.action('load', function(param, reply) {
+//     readList(param);
+//     reply({
+//         param: param,
+//         answer: 'read'
+//     });
+// });
 
-pmx.action('loadold', function(param, reply) {
-    readListOld(param);
-    reply({
-        param: param,
-        answer: 'read'
-    });
-});
+// pmx.action('loadold', function(param, reply) {
+//     readListOld(param);
+//     reply({
+//         param: param,
+//         answer: 'read'
+//     });
+// });
 // pmx.action('savenew', function(reply) {
 //  saveListNew(policeStation.officers.chive,'chive');
 //      reply({ answer : 'save' });
