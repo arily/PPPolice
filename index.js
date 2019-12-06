@@ -161,23 +161,23 @@ app.io.sockets.on('connection', socket => {
         });
     });
     socket.on('today', async player => {
-        ppToday(player, socket);
+        await ppToday(player, socket);
         socket.disconnect(true)
     });
     socket.on('BPDate', async (player, date) => {
-        bpDate(player, date, socket);
+        await bpDate(player, date, socket);
         socket.disconnect(true)
     });
     socket.on('BPRange', async (player, from, to) => {
-        bpRange(player, from, to, socket);
+        await bpRange(player, from, to, socket);
         socket.disconnect(true)
     });
     socket.on('FARMOnline', async (from, to) => {
-        FARMOnline(from, to, socket);
+        await FARMOnline(from, to, socket);
         socket.disconnect(true)
     });
     socket.on('Final', async (from, to) => {
-        FARMOnline(from, to, socket, [377473,
+        await FARMOnline(from, to, socket, [377473,
             10859583,
             1646397,
             3668072,
