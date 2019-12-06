@@ -154,19 +154,27 @@ app.io.sockets.on('connection', socket => {
         push.forEach(p => {
             socket.emit(p.type, p.content);
         });
-        informationCenter.broadcastTo(socket);
+        let position = informationCenter.broadcastTo(socket);
+        socket.on('disconnect', function() {
+            delete informationCenter.broadcastList[position];
+
+        });
     });
     socket.on('today', async player => {
         ppToday(player, socket);
+        socket.disconnect(true)
     });
     socket.on('BPDate', async (player, date) => {
         bpDate(player, date, socket);
+        socket.disconnect(true)
     });
     socket.on('BPRange', async (player, from, to) => {
         bpRange(player, from, to, socket);
+        socket.disconnect(true)
     });
     socket.on('FARMOnline', async (from, to) => {
         FARMOnline(from, to, socket);
+        socket.disconnect(true)
     });
     socket.on('Final', async (from, to) => {
         FARMOnline(from, to, socket, [377473,
@@ -194,6 +202,7 @@ app.io.sockets.on('connection', socket => {
             15201417,
             3801720
         ]);
+        socket.disconnect(true)
     });
 
 });
