@@ -14,17 +14,17 @@ policeStation.accession('chive', mode);
 policeStation.open();
 
 policeStation.on('report.defarm', async event => {
-    console.log(event.toString());
+    console.log(event.string);
     informationCenter.emit('report.defarm', event);
 
 })
 policeStation.on('report.refarm', async event => {
-    console.log(event.toString());
+    console.log(event.string);
     informationCenter.emit('report.refarm', event);
 
 });
 policeStation.on('report.farm', async event => {
-    console.log(event.toString());
+    console.log(event.string);
     informationCenter.emit('report.farm', event);
 
 });
