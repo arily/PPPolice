@@ -1,3 +1,3 @@
-const db = new require('./database')();
+const db = new require('../lib/database')();
 
 db.deleteBadScores();
