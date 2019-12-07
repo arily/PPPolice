@@ -1,7 +1,7 @@
-informationCenter = require('./lib/informationCenter.js');
-policeStation = require('./lib/policeStation.js');
-pmx = require('@pm2/io');
-app = require('./app.js');
+const informationCenter = require('./lib/informationCenter.js');
+const policeStation = require('./lib/policeStation.js');
+const pmx = require('@pm2/io');
+const app = require('./app.js');
 
 let _ = require('lodash');
 
