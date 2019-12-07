@@ -2,137 +2,137 @@ api
 
 [localUserExists] 用户是否在pp警察数据库中
 
-GET 	/api/pppolice/v1/localUserExists?query
-GET 	/api/pppolice/v1/localUserExists/@handle?query
-POST 	/api/pppolice/v1/localUserExists	body: query
+GET  /api/pppolice/v1/localUserExists?query
+GET  /api/pppolice/v1/localUserExists/@handle?query
+POST  /api/pppolice/v1/localUserExists body: query
 
-@handle	: 	向osu Api发起getUser请求查询用户，若指定则应留空query
-query	:	查询
+@handle :  向osu Api发起getUser请求查询用户，若指定则应留空query
+query : 查询
 
-	id 		: (optional) 	osu id;
-	name	: (optional)	osu username,
-	country	: (optional)	country of user, //useless
+ id  : (optional)  osu id;
+ name : (optional) osu username,
+ country : (optional) country of user, //useless
 
 @return JSON boolean
 
 示例:
-GET 	/api/pppolice/v1/localUserExists?id=1123053			//optput 'true'
-GET 	/api/pppolice/v1/localUserExists/arily	 			//optput 'true'
-POST 	/api/pppolice/v1/localUserExists body:{id:1123053}	//optput 'true'
+GET  /api/pppolice/v1/localUserExists?id=1123053 //optput 'true'
+GET  /api/pppolice/v1/localUserExists/arily   //optput 'true'
+POST  /api/pppolice/v1/localUserExists body:{id:1123053} //optput 'true'
 
 
 
 
 [getUser] 获取用户
 
-GET 	/api/pppolice/v1/getUser?query
-GET 	/api/pppolice/v1/getUser/@handle?query
-POST 	/api/pppolice/v1/getUser	body: query
+GET  /api/pppolice/v1/getUser?query
+GET  /api/pppolice/v1/getUser/@handle?query
+POST  /api/pppolice/v1/getUser body: query
 
-@handle	: 	向osu Api发起getUser请求查询用户，若指定则应留空query
-query	:	查询
+@handle :  向osu Api发起getUser请求查询用户，若指定则应留空query
+query : 查询
 
-	id 		: (optional) 	osu id;
-	name	: (optional)	osu username,
-	country	: (optional)	country of user, //useless
+ id  : (optional)  osu id;
+ name : (optional) osu username,
+ country : (optional) country of user, //useless
 
-	fields[]: (optional)	[columns of return] //check "fields[]" section
+ fields[]: (optional) [columns of return] //check "fields[]" section
 
 @return JSON Api.User || null
 
 示例:
-GET 	/api/pppolice/v1/getUser?id=1123053							//returns Api.User
-GET 	/api/pppolice/v1/getUser?id=1123053?fields[]=name			//returns Api.User with only 'name' property
-GET 	/api/pppolice/v1/getUser/arily	 							//returns Api.User
-GET 	/api/pppolice/v1/getUser/arily?fields[]=name				//returns Api.User with only 'name' property
-POST 	/api/pppolice/v1/getUser body:{id:1123053}					//returns Api.User
-POST 	/api/pppolice/v1/getUser body:{id:1123053,fields:['name']}	//returns Api.User with only 'name' property
+GET  /api/pppolice/v1/getUser?id=1123053 //returns Api.User
+GET  /api/pppolice/v1/getUser?id=1123053?fields[]=name //returns Api.User with only 'name' property
+GET  /api/pppolice/v1/getUser/arily   //returns Api.User
+GET  /api/pppolice/v1/getUser/arily?fields[]=name //returns Api.User with only 'name' property
+POST  /api/pppolice/v1/getUser body:{id:1123053} //returns Api.User
+POST  /api/pppolice/v1/getUser body:{id:1123053,fields:['name']} //returns Api.User with only 'name' property
 
 
 [find] 查找用户
 
-GET 	/api/pppolice/v1/find?query
-GET 	/api/pppolice/v1/find/@handle?query
-POST 	/api/pppolice/v1/find	body: query
+GET  /api/pppolice/v1/find?query
+GET  /api/pppolice/v1/find/@handle?query
+POST  /api/pppolice/v1/find body: query
 
-@handle	: 	向osu Api发起getUser请求查询用户，若指定则应留空query
-query	:	查询
+@handle :  向osu Api发起getUser请求查询用户，若指定则应留空query
+query : 查询
 
-	id 		: (optional) 	osu id;
-	name	: (optional)	osu username,
-	country	: (optional)	country of user, 
+ id  : (optional)  osu id;
+ name : (optional) osu username,
+ country : (optional) country of user, 
 
-	fields[]: (optional)	[columns of return] //check "fields[]" section
+ fields[]: (optional) [columns of return] //check "fields[]" section
 
 @return JSON [ Api.User, ...]
 
 示例:
-GET 	/api/pppolice/v1/find?id=1123053						//returns Array [ Api.User ]
-GET 	/api/pppolice/v1/find?id=1123053?fields[]=name			//returns Array [ Api.User ] with only 'name' property
-GET 	/api/pppolice/v1/find/arily	 							//returns Array [ Api.User ]
-GET 	/api/pppolice/v1/find/arily?fields[]=name				//returns Array [ Api.User ] with only 'name' property
-POST 	/api/pppolice/v1/find body:{id:1123053}					//returns Array [ Api.User ]
-POST 	/api/pppolice/v1/find body:{id:1123053,fields:['name']}	//returns Array [ Api.User ] with only 'name' property
+GET  /api/pppolice/v1/find?id=1123053 //returns Array [ Api.User ]
+GET  /api/pppolice/v1/find?id=1123053?fields[]=name //returns Array [ Api.User ] with only 'name' property
+GET  /api/pppolice/v1/find/arily   //returns Array [ Api.User ]
+GET  /api/pppolice/v1/find/arily?fields[]=name //returns Array [ Api.User ] with only 'name' property
+POST  /api/pppolice/v1/find body:{id:1123053} //returns Array [ Api.User ]
+POST  /api/pppolice/v1/find body:{id:1123053,fields:['name']} //returns Array [ Api.User ] with only 'name' property
 
 
 [findOne] 查找用户 (基本等效于getUser)
 
-GET 	/api/pppolice/v1/findOne?query
-GET 	/api/pppolice/v1/findOne/@handle?query
-POST 	/api/pppolice/v1/findOne	body: query
+GET  /api/pppolice/v1/findOne?query
+GET  /api/pppolice/v1/findOne/@handle?query
+POST  /api/pppolice/v1/findOne body: query
 
-@handle	: 	向osu Api发起getUser请求查询用户，若指定则应留空query
-query	:	查询
+@handle :  向osu Api发起getUser请求查询用户，若指定则应留空query
+query : 查询
 
-	id 		: (optional) 	osu id;
-	name	: (optional)	osu username,
-	country	: (optional)	country of user, //useless
+ id  : (optional)  osu id;
+ name : (optional) osu username,
+ country : (optional) country of user, //useless
 
-	fields[]: (optional)	[columns of return] //check "fields[]" section
+ fields[]: (optional) [columns of return] //check "fields[]" section
 
 @return JSON Api.User || null
 
 示例:
-GET 	/api/pppolice/v1/findOne?id=1123053							//returns Api.User
-GET 	/api/pppolice/v1/findOne?id=1123053?fields[]=name			//returns Api.User with only 'name' property
-GET 	/api/pppolice/v1/findOne/arily	 							//returns Api.User
-GET 	/api/pppolice/v1/findOne/arily?fields[]=name				//returns Api.User with only 'name' property
-POST 	/api/pppolice/v1/findOne body:{id:1123053}					//returns Api.User
-POST 	/api/pppolice/v1/findOne body:{id:1123053,fields:['name']}	//returns Api.User with only 'name' property
+GET  /api/pppolice/v1/findOne?id=1123053 //returns Api.User
+GET  /api/pppolice/v1/findOne?id=1123053?fields[]=name //returns Api.User with only 'name' property
+GET  /api/pppolice/v1/findOne/arily   //returns Api.User
+GET  /api/pppolice/v1/findOne/arily?fields[]=name //returns Api.User with only 'name' property
+POST  /api/pppolice/v1/findOne body:{id:1123053} //returns Api.User
+POST  /api/pppolice/v1/findOne body:{id:1123053,fields:['name']} //returns Api.User with only 'name' property
 
 
 [BPRange] 查询用户今天，某天，某天至某天的bp
 
-GET 	/api/pppolice/v1/BPRange?query
-GET 	/api/pppolice/v1/BPRange/@handle?query
-GET 	/api/pppolice/v1/BPRange/@handle/@date
-GET 	/api/pppolice/v1/BPRange/@handle/@start/@end
-POST 	/api/pppolice/v1/BPRange	body: query
+GET  /api/pppolice/v1/BPRange?query
+GET  /api/pppolice/v1/BPRange/@handle?query
+GET  /api/pppolice/v1/BPRange/@handle/@date
+GET  /api/pppolice/v1/BPRange/@handle/@start/@end
+POST  /api/pppolice/v1/BPRange body: query
 
-@handle	: 	向osu Api发起getUser请求查询用户。若query为空则返回当日bp
-@date	:	查询当日bp
-@start	:	bp查询起始日，配合@end
-@end	:	bp查询结束日，配合@start
+@handle :  向osu Api发起getUser请求查询用户。若query为空则返回当日bp
+@date : 查询当日bp
+@start : bp查询起始日，配合@end
+@end : bp查询结束日，配合@start
 
-query	:	查询
+query : 查询
 
-	id 		: (optional) 	osu id;
-	name	: (optional)	osu username,
-	start	: (optional)	bp range start date, return specificated day's record when 'end' undefined.
-	end		: (optional)	bp range end date
+ id  : (optional)  osu id;
+ name : (optional) osu username,
+ start : (optional) bp range start date, return specificated day's record when 'end' undefined.
+ end : (optional) bp range end date
 
 @return [ Api.Score ]
 
 示例:
-GET 	/api/pppolice/v1/BPRange?id=1123053													//returns Array [ Api.Score ] within all records played today
-GET 	/api/pppolice/v1/BPRange?id=1123053&start=2019-11-12								//returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
-GET 	/api/pppolice/v1/BPRange?id=1123053&start=2019-11-12&end=2019-12-12					//returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
-GET 	/api/pppolice/v1/BPRange/arily	 													//returns Array [ Api.Score ] within all records played today
-GET 	/api/pppolice/v1/BPRange/arily/2019-11-12											//returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
-GET 	/api/pppolice/v1/BPRange/arily/2019-11-12/2019-12-12								//returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
-POST 	/api/pppolice/v1/BPRange body:{id:1123053,}											//returns Array [ Api.Score ] within all records played today
-POST 	/api/pppolice/v1/BPRange body:{id:1123053,start:'2019-11-12'}						//returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019
-POST 	/api/pppolice/v1/BPRange body:{id:1123053,start:'2019-11-12', end: '2019-12-12'}	//returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
+GET  /api/pppolice/v1/BPRange?id=1123053 //returns Array [ Api.Score ] within all records played today
+GET  /api/pppolice/v1/BPRange?id=1123053&start=2019-11-12 //returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
+GET  /api/pppolice/v1/BPRange?id=1123053&start=2019-11-12&end=2019-12-12 //returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
+GET  /api/pppolice/v1/BPRange/arily   //returns Array [ Api.Score ] within all records played today
+GET  /api/pppolice/v1/BPRange/arily/2019-11-12 //returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
+GET  /api/pppolice/v1/BPRange/arily/2019-11-12/2019-12-12 //returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
+POST  /api/pppolice/v1/BPRange body:{id:1123053,} //returns Array [ Api.Score ] within all records played today
+POST  /api/pppolice/v1/BPRange body:{id:1123053,start:'2019-11-12'} //returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019
+POST  /api/pppolice/v1/BPRange body:{id:1123053,start:'2019-11-12', end: '2019-12-12'} //returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
 --------
 
 (fields[]) 过滤结果
