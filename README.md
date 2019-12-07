@@ -1,5 +1,5 @@
 # PPPolice
  osu pp reminder
 
-api:
+api document:
 routes/apis/pppolice/v1/api
