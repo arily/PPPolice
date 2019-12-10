@@ -103,7 +103,7 @@ POST  /api/pppolice/v1/findOne body:{id:1123053,fields:['name']} //returns Api.U
 
 [BPRange] 查询用户今天，某天，某天至某天的bp
 
-GET  /api/pppolice/v1/BPRange?query
+//GET  /api/pppolice/v1/BPRange?query
 GET  /api/pppolice/v1/BPRange/@handle?query
 GET  /api/pppolice/v1/BPRange/@handle/@date
 GET  /api/pppolice/v1/BPRange/@handle/@start/@end
@@ -124,8 +124,8 @@ query : 查询
 @return [ Api.Score ]
 
 示例:
-GET  /api/pppolice/v1/BPRange?id=1123053 //returns Array [ Api.Score ] within all records played today
-GET  /api/pppolice/v1/BPRange?id=1123053&start=2019-11-12 //returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
+//GET  /api/pppolice/v1/BPRange?id=1123053 //returns Array [ Api.Score ] within all records played today
+//GET  /api/pppolice/v1/BPRange?id=1123053&start=2019-11-12 //returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,
 GET  /api/pppolice/v1/BPRange?id=1123053&start=2019-11-12&end=2019-12-12 //returns Array [ Api.Score ] within all records played between 12th, Nov, Year 2019 and 12th, Dec, Year 2019
 GET  /api/pppolice/v1/BPRange/arily   //returns Array [ Api.Score ] within all records played today
 GET  /api/pppolice/v1/BPRange/arily/2019-11-12 //returns Array [ Api.Score ] within all records played at 12th, Nov, Year 2019,

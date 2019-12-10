@@ -85,9 +85,9 @@ router.post('/findOne', async (req, res, next) => {
 });
 
 
-router.get('/BPRange', async (req, res, next) => {
-    res.json(await db.BPRange(await db.getUser({id: req.rquery.id || undefined , name: req.query.name || undefined }),req.query.start,req,query.end));
-});
+// router.get('/BPRange', async (req, res, next) => {
+//     res.json(await db.BPRange(await db.getUser({id: req.rquery.id || undefined , name: req.query.name || undefined }),req.query.start,req,query.end));
+// });
 router.get('/BPRange/:handle', async (req, res, next) => {
     res.json(await db.BPRange(await db.getUserApi(req.params.handle, { fields: db.fields.id }),req.query.start,req.query.end));
 });
