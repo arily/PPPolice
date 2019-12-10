@@ -5,9 +5,6 @@ app = require('./app.js');
 
 let _ = require('lodash');
 
-const redis = require("redis")
-const { promisify } = require('util');
-
 const { mode } = require('./config/pppolice.js');
 policeStation.accession('chive', mode);
 
