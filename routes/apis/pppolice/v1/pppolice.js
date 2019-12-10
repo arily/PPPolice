@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router({ mergeParams: true });
 const request = require('request');
+let verboseLevel = (process.env.NODE_ENV == 'production') ? 0 : 10;
 db = new require('../../../../lib/database')();
 /* KHMC. */
 router.get('/all', async (req, res, next) => {
