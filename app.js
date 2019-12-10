@@ -8,8 +8,7 @@ var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var khmcApi = require('./routes/apis/khmc/khmc');
-var pppoliceApi = require('./routes/apis/pppolice/pppolice');
+var apiRouter = require('./routes/api');
 var farm = require('./routes/farm');
 var final = require('./routes/final');
 
@@ -23,7 +22,7 @@ app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// app.use(logger('dev'));
+if (process.env.NODE_ENV != 'production') app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -31,8 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/ms/', khmcApi);
-app.use('/api/pppolice/', pppoliceApi);
+app.use('/api', apiRouter);
 app.use('/farm', farm);
 app.use('/final', final);
 
