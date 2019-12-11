@@ -1,20 +1,6 @@
 
 config/pppolice.js
-node_modules/.DS_Store
-node_modules/node-osu/.DS_Store
-
-lib/{"1123053":{"id":"1123053","name":"arily","counts"
-
-storage/policeStation
-node_modules/node-osu/lib/.DS_Store
-public/images/.DS_Store
-public/calculator/.DS_Store
-lib/.DS_Store
-public/.DS_Store
-.DS_Store
-routes/api的副本.js
 lib/migration.js
-routes/.DS_Store
-public/.DS_Store
 .DS_Store
 *node_modules/*
+/node_modules
