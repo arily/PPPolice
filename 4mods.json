@@ -1,0 +1,55 @@
+{
+    apps: [
+    {
+        name: "pppolice-osu",
+        script: "./index.js",
+        instances: 1,
+        watch: false,
+        exec_mode: "fork",
+        env:
+        {
+            NODE_ENV: "production",
+            PORT: 13333,
+            PPPOLICE_MODE: 0
+        }
+    },
+    {
+        name: "pppolice-taiko",
+        script: "./index.js",
+        instances: 1,
+        watch: false,
+        exec_mode: "fork",
+        env:
+        {
+            NODE_ENV: "production",
+            PORT: 13334,
+            PPPOLICE_MODE: 1
+        }
+    },
+    {
+        name: "pppolice-ctb",
+        script: "./index.js",
+        instances: 1,
+        watch: false,
+        exec_mode: "fork",
+        env:
+        {
+            NODE_ENV: "production",
+            PORT: 13335,
+            PPPOLICE_MODE: 2
+        }
+    },
+    {
+        name: "pppolice-mania",
+        script: "./index.js",
+        instances: 1,
+        watch: false,
+        exec_mode: "fork",
+        env:
+        {
+            NODE_ENV: "production",
+            PORT: 13336,
+            PPPOLICE_MODE: 3
+        }
+    }]
+}
