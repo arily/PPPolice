@@ -1,0 +1,16 @@
+{
+    apps: [
+    {
+        name: "pppolice",
+        script: "./index.js",
+        instances: 1,
+        watch: false,
+        exec_mode: "fork",
+        env:
+        {
+            NODE_ENV: "production",
+            PORT: 13333,
+            PPPOLICE_MODE: 0
+        }
+    }]
+}
