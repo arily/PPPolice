@@ -188,6 +188,22 @@ async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_
       </li>
       </ul>
       `
+    } else {
+        document.getElementById('userInfo').innerHTML = `
+      <ul class="container">
+      <li class='score-card shadow'>
+      <div class='down'>
+      <div class='left-img avatar-container'>
+      <img class="avatar shadow" src="https://a.ppy.sh/${user.id}" />
+      </div>
+      <div>
+      <span class="username"><h1>${user.name}</h1><span class="pp">#unkown</span></span>
+      </div>
+      <p>白菜出了点问题。。。</p>
+      </div>
+      </li>
+      </ul>
+      `
     }
 }
 async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.top/api/v1') {
