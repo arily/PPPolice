@@ -81,12 +81,14 @@ html {
 .rank {
     filter: brightness(var(--beatmap-bg-britness)) sepia(var(--beatmap-bg-decolor)) sepia(var(--beatmap-bg-decolor)) saturate(calc(2 - var(--beatmap-bg-opacity)));
     transition: filter var(--transition-duration) ease-out;
+    display:block;
 }
 
 .beatmapImg,
 .avatar {
     filter: brightness(var(--beatmap-bg-britness))opacity(var(--beatmap-bg-opacity)) sepia(var(--beatmap-bg-decolor)) saturate(calc(2 - var(--beatmap-bg-opacity)));
     transition: filter var(--transition-duration) ease-out;
+    display:block;
 }
 
 html {
