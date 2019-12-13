@@ -159,7 +159,7 @@ function sortStorage(sort = 'ppdesc') {
 }
 async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_base = 'https://www.mothership.top/api/v1') {
     let cabbage = await cabbageGetAccount(user, date);
-    if (cabbage.code === 0) {
+    if (typeof cabbage !== 'undefined' && cabbage.code === 0) {
         let cabbageUser = cabbage.data[0];
         let bp = pushed.map(event => { return { pp: event.result.pp } });
         user.pp = cabbageUser.ppRaw;
@@ -212,7 +212,7 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
     let timeoutPromise = (timeout) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve({json: ()=>{code: -1}});
+                resolve(undefined);
             }, timeout);
         });
     }
