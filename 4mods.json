@@ -1,55 +1,52 @@
 {
-    apps: [
+  "apps": [
     {
-        name: "pppolice-osu",
-        script: "./index.js",
-        instances: 1,
-        watch: false,
-        exec_mode: "fork",
-        env:
-        {
-            NODE_ENV: "production",
-            PORT: 13333,
-            PPPOLICE_MODE: 0
-        }
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 13333,
+        "PPPOLICE_MODE": 0
+      },
+      "exec_mode": "fork",
+      "instances": 1,
+      "name": "pppolice-osu",
+      "script": "./index.js",
+      "watch": false
     },
     {
-        name: "pppolice-taiko",
-        script: "./index.js",
-        instances: 1,
-        watch: false,
-        exec_mode: "fork",
-        env:
-        {
-            NODE_ENV: "production",
-            PORT: 13334,
-            PPPOLICE_MODE: 1
-        }
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 13334,
+        "PPPOLICE_MODE": 1
+      },
+      "exec_mode": "fork",
+      "instances": 1,
+      "name": "pppolice-taiko",
+      "script": "./index.js",
+      "watch": false
     },
     {
-        name: "pppolice-ctb",
-        script: "./index.js",
-        instances: 1,
-        watch: false,
-        exec_mode: "fork",
-        env:
-        {
-            NODE_ENV: "production",
-            PORT: 13335,
-            PPPOLICE_MODE: 2
-        }
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 13335,
+        "PPPOLICE_MODE": 2
+      },
+      "exec_mode": "fork",
+      "instances": 1,
+      "name": "pppolice-ctb",
+      "script": "./index.js",
+      "watch": false
     },
     {
-        name: "pppolice-mania",
-        script: "./index.js",
-        instances: 1,
-        watch: false,
-        exec_mode: "fork",
-        env:
-        {
-            NODE_ENV: "production",
-            PORT: 13336,
-            PPPOLICE_MODE: 3
-        }
-    }]
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": 13336,
+        "PPPOLICE_MODE": 3
+      },
+      "exec_mode": "fork",
+      "instances": 1,
+      "name": "pppolice-mania",
+      "script": "./index.js",
+      "watch": false
+    }
+  ]
 }

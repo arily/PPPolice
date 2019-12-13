@@ -1,6 +1,4 @@
-
 config/pppolice.js
-lib/migration.js
 .DS_Store
 *node_modules/*
 /node_modules

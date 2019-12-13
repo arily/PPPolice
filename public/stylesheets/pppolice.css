@@ -96,9 +96,9 @@ html {
     transition: all var(--transition-duration) ease-out, box-shadow var(--transition-duration) ease-out, color var(--transition-duration) ease-out;
 }
 
-li div {
+/*li div {
     min-height: 120px;
-}
+}*/
 
 ul {
     list-style-type: none;
@@ -167,7 +167,31 @@ li p {
 }
 
 li {
+    display: inline-block;
+}
+
+li .beatmapstr {
+    margin-bottom: 5px;
+    font-size: 1vw;
+}
+
+li .down {
+    width: 100%;
     display: inline-flex;
+}
+
+.lr {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lr .mods {
+    align-self: flex-end;
+}
+.lr .mods p {
+    font: 200 50px/0.5 'Kalam', cursive;
+    opacity: 0.5;
 }
 
 .nobp,

@@ -174,6 +174,7 @@ async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_
         document.getElementById('userInfo').innerHTML = `
       <ul class="container">
       <li class='score-card shadow'>
+      <div class='down'>
       <div class='left-img avatar-container'>
       <img class="avatar shadow" src="https://a.ppy.sh/${user.id}" />
       </div>
@@ -182,6 +183,7 @@ async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_
       <p class="pp">${user.pp} pp</p>
       <p class="pp">${Math.round(pptoday * 1000) / 1000} pp Listed <span class='pp small-font'>(3bp: ${Math.round(bp3 * 1000) / 1000}, 5bp: ${Math.round(bp5 * 1000) / 1000})</span></p>
       <p class="pp">${Math.round(farmtoday * 1000) / 1000} FARM <span class='pp small-font'>(3bp: ${Math.round(farm3 * 1000) / 1000}, 5bp: ${Math.round(farm5 * 1000) / 1000})</span></p>
+      </div>
       </div>
       </li>
       </ul>
@@ -209,6 +211,7 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
 }
 
 function render(sort = 'ppdesc', showUserId = true) {
+    moment.locale('zh-cn');
     console.log('start rendering');
     sortStorage(sort);
     document.getElementById('container').innerHTML = '';
@@ -234,10 +237,12 @@ function render(sort = 'ppdesc', showUserId = true) {
             mods = data.mods.filter(s => s !== 'DoubuleTime');
         }
 
-        mods = mods.map(mod => shortMods[mod]).join(',');
+        mods = mods.map(mod => shortMods[mod]);
+        console.log('mods', mods);
+        mods = mods.join(' ');
 
-        mods = (mods !== '') ? ` + ${mods}` : '';
-        const bmstr = `${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}] (${data.beatmap.creator})${mods}`;
+        // mods = (mods !== '') ? ` + ${mods}` : '';
+        const bmstr = `${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}] (${data.beatmap.creator})`;
         const colh = hashCode(data.account.id + '-' + data.beatmap.id);
         switch (event.type) {
             case 'farm':
@@ -272,15 +277,22 @@ function render(sort = 'ppdesc', showUserId = true) {
                 rank = data.newScore.rank;
         }
         let html = `<a class="score-card" rel="noopener noreferrer" target="_blank" href="https://osu.ppy.sh/beatmapsets/${data.beatmap.beatmapSetId}#osu/${data.beatmap.id}"><li id='${colh}' class='shadow'>
+        <p class='beatmapstr'>${bmstr}</p>
+        <div class="down">
       <div class='left-img'>
       <img class="rank shadow" src="https://osu.ppy.sh/images/badges/score-ranks-v2019/GradeSmall-${rank}.svg?3" />
       <img class="beatmapImg shadow" src="https://b.ppy.sh/thumb/${data.beatmap.beatmapSetId}l.jpg" />
       </div>
+      <div class="lr">
       <div>
       <h3 class="pp">${pp}</h3>
-      <p class='beatmapstr'>${bmstr}</p>
       <p>${accuracy}</p>
-      <h4>${showplayer}${data.newScore.raw_date} UTC</h4>
+      <h4>${showplayer}${moment.tz(data.newScore.raw_date,'europe/london').tz("Asia/Shanghai").format("YYYY-MM-DD k:mm:ss")}</h4>
+      </div>
+      <div class="mods">
+      <p>${mods}</p>
+      </div>
+      </div>
       </div>
       </li>
       </a>`;
