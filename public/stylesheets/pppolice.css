@@ -74,7 +74,7 @@ html {
 }
 
 .left-img {
-    /*width: 160px;*/
+    width: 160px;
     margin: 0 15px 0 0;
 }
 
@@ -172,7 +172,6 @@ li {
 
 li .beatmapstr {
     margin-bottom: 5px;
-    font-size: 1vw;
 }
 
 li .down {
