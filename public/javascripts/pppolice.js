@@ -273,9 +273,8 @@ function render(sort = 'ppdesc', showUserId = true) {
         let mods = data.mods.filter(s => s !== 'FreeModAllowed');
         //remove DT when NC is set
         if (mods.some(s => s === 'Nightcore')) {
-            mods = data.mods.filter(s => s !== 'DoubuleTime');
+            mods = data.mods.filter(s => s !==  'DoubleTime');
         }
-
         mods = mods.map(mod => shortMods[mod]);
         console.log('mods', mods);
         mods = mods.join(' ');
