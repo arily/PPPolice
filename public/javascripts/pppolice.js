@@ -207,7 +207,30 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
     let path = `/userinfo/${user.id}`;
     let url = api_base.concat(path);
     let query = url.concat(`?start=${yyMMdd(date)}&limit=1`);
-    return await fetch(query).then(res => res.json());
+
+
+    let timeoutPromise = (timeout) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({json: ()=>{code: -1}});
+            }, timeout);
+        });
+    }
+    let requestPromise = (url) => {
+        return fetch(url);
+    };
+
+
+
+    // 作者：_杨瀚博
+    // 链接：https://juejin.im/post/5cdd1c19e51d453b7f0a0d8c
+    // 来源：掘金
+    // 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+    return await Promise.race([timeoutPromise(8000), requestPromise(query)])
+        .then(res => res.json())
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function render(sort = 'ppdesc', showUserId = true) {
