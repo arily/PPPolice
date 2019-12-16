@@ -286,7 +286,6 @@ async function render(sort = 'ppDesc', showUserId = true) {
             mods = data.mods.filter(s => s !==  'DoubleTime');
         }
         mods = mods.map(mod => shortMods[mod]);
-        console.log('mods', mods);
         mods = mods.join(' ');
 
         // mods = (mods !== '') ? ` + ${mods}` : '';
