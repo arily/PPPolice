@@ -40,10 +40,10 @@ export default (pushed) => {
                 this.is("kimi no bouken")
             )
         }
-        score.result.isDeranking = function(){
-        	return this.mods.some(mod => mod == 'NoFail' || mod == "SpunOut");
+        score.result.isDeranking = function() {
+            return this.mods.some(mod => (mod == 'NoFail' || mod == "SpunOut"));
         }
-        score.result.pp = ( (score.result.beatmap.byShitMapper() || score.result.beatmap.isShitMap() || !this.result.isDeranking()SpunOut)  ? 0 : score.result.pp)
+        score.result.pp = ((score.result.beatmap.byShitMapper() || score.result.beatmap.isShitMap() || !this.result.isDeranking() SpunOut) ? 0 : score.result.pp)
         return score;
     });
     sortFunc(pushed);
