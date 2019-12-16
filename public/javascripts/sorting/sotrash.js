@@ -5,7 +5,7 @@ export default (pushed) => {
             return this.creator == mapper || this.version.includes(mapper) || this.version.includes(mapper.toLowerCase())
         }
         score.result.beatmap.is = function(mapper) {
-            return this.source.toLowerCase().includes(mapper.toLowerCase()) this.title.toLowerCase().includes(mapper.toLowerCase())
+            return this.source.toLowerCase().includes(mapper.toLowerCase()) || this.title.toLowerCase().includes(mapper.toLowerCase())
         }
         score.result.beatmap.byShitMapper = function() {
             return (
