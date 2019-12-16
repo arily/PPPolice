@@ -1,6 +1,5 @@
 import sortFunc from "./ppDesc.js";
 export default (pushed) => {
-    console.log(pushed[0]);
     pushed.map((score) => {
         score.result.beatmap.madeBy = function(mapper) {
             return this.creator == mapper || this.version.includes(mapper) || this.version.includes(mapper.toLowerCase())
@@ -8,14 +7,19 @@ export default (pushed) => {
         score.result.beatmap.byShitMapper = function() {
             return (
                 this.madeBy("Sotarks") ||
+                this.madeBy("Awaken") ||
                 this.madeBy("Fiery") || this.madeBy("fieryrage") ||
                 this.madeBy("Natsu") ||
+                this.madeBy("VINXIS") ||
+                this.madeBy("Fatfan Kolek") ||
+                this.madeBy("Log Off Now") ||
                 this.madeBy("A r M i N") ||
                 this.madeBy("Reform") ||
                 this.madeBy("Taeyang") ||
                 this.madeBy("Lami") ||
                 this.madeBy("Monstrata") ||
                 this.madeBy("Kyuukai") ||
+                this.madeBy("-Keitaro") ||
                 this.madeBy('Nevo')
             )
         }
