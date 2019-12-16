@@ -1,0 +1,1 @@
+export default (pushed) => pushed.sort((a, b) => (a.result.pp < b.result.pp) ? 1 : -1);

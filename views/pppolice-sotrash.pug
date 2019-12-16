@@ -1,0 +1,30 @@
+extends pppolice
+
+block content
+  div(class='box')
+    div(class='container' id='userInfo')
+    ul(class='container' id='container')
+    script.
+      var [user,from,to] = [{name: '!{account.name}', id: !{account.id}}!{dateTime}]
+      window.onload = function(){
+        var pull = io.connect('/');
+        pull.on('report.farm',function(data) {
+          console.log('farm',data);
+          storage('farm',data,false);
+          newToServer(true);
+        });
+        pull.on('report.pushedAll',async function() {
+          await Promise.all(userInfo(user,from), render('sotrash',false));
+          noBP(false);
+        });
+        pull.on('player.noBPToday',function() {
+          noBP();
+        });
+        pull.on('player.newToServer',function() {
+          newToServer();
+        });
+        pull.on('connect',_=>{
+          setTimeout(_=> {pull.emit('!{emitEventName}',user,from,to)},500);
+        })
+      }
+  div(id='notify')

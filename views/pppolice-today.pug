@@ -14,8 +14,7 @@ block content
           newToServer(true);
         });
         pull.on('report.pushedAll',async function() {
-          await userInfo(user,from);
-          render('ppdesc',false);
+          await Promise.all(userInfo(user,from), render('ppDesc',false));
           noBP(false);
         });
         pull.on('player.noBPToday',function() {

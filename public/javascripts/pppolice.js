@@ -142,20 +142,24 @@ function toTimestamp(strDate) {
     return d;
 }
 
-function sortStorage(sort = 'ppdesc') {
+async function sortStorage(sort = 'ppDesc') {
+    let sortFunction;
     switch (sort) {
-        case 'dateTimeincr':
-            pushed.sort((a, b) => pushed.sort((a, b) => (a.timestamp > b.timestamp) ? 1 : -1));
+        case 'dateTimeIncr':
+            sortFunction  = await import("./sorting/dateTimeIncr.js");
             break;
-        case 'dateTimedesc':
-            pushed.sort((a, b) => pushed.sort((a, b) => (a.timestamp < b.timestamp) ? 1 : -1));
+        case 'dateTimeDesc':
+            sortFunction  = await import("./sorting/dateTimeDesc.js");
             break;
-        case 'ppdesc':
+        case 'sotrash':
+            sortFunction = await import("./sorting/sotrash.js");
+            break;
+        case 'ppDesc':
         default:
-            pushed.sort((a, b) => (a.result.pp < b.result.pp) ? 1 : -1);
+            sortFunction  = await import("./sorting/ppDesc.js");
             break;
     }
-
+    sortFunction.default(pushed);
 }
 async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_base = 'https://www.mothership.top/api/v1') {
     let cabbage = await cabbageGetAccount(user, date);
@@ -249,10 +253,10 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
         });
 }
 
-function render(sort = 'ppdesc', showUserId = true) {
+async function render(sort = 'ppDesc', showUserId = true) {
     moment.locale('zh-cn');
     console.log('start rendering');
-    sortStorage(sort);
+    await sortStorage(sort);
     document.getElementById('container').innerHTML = '';
     let shortMods = {
         Easy: "EZ",
