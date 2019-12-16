@@ -159,7 +159,7 @@ async function sortStorage(sort = 'ppDesc') {
             sortFunction  = await import("./sorting/ppDesc.js");
             break;
     }
-    sortFunction.default(pushed);
+    await sortFunction.default(pushed);
 }
 async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_base = 'https://www.mothership.top/api/v1') {
     let cabbage = await cabbageGetAccount(user, date);
