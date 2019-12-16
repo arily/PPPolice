@@ -14,7 +14,7 @@ block content
           newToServer(true);
         });
         pull.on('report.pushedAll',async function() {
-          await Promise.all(userInfo(user,from), render('sotrash',false));
+          await Promise.all([userInfo(user,from), render('sotrash',false)]);
           noBP(false);
         });
         pull.on('player.noBPToday',function() {
