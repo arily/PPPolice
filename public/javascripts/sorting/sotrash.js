@@ -41,7 +41,7 @@ export default (pushed) => {
             )
         }
         score.result.isDeranking = function() {
-            return this.withNF() || this.withSO()
+            return (this.withNF() || this.withSO()) && ['XS', 'XH', 'SH', 'S', 'A'].includes(score.newScore.rank);
         }
         score.result.withNF = function() {
             return this.mods.includes("NoFail")
@@ -49,15 +49,15 @@ export default (pushed) => {
         score.result.withSO = function() {
             return this.mods.includes("SpunOut")
         }
-        if ((score.result.beatmap.byShitMapper() || score.result.beatmap.isShitMap())) {
-            if (score.result.isDeranking()) {
-            	console.log(score.result);
-                score.result.pp = score.result.withSO() ? (score.result.pp / 0.9) : score.result.pp;
-                score.result.pp = score.result.withNF() ? (score.result.pp / 0.9) : score.result.pp;
-            } else {
-            	score.result.pp = 0;
-            }
+
+        if (score.result.isDeranking()) {
+            console.log(score.result);
+            score.result.pp = score.result.withSO() ? (score.result.pp / 0.9) : score.result.pp;
+            score.result.pp = score.result.withNF() ? (score.result.pp / 0.9) : score.result.pp;
+        } else if ((score.result.beatmap.byShitMapper() || score.result.beatmap.isShitMap())) {
+            score.result.pp = 0;
         }
+
         return score;
     });
     sortFunc(pushed);
