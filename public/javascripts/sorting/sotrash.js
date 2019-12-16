@@ -41,7 +41,7 @@ export default (pushed) => {
             )
         }
         score.result.isDeranking = function() {
-            return (this.withNF() || this.withSO()) && ['XS', 'XH', 'SH', 'S', 'A'].includes(score.newScore.rank);
+            return (this.withNF() || this.withSO()) && ['XS', 'XH', 'SH', 'S', 'A'].includes(this.newScore.rank);
         }
         score.result.withNF = function() {
             return this.mods.includes("NoFail")
