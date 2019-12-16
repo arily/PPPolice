@@ -193,6 +193,11 @@ async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_
       </ul>
       `
     } else {
+        let bp = pushed.map(event => { return { pp: event.result.pp } });
+        user.bp = bp;
+        let pptoday = calculateBP(user, 100);
+        let bp3 = calculateBP(user, 3);
+        let bp5 = calculateBP(user, 5);
         document.getElementById('userInfo').innerHTML = `
       <ul class="container">
       <li class='score-card shadow'>
@@ -203,6 +208,7 @@ async function userInfo(user, date = undefined, farmLimit = 100, buff = -8, api_
       <div>
       <span class="username"><h1>${user.name}</h1><span class="pp">#unkown</span></span>
       <p>白菜出了点问题。。。</p>
+      <p class="pp">${Math.round(pptoday * 1000) / 1000} pp Listed <span class='pp small-font'>(3bp: ${Math.round(bp3 * 1000) / 1000}, 5bp: ${Math.round(bp5 * 1000) / 1000})</span></p>
       </div>
       </div>
       </li>
