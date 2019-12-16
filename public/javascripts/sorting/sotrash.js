@@ -5,7 +5,7 @@ export default (pushed) => {
             return this.creator == mapper || this.version.includes(mapper) || this.version.includes(mapper.toLowerCase())
         }
         score.result.beatmap.is = function(mapper) {
-            return this.version.toLowerCase().includes(mapper.toLowerCase())
+            return this.source.toLowerCase().includes(mapper.toLowerCase()) this.title.toLowerCase().includes(mapper.toLowerCase())
         }
         score.result.beatmap.byShitMapper = function() {
             return (
@@ -26,7 +26,7 @@ export default (pushed) => {
                 this.madeBy('Nevo')
             )
         }
-        score.result.beatmap.shitMap = function() {
+        score.result.beatmap.isShitMap = function() {
             return (
                 this.is("chika chika") ||
                 this.is("oneroom") ||
@@ -40,7 +40,7 @@ export default (pushed) => {
                 this.is("kimi no bouken")
             )
         }
-        score.result.pp = (score.result.beatmap.byShitMapper() || score.result.beatmap.shitMap()  ? 0 : score.result.pp)
+        score.result.pp = ( (score.result.beatmap.byShitMapper() || score.result.beatmap.isShitMap())  ? 0 : score.result.pp)
         return score;
     });
     sortFunc(pushed);
