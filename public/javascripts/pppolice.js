@@ -5,7 +5,6 @@ var totalimg = 0;
 var loadedimg = 0;
 var loadInterval;
 var opentime = new Date().getTime();
-
 //theme changer
 setInterval(_ => {
     const hours = new Date().getHours()
@@ -39,16 +38,16 @@ function calcFarm(player, highbuff = 10, lowbuff = 10, limit = 5) {
     return farm;
 }
 
-function listenImgLoad() {
-    console.log('wait for preview loading');
-    let images = document.getElementsByClassName('beatmapImg');
-    let loadFinish = false;
-    totalimg = images.length
-    for (var i = 0; i < images.length; i++) {
-        let image = images[i];
-        image.onload = _ => { loadedimg += 1 };
-    }
-}
+// function listenImgLoad() {
+//     console.log('wait for preview loading');
+//     let images = document.getElementsByClassName('beatmapImg');
+//     let loadFinish = false;
+//     totalimg = images.length
+//     for (var i = 0; i < images.length; i++) {
+//         let image = images[i];
+//         image.onload = _ => { loadedimg += 1 };
+//     }
+// }
 
 function yyMMdd(date) {
     var d = new Date(date),
@@ -76,13 +75,19 @@ function noBP(nobp = true) {
       <h3 style="margin:auto">${fuck}</h3>
       </div>`;
     }
-    listenImgLoad();
+
     loadInterval = setInterval(_ => {
-        console.log('loaded', loadedimg, 'total', totalimg);
-        if (loadedimg >= totalimg || new Date().getTime() - opentime >= 10 * 1000) {
+        let images = document.getElementsByClassName('beatmapImg');
+        images = Array.from(images);
+        let loaded = images.reduce((acc, cur) => acc + cur.complete | 0);
+        let all = images.length
+        console.log(`loaded ${loaded}/${all}`);
+        if (images.every(image => image.complete)) {
             document.getElementById('notify').innerHTML = `<p id='finish' hidden></p>`;
+            console.log('load pic finish');
             clearInterval(loadInterval);
         }
+
     }, 100);
 
 }
@@ -146,17 +151,17 @@ async function sortStorage(sort = 'ppDesc') {
     let sortFunction;
     switch (sort) {
         case 'dateTimeIncr':
-            sortFunction  = await import("./sorting/dateTimeIncr.js");
+            sortFunction = await import("./sorting/dateTimeIncr.js");
             break;
         case 'dateTimeDesc':
-            sortFunction  = await import("./sorting/dateTimeDesc.js");
+            sortFunction = await import("./sorting/dateTimeDesc.js");
             break;
         case 'sotrash':
             sortFunction = await import("./sorting/sotrash.js");
             break;
         case 'ppDesc':
         default:
-            sortFunction  = await import("./sorting/ppDesc.js");
+            sortFunction = await import("./sorting/ppDesc.js");
             break;
     }
     await sortFunction.default(pushed);
@@ -260,36 +265,29 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
 }
 
 async function render(sort = 'ppDesc', showUserId = true) {
+    const Result = (await import("./Objects/Result.js")).default;
+    const Score = (await import("./Objects/Score.js")).default;
+    const User = (await import("./Objects/User.js")).default;
+    const Beatmap = (await import("./Objects/Beatmap.js")).default;
     moment.locale('zh-cn');
     console.log('start rendering');
+    pushed.map((score) => {
+        // score.result.__proto__ = Result.prototype;
+        score.result.newScore.__proto__ = Score.prototype;
+        score.result.beatmap.__proto__ = Beatmap.prototype;
+    })
     await sortStorage(sort);
     document.getElementById('container').innerHTML = '';
-    let shortMods = {
-        Easy: "EZ",
-        NoFail: "NF",
-        HalfTime: "HT",
-        HardRock: "HR",
-        SuddenDeath: "SD",
-        DoubleTime: "DT",
-        Nightcore: "NC",
-        Hidden: "HD",
-        Flashlight: "FL",
-        SpawnOut: "SO",
-    }
+
     let content = '';
     pushed.forEach(event => {
         const data = event.result;
         const player = data.account.name;
-        let mods = data.mods.filter(s => s !== 'FreeModAllowed');
-        //remove DT when NC is set
-        if (mods.some(s => s === 'Nightcore')) {
-            mods = data.mods.filter(s => s !==  'DoubleTime');
-        }
-        mods = mods.map(mod => shortMods[mod]);
+        let mods = data.newScore.shortMods();
         mods = mods.join(' ');
 
         // mods = (mods !== '') ? ` + ${mods}` : '';
-        const bmstr = `${data.beatmap.artist} - ${data.beatmap.title} [${data.beatmap.version}] (${data.beatmap.creator})`;
+        const bmstr = data.beatmap;
         const colh = hashCode(data.account.id + '-' + data.beatmap.id);
         switch (event.type) {
             case 'farm':

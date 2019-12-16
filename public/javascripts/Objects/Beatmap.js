@@ -40,4 +40,8 @@ Beatmap.prototype.isShitMap = function() {
         this.is("kimi no bouken")
     )
 }
+Beatmap.prototype.toString = function() {
+    return `${this.artist} - ${this.title} [${this.version}] (${this.creator})`
+}
+
 export default Beatmap;
