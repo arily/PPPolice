@@ -4,6 +4,9 @@ export default (pushed) => {
         score.result.beatmap.madeBy = function(mapper) {
             return this.creator == mapper || this.version.includes(mapper) || this.version.includes(mapper.toLowerCase())
         }
+        score.result.beatmap.is = function(mapper) {
+            return this.version.toLowerCase().includes(mapper.toLowerCase())
+        }
         score.result.beatmap.byShitMapper = function() {
             return (
                 this.madeBy("Sotarks") ||
@@ -23,7 +26,21 @@ export default (pushed) => {
                 this.madeBy('Nevo')
             )
         }
-        score.result.pp = (score.result.beatmap.byShitMapper() ? 0 : score.result.pp)
+        score.result.beatmap.shitMap = function() {
+            return (
+                this.is("chika chika") ||
+                this.is("oneroom") ||
+                this.is("harumachi clover") ||
+                this.is("natsuzora yell") ||
+                this.is("koi no hime hime") ||
+                this.is("best friends") ||
+                this.is("Kani*Do-Luck!") ||
+                this.is("yuki no hana") ||
+                this.is("kira kira days") ||
+                this.is("kimi no bouken")
+            )
+        }
+        score.result.pp = (score.result.beatmap.byShitMapper() || score.result.beatmap.shitMap()  ? 0 : score.result.pp)
         return score;
     });
     sortFunc(pushed);
