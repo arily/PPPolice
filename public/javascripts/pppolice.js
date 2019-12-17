@@ -89,8 +89,9 @@ function noBP(nobp = true) {
         }
 
     }, 100);
-
-}
+    setTimeout(_ => {
+        document.getElementById('notify').innerHTML = `<p id='finish' hidden></p>`;
+    }, 10 * 1000);
 
 function newToServer(clean = false) {
     if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;
@@ -111,7 +112,7 @@ async function rebindProto() {
 async function storage(type, result, doRender = true, sort = 'ppdesc') {
     let timestamp = toTimestamp(result.newScore.raw_date);
     let oldScoreIndex = pushed.findIndex(event => (event.result.beatmap.id == result.beatmap.id) && (event.result.account.id == result.account.id));
-    console.log('storage', 'old score found', oldScoreIndex != -1);
+    // console.log('storage', 'old score found', oldScoreIndex != -1);
     if (oldScoreIndex != -1) {
         oldScore = pushed[oldScoreIndex];
         console.log('old score timestamp:', oldScore.timestamp, 'new score timestamp:', timestamp);
