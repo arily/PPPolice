@@ -29,6 +29,7 @@ Beatmap.prototype.byShitMapper = function() {
 Beatmap.prototype.isShitMap = function() {
     return (
         this.is("chika chika") ||
+        this.is("hidamari no uta") ||
         this.is("oneroom") ||
         this.is("harumachi clover") ||
         this.is("natsuzora yell") ||
