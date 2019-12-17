@@ -96,8 +96,19 @@ function newToServer(clean = false) {
     if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;
     else document.getElementById('notify').innerHTML = ``;
 }
+async function rebindProto() {
+    const Result = (await import("./Objects/Result.js")).default;
+    const Score = (await import("./Objects/Score.js")).default;
+    const User = (await import("./Objects/User.js")).default;
+    const Beatmap = (await import("./Objects/Beatmap.js")).default;
+    pushed.map((score) => {
+        score.result.__proto__ = Result.prototype;
+        score.result.newScore.__proto__ = Score.prototype;
+        score.result.beatmap.__proto__ = Beatmap.prototype;
+    })
+}
 
-function storage(type, result, doRender = true, sort = 'ppdesc') {
+async function storage(type, result, doRender = true, sort = 'ppdesc') {
     let timestamp = toTimestamp(result.newScore.raw_date);
     let oldScoreIndex = pushed.findIndex(event => (event.result.beatmap.id == result.beatmap.id) && (event.result.account.id == result.account.id));
     console.log('storage', 'old score found', oldScoreIndex != -1);
@@ -125,10 +136,6 @@ function storage(type, result, doRender = true, sort = 'ppdesc') {
         });
     }
 
-    // sortStorage('dateTimedesc');
-    // while (pushed.length > maxHistory){
-    //   pushed.pop();
-    // }
     if (doRender) {
         if (renderTimer == undefined) {
             console.log('set render timer');
@@ -145,6 +152,21 @@ function toTimestamp(strDate) {
     strDate = strDate.split('-').join('/');
     let d = Date.parse(strDate);
     return d;
+}
+async function recalculate(method = null) {
+    if (method == null) {
+        return
+    }
+    switch (method) {
+        case 'sotrash':
+            method = await import("./recalculator/sotrash.js");
+            break;
+        default:
+            method = null
+    }
+    if (method !== null) {
+        await method.default(pushed);
+    }
 }
 
 async function sortStorage(sort = 'ppDesc') {
@@ -265,17 +287,6 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
 }
 
 async function render(sort = 'ppDesc', showUserId = true) {
-    const Result = (await import("./Objects/Result.js")).default;
-    const Score = (await import("./Objects/Score.js")).default;
-    const User = (await import("./Objects/User.js")).default;
-    const Beatmap = (await import("./Objects/Beatmap.js")).default;
-    moment.locale('zh-cn');
-    console.log('start rendering');
-    pushed.map((score) => {
-        // score.result.__proto__ = Result.prototype;
-        score.result.newScore.__proto__ = Score.prototype;
-        score.result.beatmap.__proto__ = Beatmap.prototype;
-    })
     await sortStorage(sort);
     document.getElementById('container').innerHTML = '';
 
@@ -299,7 +310,7 @@ async function render(sort = 'ppDesc', showUserId = true) {
             case 'refarm':
             case 'defarm':
                 {
-                    var ppChange = addPlus(data.ppChange);
+                    var ppChange = addPlus(data.pp - data.oldScore.pp);
                     var cmp = compareScore(data.oldScore, data.newScore);
                     var accuracy = `${cmp.now}<br>${cmp}`;
                     var pp = `${data.pp} pp (${ppChange} pp)`;
@@ -351,6 +362,7 @@ function hashCode(s) {
 }
 
 function addPlus(ppChange) {
+    ppChange = +(Math.round(ppChange + "e+2")  + "e-2");
     return ppChange >= 0 ? `+${ppChange}` : ppChange;
 }
 
@@ -384,8 +396,10 @@ function compareScore(old, now) {
         50: now[50] - old[50],
         miss: now.miss - old.miss,
         toString: function() {
-            strCount = Object.entries({ 100: this[100], 50: this[50], miss: this.miss }).filter(count => count[1] != 0).map((count) => `${addPlus(count[1])} x ${count[0]}`).join(', ');
-            return `<b>${addPlus(Math.round((this.now.acc - this.old.acc) * 10000)/100)}%</b> <span class='small-font'>${strCount}</span>`;
+            let strCount = Object.entries({ 100: this[100], 50: this[50], miss: this.miss }).filter(count => count[1] != 0).map((count) => `${addPlus(count[1])} x ${count[0]}`).join(', ');
+            let strAcc = (this.now.acc == this.old.acc) ?'':`${addPlus(Math.round((this.now.acc - this.old.acc) * 10000)/100)}%`;
+
+            return `<b>${strAcc}</b> <span class='small-font'>${strCount}</span>`;
         }
     }
 }

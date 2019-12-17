@@ -12,5 +12,8 @@ Result.prototype.withNF = function() {
 Result.prototype.withSO = function() {
     return this.mods.includes("SpunOut")
 }
+Result.prototype.roundPP = function() {    
+    this.pp = +(Math.round(this.pp + "e+2")  + "e-2");
+}
 
 export default Result;

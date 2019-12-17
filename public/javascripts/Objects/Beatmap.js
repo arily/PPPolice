@@ -2,7 +2,7 @@ function Beatmap() {
 
 }
 Beatmap.prototype.madeBy = function(mapper) {
-    return this.creator == mapper || this.version.includes(mapper) || this.version.includes(mapper.toLowerCase())
+    return this.creator == mapper || this.version.toLowerCase().includes(mapper.toLowerCase())
 }
 Beatmap.prototype.is = function(mapper) {
     return this.source.toLowerCase().includes(mapper.toLowerCase()) || this.title.toLowerCase().includes(mapper.toLowerCase())
