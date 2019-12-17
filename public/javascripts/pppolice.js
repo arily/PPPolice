@@ -265,7 +265,7 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
     let timeoutPromise = (timeout) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(undefined);
+                return;
             }, timeout);
         });
     }
