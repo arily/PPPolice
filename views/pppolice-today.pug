@@ -14,6 +14,7 @@ block content
           newToServer(true);
         });
         pull.on('report.pushedAll',async function() {
+          await rebindProto();
           await Promise.all([userInfo(user,from), render('ppDesc',false)]);
           noBP(false);
         });
