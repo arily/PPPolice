@@ -92,6 +92,7 @@ function noBP(nobp = true) {
     setTimeout(_ => {
         document.getElementById('notify').innerHTML = `<p id='finish' hidden></p>`;
     }, 10 * 1000);
+}
 
 function newToServer(clean = false) {
     if (!clean) document.getElementById('notify').innerHTML = `<p> account has no record on server. Fetching from bancho... </p>`;
