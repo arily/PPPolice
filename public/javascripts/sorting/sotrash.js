@@ -1,5 +1,3 @@
-import sortFunc from "./ppDesc.js";
-
 export default async (pushed) => {
     pushed.map((score) => {
         if (score.result.newScore.isDeranking()) {

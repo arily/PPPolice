@@ -289,6 +289,7 @@ async function cabbageGetAccount(user, date, api_base = 'https://www.mothership.
 }
 
 async function render(sort = 'ppDesc', showUserId = true) {
+    await rebindProto();
     await sortStorage(sort);
     document.getElementById('container').innerHTML = '';
 
