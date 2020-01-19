@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 all PPPolice users unfortunately got banned
+  ul
+    each user in bannedUsers
+      li
+        a(href=`/banned/${user.id}`)= user.name
+        span
+          each val,index in {'last update': new Date(user.lastUpdate), level: user.level, pp: user.pp.raw, 'last activities': user.events.map(e => e.html).join()}
+            p= `${index}: ${val}`

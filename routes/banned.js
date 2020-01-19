@@ -6,6 +6,13 @@ const config = require("config/pppolice");
 const tools = require('lib/tools');
 const db = new require('lib/database')(tools.getCollectionNameByGameId(config.mode));
 /* GET users listing. */
+router.get('/', async function(req, res, next) {
+    res.render('pppolice-banned', {
+        rev: Math.random().toString(36).substring(7),
+        title: `all players on pppolice got banned`,
+        bannedUsers: await db.find({ status: { $eq: 'banned' } }),
+    })
+})
 router.get('/:id', async function(req, res, next) {
     let user = req.params.id;
     let account = [...await db.find({ id: user, status: { $eq: 'banned' } }), ...await db.find({ name: user, status: { $eq: 'banned' } })];
