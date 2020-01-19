@@ -1,3 +1,4 @@
+require('app-module-path/cwd');
 informationCenter = require('./lib/informationCenter.js');
 policeStation = require('./lib/policeStation.js');
 pmx = require('@pm2/io');
