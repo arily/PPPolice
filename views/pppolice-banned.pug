@@ -10,4 +10,4 @@ block content
           each val,index in {'last update': new Date(user.lastUpdate), level: user.level, pp: user.pp.raw}
             p= `${index}: ${val}`
         - var activities = user.events.map(e => e.html).join("<br>")
-        span !{activities.replace(new RegExp("/\b(users|u|b|images)\b\/(\w+)/g"), "//osu.ppy.sh/$1/$2")}
+        span= unescape(activities.replace(new RegExp("/\b(users|u|b|images)\b\/(\w+)/g"), "//osu.ppy.sh/$1/$2"))
