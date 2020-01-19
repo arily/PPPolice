@@ -11,16 +11,16 @@ router.get('/all', async (req, res, next) => {
 function prepareQueryObject(query) {
     let ret = {};
     //int
-    ["id"].forEach(col => {
-        if (typeof query[col] !== 'undefined') {
-            if (Array.isArray(query[col])) {
-                ret[col] = query[col].map(e => +e);
-            } else {
-                ret[col] = +query[col];
-            }
+    // ["id"].forEach(col => {
+    //     if (typeof query[col] !== 'undefined') {
+    //         if (Array.isArray(query[col])) {
+    //             ret[col] = query[col].map(e => +e);
+    //         } else {
+    //             ret[col] = +query[col];
+    //         }
 
-        }
-    });
+    //     }
+    // });
     ret = JSON.parse(JSON.stringify(Object.assign(query, ret)));
     delete ret.fields;
     return ret;
