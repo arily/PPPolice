@@ -1,8 +1,10 @@
-var express = require('express');
-var router = express.Router({ mergeParams: true });
+const express = require('express');
+const router = express.Router({ mergeParams: true });
 const request = require('request');
-let verboseLevel = (process.env.NODE_ENV == 'production') ? 0 : 10;
-db = new require('../../../../lib/database')();
+const verboseLevel = (process.env.NODE_ENV == 'production') ? 0 : 10;
+const config = require("config/pppolice");
+const tools = require('lib/tools');
+const db = new require('lib/database')(tools.getCollectionNameByGameId(config.mode));
 /* KHMC. */
 router.get('/all', async (req, res, next) => {
     res.json(await db.all())
@@ -90,17 +92,22 @@ router.post('/findOne', async (req, res, next) => {
 //     res.json(await db.BPRange(await db.getUser({id: req.rquery.id || undefined , name: req.query.name || undefined }),req.query.start,req,query.end));
 // });
 router.get('/BPRange/:handle', async (req, res, next) => {
-    res.json(await db.BPRange(await db.getUserApi(req.params.handle, { fields: db.fields.id }),req.query.start,req.query.end));
+    res.json(await db.BPRange(await db.getUserApi(req.params.handle, { fields: db.fields.id }), req.query.start, req.query.end));
 });
 router.get('/BPRange/:handle/:date', async (req, res, next) => {
-    res.json(await db.BPRange(prepareQueryObject(await db.getUserApi(req.params.handle, { fields: db.fields.id })),req.params.date));
+    res.json(await db.BPRange(prepareQueryObject(await db.getUserApi(req.params.handle, { fields: db.fields.id })), req.params.date));
 });
 router.get('/BPRange/:handle/:start/:end', async (req, res, next) => {
-	console.log(req.params);
-    res.json(await db.BPRange(prepareQueryObject(await db.getUserApi(req.params.handle, { fields: db.fields.id })),req.params.start,req.params.end));
+    console.log(req.params);
+    res.json(await db.BPRange(prepareQueryObject(await db.getUserApi(req.params.handle, { fields: db.fields.id })), req.params.start, req.params.end));
 });
 router.post('/BPRange', async (req, res, next) => {
     res.json(await db.BPRange(req.body));
+});
+
+
+router.get('/count', async (req, res, next) => {
+    res.json(await db.count());
 });
 
 

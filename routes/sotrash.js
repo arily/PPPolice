@@ -1,7 +1,10 @@
-var express = require('express');
-var router = express.Router();
-const osu = require('node-osu');
-const db = new require('lib/database')();
+const express = require('express');
+const router = express.Router({ mergeParams: true });
+const request = require('request');
+const verboseLevel = (process.env.NODE_ENV == 'production') ? 0 : 10;
+const config = require("config/pppolice");
+const tools = require('lib/tools');
+const db = new require('lib/database')(tools.getCollectionNameByGameId(config.mode));
 /* GET users listing. */
 router.get('/:id', async function(req, res, next) {
 	let user = req.params.id;
