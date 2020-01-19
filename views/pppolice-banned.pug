@@ -6,9 +6,10 @@ block content
     each user in bannedUsers
       li
         a(href=`/banned/${user.id}`)= user.name
-        span
+        p
           each val,index in {'last update': new Date(user.lastUpdate), level: user.level, pp: user.pp.raw}
-            p= `${index}: ${val}`
+            div= `${index}: ${val}`
         - var activities = user.events.map(e => e.html).join("<br>").replace(new RegExp('\\b(users|u|b)\\b\\/(\\w+)','g'), "/osu.ppy.sh/$1/$2").replace(new RegExp('\\b(images)\\b\\/(\\w+)','g'),"/s.ppy.sh/$1/$2")
         - console.log(activities)
-        span !{activities}
+        p 
+          span !{activities}
