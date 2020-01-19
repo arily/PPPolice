@@ -29,7 +29,7 @@ client.connect(function(err) {
     const collection = db.collection('osu');
     for (let i in data) {
         let account = data[i]
-        delete accound._id;
+        delete account._id;
         console.log(`save\t${account.id} \t${account.name} `);
         collection.updateOne({ id: account.id }, { $set: account }, {
             upsert: true,
