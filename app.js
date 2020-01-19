@@ -8,6 +8,7 @@ var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var bannedUsersRouter = require('./routes/banned');
 var sotrash = require('./routes/sotrash');
 var apiRouter = require('./routes/api');
 var farm = require('./routes/farm');
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/banned', bannedUsersRouter);
 app.use('/sotrash', sotrash);
 app.use('/api', apiRouter);
 app.use('/farm', farm);
