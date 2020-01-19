@@ -9,4 +9,5 @@ block content
         span
           each val,index in {'last update': new Date(user.lastUpdate), level: user.level, pp: user.pp.raw}
             p= `${index}: ${val}`
-        span= user.events.map(e => e.html).join()
+        - var activities = user.events.map(e => e.html).join()
+        span !{activities}
