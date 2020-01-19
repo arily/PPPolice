@@ -59,7 +59,11 @@ router.get('/getUser', async (req, res, next) => {
     res.json(await db.getUser(...paramsArray(req)));
 });
 router.get('/getUser/:handle', async (req, res, next) => {
-    res.json(await db.getUser(...paramsArray(await mergeReqForApiSearch(req))));
+    try {
+        res.json(await db.getUser(...paramsArray(await mergeReqForApiSearch(req))));
+    } catch (e) {
+        if (e.message == 'Not found') res.json({ message: 'User Not Found on bancho.' })
+    }
 });
 router.post('/getUser', async (req, res, next) => {
     res.json(await db.getUser(req.body));
@@ -70,7 +74,12 @@ router.get('/find', async (req, res, next) => {
     res.json(await db.find(...paramsArray(req)));
 });
 router.get('/find/:handle', async (req, res, next) => {
-    res.json(await db.find(...paramsArray(await mergeReqForApiSearch(req))));
+    try {
+        res.json(await db.find(...paramsArray(await mergeReqForApiSearch(req))));
+    } catch (e) {
+        if (e.message == 'Not found') res.json({ message: 'User Not Found on bancho.' })
+    }
+
 });
 router.post('/find', async (req, res, next) => {
     res.json(await db.find(req.body));
@@ -81,7 +90,11 @@ router.get('/findOne', async (req, res, next) => {
     res.json(await db.findOne(...paramsArray(req)));
 });
 router.get('/findOne/:handle', async (req, res, next) => {
-    res.json(await db.findOne(...paramsArray(await mergeReqForApiSearch(req))));
+    try {
+        res.json(await db.findOne(...paramsArray(await mergeReqForApiSearch(req))));
+    } catch (e) {
+        if (e.message == 'Not found') res.json({ message: 'User Not Found on bancho.' })
+    }
 });
 router.post('/findOne', async (req, res, next) => {
     res.json(await db.findOne(req.body));
