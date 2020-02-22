@@ -146,8 +146,8 @@ let bpRange = async (player, from, to, socket) => {
 }
 
 //app access to informationCenter and policeStation
-app.set('policeStation',policeStation);
-app.set('informationCenter',informationCenter);
+app.app.set('policeStation',policeStation);
+app.app.set('informationCenter',informationCenter);
 
 //broadcast
 app.io.sockets.on('connection', socket => {
