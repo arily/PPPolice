@@ -145,6 +145,10 @@ let bpRange = async (player, from, to, socket) => {
 
 }
 
+//app access to informationCenter and policeStation
+app.set('policeStation',policeStation);
+app.set('informationCenter',informationCenter);
+
 //broadcast
 app.io.sockets.on('connection', socket => {
     socket.on('history', _ => {
@@ -205,131 +209,3 @@ app.io.sockets.on('connection', socket => {
 
 });
 
-
-
-
-
-// saveListOld = function (officer,name,onExit = false ){
-//  let path = '';
-//  if (onExit){
-//      path = `./storage/policeStation.onExit.${new Date().getTime()}`;
-//  } else {
-//      path = `./storage/policeStation`;
-//  }
-//  const store = new Storage(path);
-//  const list = officer.copyList();
-//  const cloned = _.cloneDeep(list);
-//  store.put(`police.${name}`,cloned);
-// }
-// readListOld = function (path = './storage/policeStation'){
-//  const store = new Storage(path);
-//  const officers = store.get('police');
-//  Object.keys(officers).forEach(function(key) {
-//          var val = officers[key];
-//          for (let i in val ){
-//              rebindProto(val[i]);
-//          }
-//          if (policeStation.officers[key] != undefined){
-//              console.log('load',key);
-//              policeStation.officers[key].grabSuspectsList(val);
-//          }
-//  });
-// }
-// saveListOld = function(officer, name, onExit = false) {
-//     client = redis.createClient();
-//     const getAsync = promisify(client.get).bind(client);
-//     const hgetallAsync = promisify(client.hgetall).bind(client);
-//     const list = officer.copyList();
-//     if (onExit) {
-//         client.hset('policeStation', `${name}_onExit`, JSON.stringify(list));
-//     } else {
-//         client.hset('policeStation', name, JSON.stringify(list));
-//     }
-
-// }
-// readListOld = function() {
-//     client = redis.createClient();
-//     const getAsync = promisify(client.get).bind(client);
-//     const hgetallAsync = promisify(client.hgetall).bind(client);
-//     client.hgetall('policeStation', function(err, officers) {
-//         Object.keys(officers).forEach(function(key) {
-//             var val = officers[key];
-//             val = JSON.parse(val);
-//             for (let i in val) {
-//                 rebindProto(val[i]);
-//             }
-//             if (policeStation.officers[key] != undefined) {
-//                 console.log('load', key);
-//                 policeStation.officers[key].grabSuspectsList(val);
-//             }
-//         });
-//     });
-// }
-// saveList = async function(officer, name, onExit = false) {
-//     const suspectList = require('./lib/suspectList');
-//     var s = new suspectList('PPPolice-osu');
-//     const list = officer.copyList();
-//     Object.keys(list).forEach(function(key) {
-//         var val = list[key];
-//         s.set(val);
-//     });
-// }
-// readList = async function() {
-//     const suspectList = require('./lib/suspectList');
-//     var s = new suspectList('PPPolice-osu');
-//     let list = await s.getAll();
-//     policeStation.officers.chive.grabSuspectsList(list);
-// }
-// rebindProto = function(account) {
-//     const osu = require('node-osu');
-//     account.__proto__ = osu.User.prototype;
-//     if (account.mode == undefined) account.mode = mode;
-//     account.events.forEach(e => {
-//         e.__proto__ = osu.Event.prototype;
-//     });
-//     account.bp.forEach(e => {
-//         e.__proto__ = osu.Score.prototype;
-//     })
-// }
-// process.on('SIGINT', function() {
-//     console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
-//     // some other closing procedures go here
-//     saveList(policeStation.officers.chive, 'chive', true);
-//     process.exit();
-// })
-
-// pmx.action('save', function(reply) {
-//     saveList(policeStation.officers.chive, 'chive');
-//     reply({ answer: 'save' });
-// });
-
-// pmx.action('saveold', function(reply) {
-//     saveListOld(policeStation.officers.chive, 'chive');
-//     reply({ answer: 'save' });
-// });
-// pmx.action('load', function(param, reply) {
-//     readList(param);
-//     reply({
-//         param: param,
-//         answer: 'read'
-//     });
-// });
-
-// pmx.action('loadold', function(param, reply) {
-//     readListOld(param);
-//     reply({
-//         param: param,
-//         answer: 'read'
-//     });
-// });
-// pmx.action('savenew', function(reply) {
-//  saveListNew(policeStation.officers.chive,'chive');
-//      reply({ answer : 'save' });
-// });
-// pmx.action('loadnew', function(param,reply) {
-//  readListNew(param);
-//      reply({ 
-//          param : param,  
-//          answer : 'read'
-//           });
-// });

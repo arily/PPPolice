@@ -131,5 +131,13 @@ router.get('/register/:handle', async (req, res, next) => {
     }
 });
 
+router.get('/forceUpdate/:handle', async (req, res, next) => {
+    try {
+        res.json(await app.get('policeStation').officers.chive.updatePlayer());
+    } catch (e) {
+        if (e.message == 'Not found') res.json({ message: 'User Not Found on bancho.' })
+    }
+});
+
 
 module.exports = router;
