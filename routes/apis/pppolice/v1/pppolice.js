@@ -123,5 +123,13 @@ router.get('/count', async (req, res, next) => {
     res.json(await db.count());
 });
 
+router.get('/register/:handle', async (req, res, next) => {
+    try {
+        res.json(await db.getUserApi(req.params.handle);
+    } catch (e) {
+        if (e.message == 'Not found') res.json({ message: 'User Not Found on bancho.' })
+    }
+});
+
 
 module.exports = router;
