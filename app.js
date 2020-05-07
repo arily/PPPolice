@@ -18,7 +18,7 @@ var app = express();
 
 //Access-Control-Allow-Origin: *
 app.use(cors());
-//app.use(require('express-status-monitor')());
+app.use(require('express-status-monitor')());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
