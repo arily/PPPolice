@@ -4,7 +4,7 @@ block content
   h1 all PPPolice users unfortunately got banned
   ul
     each user in bannedUsers
-      if user.pp
+      if user.pp > 0
         li
           a(href=`/banned/${user.id}/2007/2999`)= user.name
           p
