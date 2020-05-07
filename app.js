@@ -16,9 +16,19 @@ var final = require('./routes/final');
 
 var app = express();
 
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+const statusSocket = require('socket.io')(server,{
+    path: '/statusSocket'
+});
+
 //Access-Control-Allow-Origin: *
 app.use(cors());
-// app.use(require('express-status-monitor')());
+app.use(require('express-status-monitor')({
+    socketPath: '/statusSocket',
+    websocket: statusSocket,
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,12 +64,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-
-
-
-
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 var { port } = require('./config/pppolice.js');
 server.listen(port);
 
