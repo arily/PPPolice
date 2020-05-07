@@ -4,11 +4,12 @@ block content
   h1 all PPPolice users unfortunately got banned
   ul
     each user in bannedUsers
-      li
-        a(href=`/banned/${user.id}/2007/2999`)= user.name
-        p
-          each val,index in {'last update': new Date(user.lastUpdate), level: user.level, pp: user.pp.raw}
-            div= `${index}: ${val}`
-        - var activities = user.events.map(e => e.html).join("<br>").replace(new RegExp('\\b(users|u|b)\\b\\/(\\w+)','g'), "/osu.ppy.sh/$1/$2").replace(new RegExp('\\b(images)\\b\\/(\\w+)','g'),"/s.ppy.sh/$1/$2")
-        p 
-          span !{activities}
+      if user.pp
+        li
+          a(href=`/banned/${user.id}/2007/2999`)= user.name
+          p
+            each val,index in {'last update': new Date(user.lastUpdate), level: user.level, pp: user.pp.raw}
+              div= `${index}: ${val}`
+          - var activities = user.events.map(e => e.html).join("<br>").replace(new RegExp('\\b(users|u|b)\\b\\/(\\w+)','g'), "/osu.ppy.sh/$1/$2").replace(new RegExp('\\b(images)\\b\\/(\\w+)','g'),"/s.ppy.sh/$1/$2")
+          p 
+            span !{activities}
