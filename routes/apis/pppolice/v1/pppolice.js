@@ -135,7 +135,7 @@ router.get('/forceUpdate/:handle', async (req, res, next) => {
     try {
         const user = await db.getUserApi(req.params.handle)
         const policeStation = req.app.get('policeStation');
-        console.log(policeStation)
+        // console.log(policeStation)
         res.json(await policeStation.officers.chive.updatePlayer(user));
     } catch (e) {
         if (e.message == 'Not found') res.json({ message: 'User Not Found on bancho.' })
