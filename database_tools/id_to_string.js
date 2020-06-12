@@ -7,7 +7,7 @@ async function init() {
 
     data = data.map(user => {
         user.id = user.id.toString();
-        user.bp = user.bp.map(score => score.beatmapId = score.beatmapId.toString())
+        if( user.bp) user.bp = user.bp.map(score => score.beatmapId = score.beatmapId.toString())
         return user;
     })
 
