@@ -13,7 +13,7 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "express-status-monitor": "^1.3.2",
+    "express-status-monitor": "^1.3.4",
     "http-errors": "~1.6.3",
     "lodash": "^4.17.21",
     "memoizee": "^0.4.14",
